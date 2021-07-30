@@ -20,10 +20,6 @@ router.put("/:key", withContent, async ({ content, params }) => {
   }
 })
 
-// GET: https://api.miamicoin.com/2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881
-// key must be 64 characters as a string
-// 2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881
-
 // GET: get value
 router.get("/:key", async ({ params }) => {
   let key = decodeURIComponent(params.key).toString().toLowerCase()
