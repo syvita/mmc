@@ -1,4 +1,4 @@
-name = "api"
+name = "mmc-api"
 type = "webpack"
 
 account_id = "c60e829b3831ea5b11b2398ef68bda23"
