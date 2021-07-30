@@ -3,5 +3,5 @@ type = "webpack"
 
 account_id = "c60e829b3831ea5b11b2398ef68bda23"
 workers_dev = true
-route = ""
-zone_id = ""
+route = "api.minemiamicoin.com/*"
+zone_id = "4eeaabf96132390c5ab005a9ac89600c"
