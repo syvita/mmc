@@ -17,6 +17,7 @@ router.put("/:key", withContent, async ({ content, params }) => {
     return Response("key length not 64", { status: 403 })
   } else {
     await KV.put(JSON.stringify(content))
+    return Response("done")
   }
 })
 
