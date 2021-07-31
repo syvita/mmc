@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 import { userSession, signIn, signOut } from '../components/Stacks'
 
 export default function Home() {
@@ -15,10 +16,12 @@ export default function Home() {
             Connect wallet
           </button>
         )}
-        {userSession.isUserSignedIn() && (
-            <button className={styles.walletButton}  onClick={signOut}>
-              Disconnect Wallet
+          {userSession.isUserSignedIn() && (
+            <Link href="dashboard">
+            <button className={styles.walletButton}>
+              Dashboard
             </button>
+            </Link>
         )}
         </div>
       

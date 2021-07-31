@@ -30,14 +30,11 @@ line-height: 160%;
 
 display: flex;
 align-items: center;
-
-
 }
 
 .buttons {
     display: flex;
     flex-direction: row;
-
 }
 
 .buttons div {
@@ -45,32 +42,26 @@ align-items: center;
 }
 
 .walletButton {
-
-width: 222px;
-height: 57px;
-
-
-color: #FFFFFF;
-background: #000000;
-border-radius: 10px;
-font-weight: 500;
-font-size: 18px;
-line-height: 140%;
-text-transform: capitalize;
+  width: 222px;
+  height: 57px;
+  color: #FFFFFF;
+  background: #000000;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  text-transform: capitalize;
 }
 
 .launchButton {
-width: 278px;
-height: 48px;
-
-margin-top: 7px;
-background: rgba(255, 255, 255, 0.2);
-backdrop-filter: blur(4px);
-/* Note: backdrop-filter has minimal browser support */
-
-border-radius: 10px;
-color: #FFFFFF;
-font-weight: 500;
-font-size: 20px;
-line-height: 160%;
+  width: 278px;
+  height: 48px;
+  margin-top: 7px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 160%;
 }

@@ -44,13 +44,13 @@ const NavLinks = (props) => {
         </a>
       </Link>
        {!userSession.isUserSignedIn() && (
-          <button onClick={() => { props.isMobile && props.closeMobileMenu(); signIn();}}>
+        <button onClick={() => { props.isMobile && props.closeMobileMenu(); signIn();}}>
             Connect
           </button>
       )}
       {userSession.isUserSignedIn() && (
           <button onClick={() => {props.isMobile && props.closeMobileMenu(); signOut();}}>
-            Disconnect
+            Sign Out
           </button>
       )}
     </div>

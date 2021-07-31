@@ -17,7 +17,7 @@
 
 .Navigation {
   position: relative;
-  top: 35px;
+  top: 21px;
   display: flex;
   font-size: 16px;
   width: 95%;
@@ -36,8 +36,19 @@
 }
 
 .Navigation button {
-  width: auto;
   display: inline-block;
+  width: 90px;
+  font-size: medium;
+  font-weight: 500;
+  padding: 5px;
+  color: black;
+  background: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.Navigation button:hover {
+  cursor: pointer;
 }
 
 .Hamburger {
@@ -156,61 +167,4 @@
     justify-content: center;
   }
 
-  /* LIGHT MODE */
-  .light {
-    border-bottom: none;
-  }
-  .light .MobileNavigation div {
-    background: white;
-  }
-  .light .MobileNavigation a {
-    background: #f5f5f7;
-    color: black;
-  }
-  .light .MobileNavigation a:nth-child(1) {
-    background: linear-gradient(90deg, #f5f5f7 97.5%, #feee85 2.5%);
-  }
-  .light .MobileNavigation a:nth-child(2) {
-    background: linear-gradient(90deg, #f5f5f7 97.5%, #fab4ff 2.5%);
-  }
-  .light .MobileNavigation a:nth-child(3) {
-    background: linear-gradient(90deg, #f5f5f7 97.5%, #befae1 2.5%);
-  }
-  .light .MobileNavigation a:nth-child(4) {
-    background: linear-gradient(90deg, #f5f5f7 97.5%, #57bee6 2.5%);
-  }
-
-  /* DARK MODE */
-
-  .dark {
-    border-bottom: none;
-  }
-  .dark .MobileNavigation {
-    background-color: black;
-  }
-  .dark .MobileNavigation div {
-    background: black;
-  }
-  .dark .MobileNavigation a {
-    background: #171717;
-    color: white;
-  }
-  .dark .MobileNavigation a:nth-child(1) {
-    background: linear-gradient(90deg, #171717 97.5%, #fafa19 2.5%);
-  }
-  .dark .MobileNavigation a:nth-child(2) {
-    background: linear-gradient(90deg, #171717 97.5%, #fa1ed2 2.5%);
-  }
-  .dark .MobileNavigation a:nth-child(3) {
-    background: linear-gradient(90deg, #171717 97.5%, #69ffc3 2.5%);
-  }
-  .dark .MobileNavigation a:nth-child(4) {
-    background: linear-gradient(90deg, #171717 97.5%, #1e69ff 2.5%);
-  }
-  .dark .MobileNavigation a img {
-    filter: invert(1);
-  }
-  .dark .Hamburger {
-    filter: invert(1);
-  }
 }

@@ -1,0 +1,10 @@
+.dashboard {
+    position: relative;
+    width: 80vw;
+    height: 85vh;
+    margin-left: 9vw;
+    top: 30px;
+    background-color: white;
+    border-radius: 48px;
+}
+
