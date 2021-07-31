@@ -3,5 +3,9 @@
   "private": true,
   "devDependencies": {
     "lerna": "^4.0.0"
+  },
+  "dependencies": {
+    "@stacks/connect": "^6.0.0",
+    "regenerator-runtime": "^0.13.9"
   }
 }

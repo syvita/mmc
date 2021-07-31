@@ -1,0 +1,10 @@
+.bg {
+    background-image: url(/bg/horizontal.svg);
+    height: 100vh;
+    width: 100vw;
+    margin: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+}
