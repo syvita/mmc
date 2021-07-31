@@ -1,0 +1,40 @@
+.register {
+ margin-top: 243px;
+ margin-left: 10%;
+ margin-right: 10%;
+ max-width: 529px;
+}
+
+.h2 {
+font-weight: 500;
+font-size: 24px;
+line-height: 130%;  
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.minersButton {
+all: unset;
+background: rgba(0, 0, 0, 0.1);
+border-radius: 16px;
+height: 30px;
+margin-bottom: 24px;
+text-align: center;
+background: linear-gradient(to left, #F5F5F7 75%, #00B9D1 2.5%);
+
+}
+
+.registerButton {
+all: unset;
+height: 34px;
+background: #000000;
+border-radius: 10px;
+color: #FFFFFF;
+text-align: center;
+cursor: pointer;
+}
+
