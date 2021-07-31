@@ -8,8 +8,8 @@ export const userSession = new UserSession({ appConfig });
 export function signIn() {
   showConnect({
     appDetails: {
-      name: "Sypool",
-      icon: "https://x.syvita.org/sypool.png",
+      name: "MiamiCoin",
+      icon: "/miamicoin.svg",
     },
     onFinish: () => {
       Router.reload(window.location.pathname);
