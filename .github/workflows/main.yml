@@ -1,0 +1,22 @@
+name: Create Sentry release
+
+on:
+  release:
+    types: [published, prereleased]
+
+jobs:
+  createSentryRelease:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Create Sentry release
+        uses: tclindner/sentry-releases-action@v1.2.0
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: syvita
+          SENTRY_PROJECT: miamicoin
+          SENTRY_URL: https://logs.syvita.org
+        with:
+          tagName: ${{ github.ref }}
+          environment: qa
