@@ -1,0 +1,73 @@
+.mine {
+  margin-top: 243px;
+  margin-left: 10%;
+  margin-right: 10%;
+  max-width: 529px;
+}
+
+.h2 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 130%;
+}
+
+.mine p {
+  font-size: 18px;
+  line-height: 140%;
+}
+
+.individualBlockAmount {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.blockNumber {
+  margin-left: 6%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.mine input {
+  width: 396px;
+  height: 34px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-left: 48px;
+}
+
+.mine input::placeholder {
+  text-align: center;
+}
+
+.transactionButton {
+  all: unset;
+  width: 529px;
+  height: 34px;
+  left: 0px;
+  top: 0px;
+  background: #000000;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.progressBar {
+  width: 721px;
+  height: 16px;
+  left: 0px;
+  top: 596px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-top: 180px;
+  border-radius: 16px;
+
+  background: linear-gradient(to left, #f5f5f7 50%, #00b9d1 2.5%);
+}

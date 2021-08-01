@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { signIn, signOut, userSession } from "../Stacks";
+import Link from 'next/link';
+import { signIn, signOut, userSession } from '../Stacks';
 
 const NavLinks = (props) => {
   return (
     <div>
-      <Link href="/about">
+      <Link href="/about" passHref={true}>
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
             <img
@@ -17,7 +17,7 @@ const NavLinks = (props) => {
           About
         </a>
       </Link>
-      <Link href="/cities">
+      <Link href="/cities" passHref={true}>
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
             <img
@@ -30,7 +30,7 @@ const NavLinks = (props) => {
           Cities
         </a>
       </Link>
-      <Link href="https://docs.citycoins.co/">
+      <Link href="https://docs.citycoins.co/" passHref={true}>
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
             <img
@@ -43,15 +43,25 @@ const NavLinks = (props) => {
           Docs
         </a>
       </Link>
-       {!userSession.isUserSignedIn() && (
-        <button onClick={() => { props.isMobile && props.closeMobileMenu(); signIn();}}>
-            Connect
-          </button>
+      {!userSession.isUserSignedIn() && (
+        <button
+          onClick={() => {
+            props.isMobile && props.closeMobileMenu();
+            signIn();
+          }}
+        >
+          Connect
+        </button>
       )}
       {userSession.isUserSignedIn() && (
-          <button onClick={() => {props.isMobile && props.closeMobileMenu(); signOut();}}>
-            Sign Out
-          </button>
+        <button
+          onClick={() => {
+            props.isMobile && props.closeMobileMenu();
+            signOut();
+          }}
+        >
+          Sign Out
+        </button>
       )}
     </div>
   );

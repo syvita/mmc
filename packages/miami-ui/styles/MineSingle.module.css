@@ -1,5 +1,5 @@
 .mine {
-  margin-top: 169px;
+  margin-top: 243px;
   margin-left: 10%;
   margin-right: 10%;
   max-width: 529px;
@@ -11,47 +11,35 @@
   line-height: 130%;
 }
 
-.mine p {
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 140%;
-  color: #000000;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-}
 .transactionToSend {
   display: flex;
   flex-direction: row;
 }
 
-.singleBlockButton {
-  all: unset;
+.mine input {
   width: 256.5px;
   height: 34px;
-  background: #000000;
+  left: 0px;
+  top: 0px;
+
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
   border-radius: 10px;
-  color: #ffffff;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 160%;
-  text-align: center;
-  cursor: pointer;
   margin-right: 16px;
 }
 
-.multipleBlockButton {
+.mine input::placeholder {
+  text-align: center;
+}
+
+.transactionButton {
   all: unset;
   width: 256.5px;
   height: 34px;
   background: #000000;
   border-radius: 10px;
   color: #ffffff;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 160%;
   text-align: center;
   cursor: pointer;
 }

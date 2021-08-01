@@ -1,0 +1,64 @@
+.mine {
+  margin-top: 243px;
+  margin-left: 10%;
+  margin-right: 10%;
+  max-width: 529px;
+}
+
+.h2 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 130%;
+}
+
+.mine p {
+  font-size: 18px;
+  line-height: 140%;
+}
+
+.blockNumbers {
+  display: flex;
+  flex-direction: row;
+}
+
+.warning {
+  padding: 4px 8px 0px;
+  width: 529px;
+  height: 30px;
+  margin-bottom: 20px;
+  background: rgba(247, 198, 0, 0.05);
+  border: 1px solid #f7c600;
+  box-sizing: border-box;
+  border-radius: 16px;
+  font-weight: 550;
+  font-size: 14px;
+  line-height: 160%;
+}
+
+.mine input {
+  width: 256.5px;
+  height: 34px;
+  left: 0px;
+  top: 0px;
+
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-right: 16px;
+}
+
+.mine input::placeholder {
+  text-align: center;
+}
+
+.continue {
+  all: unset;
+  width: 256.5px;
+  height: 34px;
+  background: #000000;
+  border-radius: 10px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+}

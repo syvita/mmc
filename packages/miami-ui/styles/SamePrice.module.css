@@ -1,5 +1,5 @@
 .mine {
-  margin-top: 169px;
+  margin-top: 243px;
   margin-left: 10%;
   margin-right: 10%;
   max-width: 529px;
@@ -12,46 +12,46 @@
 }
 
 .mine p {
-  font-weight: normal;
   font-size: 18px;
   line-height: 140%;
-  color: #000000;
 }
 
-.buttons {
-  display: flex;
-  flex-direction: row;
-}
-.transactionToSend {
+.bool {
   display: flex;
   flex-direction: row;
 }
 
-.singleBlockButton {
+.noButton {
   all: unset;
   width: 256.5px;
   height: 34px;
   background: #000000;
   border-radius: 10px;
   color: #ffffff;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 160%;
   text-align: center;
   cursor: pointer;
   margin-right: 16px;
 }
 
-.multipleBlockButton {
+.yesButton {
   all: unset;
   width: 256.5px;
   height: 34px;
   background: #000000;
   border-radius: 10px;
   color: #ffffff;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 160%;
   text-align: center;
   cursor: pointer;
+}
+
+.progressBar {
+  width: 721px;
+  height: 16px;
+  left: 0px;
+  top: 596px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-top: 225px;
+  border-radius: 16px;
+
+  background: linear-gradient(to left, #f5f5f7 50%, #00b9d1 2.5%);
 }
