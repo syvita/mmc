@@ -2,9 +2,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import { userSession, signIn, signOut } from '../components/Stacks';
-
+import { useConnect, userSessionState } from '../lib/auth';
+import { useAtom } from 'jotai';
 export default function Home() {
+
+  const { handleOpenAuth } = useConnect();
+  const [userSession] = useAtom(userSessionState);
+
   return (
     <div className={styles.main}>
       <h1 className={styles.h1}>Mine $MIA</h1>
@@ -14,7 +18,7 @@ export default function Home() {
       <div className={styles.buttons}>
         <div>
           {!userSession.isUserSignedIn() && (
-            <button className={styles.walletButton} onClick={signIn}>
+            <button className={styles.walletButton} onClick={handleOpenAuth}>
               Connect wallet
             </button>
           )}

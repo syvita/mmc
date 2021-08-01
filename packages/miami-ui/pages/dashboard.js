@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Dashboard.module.css';
-import { userSession, signIn, signOut } from '../components/Stacks';
 import DashNavBar from '../components/Dashboard/DashNavBar/DashNavBar';
 import Register from '../components/Dashboard/Register';
 import Mine from '../components/Dashboard/Mine';

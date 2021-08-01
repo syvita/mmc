@@ -1,7 +1,12 @@
 import Link from 'next/link';
-import { signIn, signOut, userSession } from '../Stacks';
+import { useConnect, userSessionState } from '../../lib/auth';
+import { useAtom } from 'jotai';
 
 const NavLinks = (props) => {
+  const { handleOpenAuth } = useConnect();
+  const { handleSignOut } = useConnect();
+  const [userSession] = useAtom(userSessionState);
+  
   return (
     <div>
       <Link href="/about" passHref={true}>
@@ -47,7 +52,7 @@ const NavLinks = (props) => {
         <button
           onClick={() => {
             props.isMobile && props.closeMobileMenu();
-            signIn();
+            handleOpenAuth();
           }}
         >
           Connect
@@ -57,7 +62,7 @@ const NavLinks = (props) => {
         <button
           onClick={() => {
             props.isMobile && props.closeMobileMenu();
-            signOut();
+            handleSignOut();
           }}
         >
           Sign Out
