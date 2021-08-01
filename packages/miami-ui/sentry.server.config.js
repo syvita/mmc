@@ -13,3 +13,5 @@ Sentry.init({
   // `release` value here - use the environment variable `SENTRY_RELEASE`, so
   // that it will also get attached to your source maps
 });
+
+Sentry.setUser({ ip_address: "0.0.0.0" });
