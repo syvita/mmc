@@ -17,6 +17,7 @@ jobs:
           SENTRY_ORG: syvita
           SENTRY_PROJECT: miamicoin
           SENTRY_URL: logs.syvita.org
+          SENTRY_LOG_LEVEL: [info|debug]
         with:
           version: ${{ github.ref }}
           environment: qa
