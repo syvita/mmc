@@ -4,6 +4,7 @@ import { userDataState, userSessionState, useConnect } from '../lib/auth';
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 import { Connect } from '@stacks/connect-react';
+import DashNavLinks from '../components/Dashboard/DashNavBar/DashNavLinks'
 
 function MyApp({ Component, pageProps }) {
   const { authOptions } = useConnect();
@@ -19,11 +20,13 @@ function MyApp({ Component, pageProps }) {
   }, [userSession, setUserData]);
 
   return (
+    
     <Connect authOptions={authOptions}>
-    <Layout>
+      <Layout>
       <Component {...pageProps} />
     </Layout>
     </Connect>
+ 
   )
 }
 

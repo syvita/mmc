@@ -3,16 +3,11 @@ import { useState } from 'react';
 import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME } from "../../lib/constants";
 import { useConnect } from '@stacks/connect-react';
 import { uintCV, noneCV, makeStandardSTXPostCondition, PostConditionMode, FungibleConditionCode, AnchorMode, } from '@stacks/transactions';
-import { useStxAddresses } from '../../lib/hooks';
-import { userSessionState } from '../../lib/auth'
-import { useAtom } from 'jotai';
+
 
 const MineSingle = () => {
   const [STXAmount, setSTXAmount] = useState();
   const { doContractCall } = useConnect();
-  const [userSession] = useAtom(userSessionState);
-  const stxAddress = useStxAddresses(userSession).ownerStxAddress
-  console.log(stxAddress)
 
   async function mineSingle() {
     let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));

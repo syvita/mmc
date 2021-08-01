@@ -8,3 +8,67 @@
     border-radius: 48px;
 }
 
+/* DashbaorNavigation Styles */
+
+/* COMMON */
+
+/* COMMON */
+
+.Title {
+    position: relative;
+    margin-left: 50px;
+    top: 45px;
+    letter-spacing: -0.025em;
+    font-size: large;
+  }
+  
+  .Logo:hover {
+    cursor: pointer;
+  }
+  
+  .Navigation {
+    position: relative;
+    margin-top: -10px;
+    display: flex;
+    font-size: 16px;
+    width: 95%;
+    transition: 0.5s;
+    color: #FFFFFF;
+  }
+
+
+  
+  .Navigation a {
+    
+    margin-right: 25px;
+    padding: 5px;
+    text-decoration: none;
+  }
+  
+  .Navigation div {
+    margin-left: auto;
+  }
+  
+  .Navigation button {
+    all: unset;
+    width: 80px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    align-items: center;
+    text-align: center;
+    color: #757B83;
+    padding: 2px;
+    /* will show what button they are  */
+    background: rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+  }
+  
+  .Navigation button:hover {
+    cursor: pointer;
+  }
+  
+  .Hamburger {
+    display: none;
+  }
+  

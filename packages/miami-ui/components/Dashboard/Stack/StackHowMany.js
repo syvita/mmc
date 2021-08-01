@@ -1,35 +1,23 @@
-import { getCityCoinBalance } from '../../../lib/contracts';
+import { useState } from 'react';
 import styles from '../../../styles/StackHowMany.module.css';
-import { useStxAddresses } from '../../../lib/hooks';
-import { userSessionState } from '../../../lib/auth'
-import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+
 
 const StackHowMany = () => {
-  const [userSession] = useAtom(userSessionState);
-  const stxAddress = useStxAddresses(userSession).ownerStxAddress
-  const [balance, setBalance] = useState()
+
+  const [stackAmount, setStackAmount] = useState()
   
-  
- 
-
-  // useEffect(() => {
-  //   getCityCoinBalance(stxAddress).then(result => { setBalance(result); console.log(result) });
-  // }, [])
-
-
-  // console.log((balance))
-
+  async function stackCoins() {
+    return 1
+  };
 
   return (
     <div className={styles.stack}>
       <h2 className={styles.h2}>Stack MiamiCoin</h2>
       <p>How much MiamiCoin do you want to stack?</p>
       <div className={styles.howManyMiamiCoin}>
-        <input placeholder="How many MIA?" type="number" />
-        <button className={styles.continue}>Continue</button>
+        <input onChange={ event => setStackAmount(event.target.value) } placeholder="How many MIA?" type="number" />
+        <button onClick={ stackCoins } className={styles.continue}>Continue</button>
       </div>
-      {balance == null ? 0 : balance}
     </div>
   );
 };

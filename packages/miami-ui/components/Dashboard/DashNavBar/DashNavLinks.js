@@ -1,22 +1,43 @@
+import {useState} from 'react';
+
+
+
 const DashNavLinks = () => {
+
+  const [renderedComponent, setRenderedComponent] = useState();
+
+
+
+
+  
+// console.log(renderedComponent);
+
+   
   return (
+
     <div>
         <a>
-        <button>Register</button>
+        <button onClick={
+          () => { setRenderedComponent("Register") }}>Register</button>
         </a>
         <a>
-        <button>Mine</button>
+        <button onClick={
+          () => { setRenderedComponent("Mine") }}>Mine</button>
         </a>
         <a>
-        <button>Send</button>
+        <button onClick={
+          () => { setRenderedComponent("Send") }}>Send</button>
         </a>
         <a>
-        <button>Stack</button>
+        <button onClick={
+          () => { setRenderedComponent("Stack") }}>Stack</button>
         </a>
         <a>
-        <button>Redeem</button>
+        <button onClick={
+          () => { setRenderedComponent("Redeem") }}>Redeem</button>
         </a>
     </div>
+
   );
 };
 

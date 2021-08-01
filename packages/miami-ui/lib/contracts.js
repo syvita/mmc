@@ -13,6 +13,18 @@ export async function getRegisteredMinerCount() {
     return parseInt(result.value);
 }
 
+export async function getRegisteredMinersThreshold() {
+  const result = await callReadOnlyFunction({
+    contractAddress: CITY_COIN_CORE_ADDRESS,
+    contractName: CITY_COIN_CORE_CONTRACT_NAME,
+    functionName: 'get-activation-threshold',
+    functionArgs: [],
+    network: NETWORK,
+    senderAddress: GENESIS_CONTRACT_ADDRESS,
+  });
+  return parseInt(result.value);
+}
+
 export async function getCityCoinBalance(address) {
   console.log(`Address = ${address}`)
   const result = await callReadOnlyFunction({

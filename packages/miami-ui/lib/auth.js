@@ -3,6 +3,7 @@ import { AppConfig, UserSession } from '@stacks/connect-react';
 import { showConnect } from '@stacks/connect';
 import { atom, useAtom } from 'jotai';
 import { useUpdateAtom } from 'jotai/utils';
+import { getUserData } from '@stacks/connect-react';
 import Router from "next/router";
 
 const appConfig = new AppConfig(['store_write', 'publish_data']);
@@ -33,6 +34,10 @@ export const useConnect = () => {
     },
   };
 
+  const userData = () => {
+    getUserData(userSession);
+  };
+
   const handleOpenAuth = () => {
     showConnect(authOptions);
   };
@@ -41,5 +46,5 @@ export const useConnect = () => {
     userSession?.signUserOut('/');
   }, [userSession]);
 
-  return { handleOpenAuth, handleSignOut, authOptions };
+  return { userData, handleOpenAuth, handleSignOut, authOptions };
 };
