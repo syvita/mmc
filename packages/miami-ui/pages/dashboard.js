@@ -42,7 +42,7 @@ export default function Dashboard() {
   
 
  {renderedComponent === "Register" && <Register/>}
- {renderedComponent === "Mine" &&  <MineSingle />}
+ {renderedComponent === "Mine" &&  <Mine/>}
  {renderedComponent === "Stack" && <Stack/>}
   
   {/* <Mine /> */}
