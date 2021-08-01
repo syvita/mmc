@@ -10,10 +10,5 @@ export async function getRegisteredMinerCount() {
       network: NETWORK,
       senderAddress: GENESIS_CONTRACT_ADDRESS,
     });
-
-    console.log(`Registered Miner Count ${Number(result.value)}`);
-    console.log(typeof Number(result.value));
-
-
-    return Number(result.value);
+    return parseInt(result.value);
 }

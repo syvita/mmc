@@ -227,6 +227,16 @@
     buffer "^6.0.3"
     cross-fetch "^3.1.4"
 
+"@stacks/common@^3.0.0-beta.0":
+  version "3.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@stacks/common/-/common-3.0.0-beta.0.tgz#e3dc18ad5f04c774db03c502c37d09306f890084"
+  integrity sha512-IwwQXOebhScL5B5bDSO2Pf4UunO+KdOjQdvofoMP6scz2D+kVf5Ie0CBoNdYDHQPqWAU20654Oa7dXUaldJ/GQ==
+  dependencies:
+    "@types/node" "^14.14.43"
+    bn.js "^5.2.0"
+    buffer "^6.0.3"
+    cross-fetch "^3.1.4"
+
 "@stacks/connect-ui@^5.1.3":
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/@stacks/connect-ui/-/connect-ui-5.1.5.tgz#07c203b794b3390ae09f8f4be2c7a9b592725122"
@@ -320,12 +330,12 @@
     sha.js "^2.4.11"
     smart-buffer "^4.1.0"
 
-"@stacks/transactions@^2.0.1-beta.1":
-  version "2.0.1-beta.1"
-  resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-2.0.1-beta.1.tgz#56a4a4e7d0bc4b70322ccdaf8aa869e92eccd521"
-  integrity sha512-i4jas9zgU0vPemzAmnKCS//2wV5hQxOCi5mE4Ysjmc+9mqheNXK0ZFNB/SdSqoAfB+9AGITcZcRZUG9WdlG9CA==
+"@stacks/transactions@^3.0.0-beta.0":
+  version "3.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-3.0.0-beta.0.tgz#5b65569e66fa9276dad0e5bed8604848e2ebbcaa"
+  integrity sha512-Yy1G3SHQ5HG6GqGdi/+E1e0/oTjxdgprlalxTMQmDrcDTQXSraE9j9xO8P5pQPZiCaz1GKcw0Y1HTQG/w1F/Jw==
   dependencies:
-    "@stacks/common" "^2.0.1-beta.1"
+    "@stacks/common" "^3.0.0-beta.0"
     "@stacks/network" "^1.2.2"
     "@types/bn.js" "^4.11.6"
     "@types/elliptic" "^6.4.12"
