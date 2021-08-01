@@ -19,9 +19,9 @@ export default function Dashboard() {
 
   return (
     <div className={styles.dashboard}>
+      <DashNavBar />
       {/* {component === "Register" && } */}
-      {/* <DashNavBar /> */}
-      {/* <Register /> */}
+      <Register />
       {/* <Mine /> */}
       {/* <MineSingle /> */}
       {/* <MineMany /> */}

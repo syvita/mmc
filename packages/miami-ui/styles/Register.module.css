@@ -11,7 +11,7 @@ font-size: 24px;
 line-height: 130%;  
 }
 
-.buttons {
+.registerMiner {
     display: flex;
     flex-direction: column;
     
@@ -21,6 +21,7 @@ line-height: 130%;
 all: unset;
 background: rgba(0, 0, 0, 0.1);
 border-radius: 16px;
+width: 529px;
 height: 30px;
 margin-bottom: 24px;
 text-align: center;
@@ -28,13 +29,38 @@ background: linear-gradient(to left, #F5F5F7 75%, #00B9D1 2.5%);
 
 }
 
-.registerButton {
+.registerToMineButton {
 all: unset;
-height: 34px;
 background: #000000;
 border-radius: 10px;
-color: #FFFFFF;
+width: 529px;
+height: 30px;
+margin-bottom: 24px;
 text-align: center;
+color: #FFFFFF;
 cursor: pointer;
+}
+
+.minersButtonLoading {
+all: unset;
+background: rgba(0, 0, 0, 0.1);
+border-radius: 16px;
+width: 529px;
+height: 30px;
+margin-bottom: 24px;
+text-align: center;
+color: rgba(0, 0, 0, 0.6);
+
+}
+
+.minersButtonActivated {
+all: unset;
+background:  #FFB4F0;
+border-radius: 16px;
+width: 529px;
+height: 30px;
+margin-bottom: 24px;
+text-align: center;
+color: #FFFFFF;
 }
 
