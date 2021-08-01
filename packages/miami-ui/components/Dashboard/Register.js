@@ -6,7 +6,7 @@ import { getRegisteredMinerCount, registerMiner } from "../../lib/contracts";
 import { someCV, noneCV } from "@stacks/transactions";
 
 const Register = () => {
-    const [minerCount, setMinerCount] = useState(null);
+    const [minerCount, setMinerCount] = useState();
     const { doContractCall } = useConnect();
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const Register = () => {
     }
     
     function MinerButton() {
-        setMinerCount(3); // REMOVE LATER, USED FOR DEV
+        //setMinerCount(3); // REMOVE LATER, USED FOR DEV
         if (minerCount == null) {
             return <button className={styles.minersButtonLoading}>Loading...</button>
         }
