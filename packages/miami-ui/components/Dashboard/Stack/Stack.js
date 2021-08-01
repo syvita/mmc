@@ -1,4 +1,7 @@
+
 import styles from '../../../styles/Stack.module.css';
+
+
 
 const Stack = () => {
   return (
@@ -14,6 +17,7 @@ const Stack = () => {
         cycle, proportionate to the amount Stacked within that cycle.
       </p>
       <button className={styles.continue}>Continue</button>
+      {balance}
     </div>
   );
 };

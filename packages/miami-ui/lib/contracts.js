@@ -25,7 +25,7 @@ export async function getRegisteredMinersThreshold() {
   return parseInt(result.value);
 }
 
-export async function getCityCoinBalance(address) {
+export async function getCoinBalance(address) {
   console.log(`Address = ${address}`)
   const result = await callReadOnlyFunction({
     contractAddress: CITY_COIN_CORE_ADDRESS,
@@ -35,6 +35,5 @@ export async function getCityCoinBalance(address) {
     network: NETWORK,
     senderAddress: address,
   });
-  // result.value.value.toNumber()
-  return address;
+  return result.value.value.words[0];
 }

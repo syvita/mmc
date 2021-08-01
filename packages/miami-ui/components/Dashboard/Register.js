@@ -46,7 +46,7 @@ const Register = () => {
         <div className={styles.register}>
             <h2 className={styles.h2}>Activate MiamiCoin mining</h2>
             <p>Before mining can begin, at least {minerThreshold} miners must register with the contract to signal activation.</p>
-            <div className={styles.buttons}>s
+            <div className={styles.buttons}>
 
             <MinerButton/>
             

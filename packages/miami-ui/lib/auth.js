@@ -34,10 +34,6 @@ export const useConnect = () => {
     },
   };
 
-  const userData = () => {
-    getUserData(userSession);
-  };
-
   const handleOpenAuth = () => {
     showConnect(authOptions);
   };
@@ -46,5 +42,5 @@ export const useConnect = () => {
     userSession?.signUserOut('/');
   }, [userSession]);
 
-  return { userData, handleOpenAuth, handleSignOut, authOptions };
+  return { handleOpenAuth, handleSignOut, authOptions };
 };

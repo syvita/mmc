@@ -2,8 +2,8 @@ import '../styles/globals.css'
 import Layout from '../components/Layout'
 import { userDataState, userSessionState, useConnect } from '../lib/auth';
 import { useAtom } from 'jotai';
-import { useEffect } from 'react';
-import { Connect } from '@stacks/connect-react';
+import { useEffect, useState } from 'react';
+import { Connect, getUserData } from '@stacks/connect-react';
 
 function MyApp({ Component, pageProps }) {
   const { authOptions } = useConnect();

@@ -3,6 +3,8 @@ import styles from '../styles/Dashboard.module.css';
 import Register from '../components/Dashboard/Register';
 import Mine from '../components/Dashboard/Mine';
 import Stack from '../components/Dashboard/Stack/Stack';
+import MineSingle from '../components/Dashboard/MineSingle.js'
+import StackHowLong from '../components/Dashboard/Stack/StackHowLong';
 
 export default function Dashboard() {
  
@@ -42,8 +44,8 @@ export default function Dashboard() {
   
 
  {renderedComponent === "Register" && <Register/>}
- {renderedComponent === "Mine" && <Mine/>}
- {renderedComponent === "Stack" && <Stack/>}
+ {renderedComponent === "Mine" &&  <MineSingle />}
+ {renderedComponent === "Stack" && <StackHowLong/>}
   
   {/* <Mine /> */}
   {/* <MineSingle /> */}
