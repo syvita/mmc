@@ -14,4 +14,10 @@ Sentry.init({
   // that it will also get attached to your source maps
 });
 
+// this acts as a safeguard to ensure everyone can prove that we are not 
+// collecting user IPs. we don't want it or need it. we also have enhanced privacy
+// controls to remove personally identifiable information (PII) as well as source 
+// code in things like notifications. we prevent IPs being stored client-side,
+// and also scrub things like passwords, MAC addresses and other similar PII from
+// ever being stored on our Sentry instances.
 Sentry.setUser({ ip_address: "0.0.0.0" });
