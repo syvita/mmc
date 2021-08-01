@@ -43,6 +43,12 @@ const MineSingle = () => {
         <input onChange={ event => setSTXAmount(event.target.value) } placeholder="How many STX?" type="number" />
         <button onClick={ mineSingle } className={styles.transactionButton}>Send Transaction</button>
       </div>
+    
+      <button type="button" onClick={() => {
+        throw new Error("This tests sentry's frontend logging");
+      }}>
+        Throw error
+      </button>
       {STXAmount}
     </div>
   );

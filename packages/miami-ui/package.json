@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@sentry/nextjs": "^6.10.0",
     "@stacks/blockchain-api-client": "^0.62.3",
     "@stacks/connect": "^6.0.0",
     "@stacks/connect-react": "^11.0.0",
