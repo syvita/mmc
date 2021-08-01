@@ -20,9 +20,9 @@ export default function Dashboard() {
     <div className={styles.dashboard}>
       <DashNavBar />
       {/* {component === "Register" && } */}
-      <Register />
+      {/* <Register /> */}
       {/* <Mine /> */}
-      {/* <MineSingle /> */}
+      <MineSingle />
       {/* <MineMany /> */}
       {/* <SamePrice /> */}
       {/* <DifferentPrice /> */}

@@ -10,10 +10,9 @@ const Register = () => {
     const { doContractCall } = useConnect();
 
     useEffect(() => {
-        getRegisteredMinerCount().then(result => {setMinerCount(result);});
+        getRegisteredMinerCount().then(result => { setMinerCount(result); });
     }, [])
     
-
     async function registerMiner() {
         await doContractCall({
           contractAddress: CITY_COIN_CORE_ADDRESS,
