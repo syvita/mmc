@@ -4,7 +4,7 @@ import { userSessionState } from '../../../lib/auth';
 import { useConnect } from '@stacks/connect-react';
 import { useAtom } from 'jotai';
 import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME } from "../../../lib/constants";
-import { AnchorMode, FungibleConditionCode, listCV, makeStandardSTXPostCondition, PostConditionMode, uintCV, } from '@stacks/transactions';
+import { FungibleConditionCode, listCV, makeStandardSTXPostCondition, PostConditionMode, uintCV, } from '@stacks/transactions';
 
 const DifferentPrice = () => {
   const blocksToMine = localStorage.getItem('blocksToMine')
@@ -13,7 +13,6 @@ const DifferentPrice = () => {
   const [userSession] = useAtom(userSessionState);
   const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
 
-  console.log(userSession.loadUserData())
 
   for (let i = 1; i <= blocksToMine; i++) {
     inputs.push(
@@ -61,7 +60,6 @@ const DifferentPrice = () => {
           uintCV(sum).value
         ),
       ],
-      anchorMode: AnchorMode.OnChainOnly,
       network: NETWORK,
     });
   }

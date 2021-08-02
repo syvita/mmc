@@ -1,4 +1,4 @@
-import { uintCV, PostConditionMode, FungibleConditionCode, createAssetInfo, AnchorMode, makeStandardFungiblePostCondition } from '@stacks/transactions';
+import { uintCV, PostConditionMode, FungibleConditionCode, createAssetInfo, makeStandardFungiblePostCondition } from '@stacks/transactions';
 import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, CITY_COIN_TOKEN_CONTRACT_NAME, CC_NAME } from "../../../lib/constants";
 import styles from '../../../styles/StackHowLong.module.css';
 import { useState, useEffect } from 'react';
@@ -22,13 +22,7 @@ const StackHowLong = () => {
   async function stackCoins() {
     const coinAmount = 10000 // We pass this in from prev component StackHowMany @DIO
 
-    if (cycles > 32) console.log('Too many cycles');
-    if (balance < coinAmount) console.log('Not enough coins');
 
-
-    console.log(`AMOUNT: ${coinAmount}`)
-    console.log(`CYCLES: ${cycles}`)
-    console.log(`TOKEN INFO: ${[CITY_COIN_CORE_ADDRESS],CITY_COIN_TOKEN_CONTRACT_NAME, CC_NAME}`)
 
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
@@ -44,7 +38,6 @@ const StackHowLong = () => {
           createAssetInfo(CITY_COIN_CORE_ADDRESS, CITY_COIN_TOKEN_CONTRACT_NAME, CC_NAME)
         ),
       ],
-      anchorMode: AnchorMode.OnChainOnly,
       network: NETWORK,
     });
   };

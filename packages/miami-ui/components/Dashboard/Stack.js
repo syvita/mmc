@@ -8,7 +8,6 @@ const Stack = () => {
 
 const [state, setState] = useState('StackMiami');
 
-  console.log(state)
   
   function Stack() {
     if (state == 'StackHowLong') return <StackHowLong/>

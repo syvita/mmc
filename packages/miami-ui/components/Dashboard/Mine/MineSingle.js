@@ -5,44 +5,54 @@ import { uintCV, noneCV, makeStandardSTXPostCondition, PostConditionMode, Fungib
 import { userSessionState } from '../../../lib/auth';
 import { useConnect } from '@stacks/connect-react';
 import { useAtom } from 'jotai';
+import { addMinedBlocks } from '../../../lib/kv';
 
 const MineSingle = () => {
 
   const [STXAmount, setSTXAmount] = useState();
+  const [txId, setTxId] = useState();
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
-  const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+
+  const userData = userSession.loadUserData();
+
+  const STXAddress = userData.profile.stxAddress.testnet;
+  const appPrivateKey = userData.appPrivateKey;
  
   async function mineSingle() {
-    try {
-      let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));
-      await doContractCall({
-        contractAddress: CITY_COIN_CORE_ADDRESS,
-        contractName: CITY_COIN_CORE_CONTRACT_NAME,
-        functionName: 'mine-tokens',
-        functionArgs: [CVAmount, noneCV()],
-        postConditionMode: PostConditionMode.Deny,
-        postConditions: [
-          makeStandardSTXPostCondition(
-            STXAddress,
-            FungibleConditionCode.Equal,
-            CVAmount.value
-          ),
-        ],
-        anchorMode: AnchorMode.OnChainOnly,
-        network: NETWORK,
-        onCancel: () => {
-          console.log('cancel');
-        },
-        onFinish: result => {
-          console.log('ONFINISH TEST');
-          console.log(result);
-        },
-      });
-    } catch (e) {
-      console.log('ERROR bufgfer?')
-    } 
-  } 
+    let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));
+    await doContractCall({
+      contractAddress: CITY_COIN_CORE_ADDRESS,
+      contractName: CITY_COIN_CORE_CONTRACT_NAME,
+      functionName: 'mine-tokens',
+      functionArgs: [CVAmount, noneCV()],
+      postConditionMode: PostConditionMode.Deny,
+      postConditions: [
+        makeStandardSTXPostCondition(
+          STXAddress,
+          FungibleConditionCode.Equal,
+          CVAmount.value
+        ),
+      ],
+      network: NETWORK,
+      onFinish: (data) => {
+        console.log('ONFINISH TRIGGERED')
+        console.log(`TRANSACTION DATA: ${data}`)
+        setTxId(data.txId);
+      },
+    });
+    // KV CALLS
+
+    // TEMP SOLUTION FOR ONFINISH TRAN ID
+    const res = await fetch('https://stacks-node-api.testnet.stacks.co/v2/info')
+    const result = await res.json();
+    const blockHeight = result.stacks_tip_height;
+
+    console.log(appPrivateKey);
+
+    addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
+
+  }
 
   return (
     <div className={styles.mine}>

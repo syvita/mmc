@@ -8,7 +8,6 @@ const Mine = () => {
 
   const [state, setState] = useState('MineMiami');
 
-  console.log(state)
   
   function Mine() {
     if (state == 'Single') return <MineSingle/>
