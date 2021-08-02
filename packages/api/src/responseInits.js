@@ -1,16 +1,17 @@
+const defaultHeaders = {
+    "content-type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*"
+}
+
 export function jsonResponseInit(statusCode) {
     if (statusCode != null) {
         return {
-            headers: {
-                "content-type": "application/json;charset=UTF-8"
-            },
+            headers: defaultHeaders,
             status: statusCode
         }
     } else {
         return {
-            headers: {
-                "content-type": "application/json;charset=UTF-8"
-            },
+            headers: defaultHeaders
         }
     }
 }
