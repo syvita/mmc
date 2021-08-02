@@ -1,13 +1,27 @@
 import * as Sentry from "@sentry/nextjs";
 
-const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+const CF_PAGES_COMMIT_SHA = process.env.CF_PAGES_COMMIT_SHA
+const CF_PAGES_BRANCH = process.env.CF_PAGES_BRANCH
+const SENTRY_DSN = "https://6c2a0bedac06463b8fea519e8603f873@logs.syvita.org/3"
 
-Sentry.init({
-  dsn: SENTRY_DSN || "https://6c2a0bedac06463b8fea519e8603f873@logs.syvita.org/3",
-  tracesSampleRate: 1.0,
-  release: process.env.npm_package_version,
-  sendDefaultPii: false,
-});
+if (CF_PAGES_BRANCH == 'main') { // is a prod build
+  Sentry.init({
+    dsn: SENTRY_DSN,
+    tracesSampleRate: 1.0,
+    release: CF_PAGES_COMMIT_SHA,
+    sendDefaultPii: false,
+    environment: "prod",
+  })
+} else { // is a dev build
+  Sentry.init({
+    dsn: SENTRY_DSN,
+    tracesSampleRate: 1.0,
+    release: CF_PAGES_COMMIT_SHA,
+    sendDefaultPii: false,
+    environment: "dev",
+    debug: true,
+  })
+}
 
 // this acts as a safeguard to ensure everyone can prove that we are not 
 // collecting user IPs. we don't want it or need it. we also have enhanced privacy
