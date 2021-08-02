@@ -3,7 +3,7 @@
     "private": true,
     "version": "1.0.0",
     "description": "package for creating workers templates",
-    "main": "index.js",
+    "main": "./src/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write '**/*.{js,css,json,md}'"
@@ -16,6 +16,7 @@
     "dependencies": {
         "itty-router": "^2.1.9",
         "itty-router-extras": "^0.4.2",
-        "serverless-cloudflare-workers": "^1.2.0"
+        "serverless-cloudflare-workers": "^1.2.0",
+        "toucan-js": "^2.5.0-beta.1"
     }
 }
