@@ -33,6 +33,9 @@ export default function Home() {
           <button className={styles.launchButton}>
             Launching August 3rd 🚀
           </button>
+          <button className={styles.mobileButton}>
+            Visit this page on desktop to use the UI
+          </button>
         </div>
       </div>
     </div>

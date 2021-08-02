@@ -1,44 +1,38 @@
-
-
 .main {
   margin-top: 312px;
   margin-left: 5%;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-
 .h1 {
+  max-width: 528px;
 
-max-width: 528px;
-
-font-style: normal;
-font-weight: 350;
-font-size: 60px;
-line-height: 130%;
-display: flex;
-align-items: center;
-
-
+  font-style: normal;
+  font-weight: 350;
+  font-size: 60px;
+  line-height: 130%;
+  display: flex;
+  align-items: center;
 }
 
 .p {
   max-width: 528px;
-font-style: normal;
-font-weight: 350;
-font-size: 24px;
-line-height: 160%;
+  font-style: normal;
+  font-weight: 350;
+  font-size: 24px;
+  line-height: 160%;
 
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .buttons {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .buttons div {
-  padding: 22px
+  padding: 22px;
 }
 
 .walletButton {
@@ -47,7 +41,7 @@ align-items: center;
   text-align: center;
   width: 222px;
   height: 57px;
-  color: #FFFFFF;
+  color: #ffffff;
   background: #000000;
   border-radius: 10px;
   font-weight: 500;
@@ -65,8 +59,47 @@ align-items: center;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(4px);
   border-radius: 10px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 500;
   font-size: 20px;
   line-height: 160%;
+}
+
+.mobileButton {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttons div {
+    padding: 5px;
+  }
+
+  .walletButton {
+    background: rgba(0, 0, 0, 0.59);
+    width: 164px;
+    height: 41px;
+  }
+
+  .launchButton {
+    display: none;
+  }
+
+  .mobileButton {
+    all: unset;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    text-align: center;
+    display: visible;
+    width: 343px;
+    height: 42px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+  }
 }
