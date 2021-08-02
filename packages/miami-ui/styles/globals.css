@@ -1,14 +1,14 @@
 @font-face {
-  font-family: "Poppins-Regular";
-  src: url("/fonts/Poppins-Regular.ttf");
-
+  font-family: 'Poppins-Regular';
+  src: url('/fonts/Poppins-Regular.woff2');
 }
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, Poppins-Regular, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, Poppins-Regular, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
 }
 a {
   color: inherit;
@@ -17,4 +17,3 @@ a {
 * {
   box-sizing: border-box;
 }
-

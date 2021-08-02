@@ -22,7 +22,7 @@
   font-size: 16px;
   width: 95%;
   transition: 0.5s;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .Navigation a {
@@ -158,12 +158,13 @@
   }
 
   .MobileNavigation button {
-    position: relative;
+    display: none;
+    /* position: relative;
     display: flex;
     font-size: larger;
     top: 30%;
     width: 100%;
     height: 7%;
-    justify-content: center;
+    justify-content: center; */
   }
 }

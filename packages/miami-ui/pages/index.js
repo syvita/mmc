@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useConnect, userSessionState } from '../lib/auth';
 import { useAtom } from 'jotai';
 export default function Home() {
-
   const { handleOpenAuth } = useConnect();
   const [userSession] = useAtom(userSessionState);
 
