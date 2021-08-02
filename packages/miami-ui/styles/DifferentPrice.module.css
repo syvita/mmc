@@ -1,8 +1,9 @@
 .mine {
-  margin-top: 243px;
-  margin-left: 10%;
+  margin-top: 150px;
+  margin-left: 8%;
   margin-right: 10%;
   max-width: 529px;
+  height: 500px;
 }
 
 .h2 {
@@ -20,13 +21,13 @@
   overflow: scroll;
   width: 550px;
   height: 300px;
- overflow-x: hidden
+  overflow-x: hidden;
 }
 
 .blockScroll::-webkit-scrollbar {
-  background: #757B83;
+  background: #757b83;
   border-radius: 10px;
-  width: 7px;  
+  width: 7px;
 }
 
 .blockScroll::-webkit-scrollbar:hover {
