@@ -22,7 +22,7 @@ const NavLinks = (props) => {
           About
         </a>
       </Link>
-      <Link href="/cities" passHref={true}>
+      <Link href="https://docs.citycoins.co/" passHref={true}>
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
             <img

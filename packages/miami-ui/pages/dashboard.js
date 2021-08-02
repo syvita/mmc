@@ -2,7 +2,8 @@ import { useState } from 'react';
 import styles from '../styles/Dashboard.module.css';
 import Register from '../components/Dashboard/Register';
 import Mine from '../components/Dashboard/Mine';
-import Stack from '../components/Dashboard/Stack/Stack';
+import Stack from '../components/Dashboard/Stack';
+import Redeem from '../components/Dashboard/Redeem'
 
 export default function Dashboard() {
  
@@ -44,6 +45,7 @@ export default function Dashboard() {
  {renderedComponent === "Register" && <Register/>}
  {renderedComponent === "Mine" &&  <Mine/>}
  {renderedComponent === "Stack" && <Stack/>}
+ {renderedComponent === "Redeem" && <Redeem/>}
   
   {/* <Mine /> */}
   {/* <MineSingle /> */}

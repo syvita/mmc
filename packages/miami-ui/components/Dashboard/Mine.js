@@ -1,26 +1,24 @@
-import styles from '../../styles/Mine.module.css';
+import { useState } from 'react';
+import MineSingle from './Mine/MineSingle';
+import MineMany from './Mine/MineMany';
+import MineQuestion from './Mine/MineQuestion';
+import MineSetPrice from './Mine/MineSetPrice';
+import MineMiami from './Mine/MineMiami';
 
 const Mine = () => {
-  return (
-    <div className={styles.mine}>
-      <h2 className={styles.h2}>Mine MiamiCoin</h2>
-      <p>Mining MiamiCoin happens by spending STX in a given Stacks block.</p>
 
-      <p>
-        A winner is selected randomly weighted by the miners&#39; proportion of
-        contributions of that block.
-      </p>
-      <p> Rewards can be withdrawn after a 100 block maturity window.</p>
-      <div className={styles.buttons}>
-        <button className={styles.singleBlockButton}>
-          Mine a single block
-        </button>
-        <button className={styles.multipleBlockButton}>
-          Mine for multiple blocks
-        </button>
-      </div>
-    </div>
-  );
+const [state, setState] = useState('MineMiami');
+
+  console.log(state)
+  
+  function Mine() {
+    if (state == 'Single') return <MineSingle/>
+    else if (state == 'Many') return <MineMany setState={ setState }/>
+    else if (state == 'MineQuestion') return <MineQuestion setState={ setState }/>
+    else if (state == 'MineSetPrice') return <MineSetPrice/>
+    else return <MineMiami setState={ setState }/>
+  }
+  return <div><Mine/></div>;
 };
 
 export default Mine;

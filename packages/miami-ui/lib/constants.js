@@ -1,6 +1,6 @@
 import { StacksTestnet } from '@stacks/network';
 
-export const CC_NAME = 'citycoin'
+export const CC_NAME = 'citycoins'
 export const CITY_COIN_CORE_ADDRESS = 'ST3CK642B6119EVC6CT550PW5EZZ1AJW6608HK60A'
 export const CITY_COIN_CORE_CONTRACT_NAME = 'citycoin-core-v4'
 

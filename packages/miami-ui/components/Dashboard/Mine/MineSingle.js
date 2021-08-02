@@ -1,12 +1,13 @@
-import styles from '../../styles/MineSingle.module.css';
+import styles from '../../../styles/MineSingle.module.css';
 import { useState } from 'react';
-import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME } from "../../lib/constants";
+import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME } from "../../../lib/constants";
 import { uintCV, noneCV, makeStandardSTXPostCondition, PostConditionMode, FungibleConditionCode, AnchorMode, } from '@stacks/transactions';
-import { userSessionState } from '../../lib/auth';
+import { userSessionState } from '../../../lib/auth';
 import { useConnect } from '@stacks/connect-react';
 import { useAtom } from 'jotai';
 
 const MineSingle = () => {
+
   const [STXAmount, setSTXAmount] = useState();
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
@@ -32,7 +33,6 @@ const MineSingle = () => {
     });
   }
 
-  console.log(txId)
   return (
     <div className={styles.mine}>
       <h2 className={styles.h2}>Mine a single block</h2>
@@ -41,8 +41,6 @@ const MineSingle = () => {
         <input onChange={ event => setSTXAmount(event.target.value) } placeholder="How many STX?" type="number" />
         <button onClick={ mineSingle } className={styles.transactionButton}>Send Transaction</button>
       </div>
-      {STXAmount}
-      {txId && txId}
     </div>
   );
 };

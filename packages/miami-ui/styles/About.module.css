@@ -1,0 +1,21 @@
+.about {
+    color: #ffffff;
+    margin-top: 154px;
+    margin-left: 33%;
+    width: 575px;
+    text-align: left;
+}
+
+.about h1 {
+font-weight: 500;
+font-size: 60px;
+line-height: 130%;
+}
+
+
+.about p {
+font-weight: 500;
+font-size: 24px;
+line-height: 160%;
+}
+
