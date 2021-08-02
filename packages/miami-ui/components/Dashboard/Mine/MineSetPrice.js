@@ -35,17 +35,17 @@ const DifferentPrice = () => {
 
   async function mineMany() {
     const array = getValues();
-    let intArray = [];
+    let floatArray = [];
     let sum = 0;
     let mineManyArray = [];
 
     for (let i = 0; i < array.length; i++){
-      intArray.push(parseInt((array[i])));
-      sum += intArray[i];
-      mineManyArray.push(uintCV(intArray[i]));
+      floatArray.push(Math.floor(parseFloat(array[i].trim()) * 1000000));
+      sum += floatArray[i];
+      mineManyArray.push(uintCV(floatArray[i]));
     }
     mineManyArray = listCV(mineManyArray);
-
+    
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
