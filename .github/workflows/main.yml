@@ -20,4 +20,4 @@ jobs:
           SENTRY_LOG_LEVEL: debug
         with:
           environment: prod
-          fetch-depth: 0
+          ignore_empty: true
