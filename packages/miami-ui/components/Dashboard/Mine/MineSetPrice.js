@@ -13,6 +13,8 @@ const DifferentPrice = () => {
   const [userSession] = useAtom(userSessionState);
   const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
 
+  console.log(userSession.loadUserData())
+
   for (let i = 1; i <= blocksToMine; i++) {
     inputs.push(
       <div className={styles.individualBlockAmount}>

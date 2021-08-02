@@ -14,29 +14,35 @@ const MineSingle = () => {
   const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
  
   async function mineSingle() {
-    let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));
-    await doContractCall({
-      contractAddress: CITY_COIN_CORE_ADDRESS,
-      contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: 'mine-tokens',
-      functionArgs: [CVAmount, noneCV()],
-      postConditionMode: PostConditionMode.Deny,
-      postConditions: [
-        makeStandardSTXPostCondition(
-          STXAddress,
-          FungibleConditionCode.Equal,
-          CVAmount.value
-        ),
-      ],
-      onFinish: result => {
-        setTxId(result.txId);
-        console.log(result.txId);
-      },
-      anchorMode: AnchorMode.OnChainOnly,
-      network: NETWORK,
-    });
-    console.log('EADADASDASS')
-  }
+    try {
+      let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));
+      await doContractCall({
+        contractAddress: CITY_COIN_CORE_ADDRESS,
+        contractName: CITY_COIN_CORE_CONTRACT_NAME,
+        functionName: 'mine-tokens',
+        functionArgs: [CVAmount, noneCV()],
+        postConditionMode: PostConditionMode.Deny,
+        postConditions: [
+          makeStandardSTXPostCondition(
+            STXAddress,
+            FungibleConditionCode.Equal,
+            CVAmount.value
+          ),
+        ],
+        anchorMode: AnchorMode.OnChainOnly,
+        network: NETWORK,
+        onCancel: () => {
+          console.log('cancel');
+        },
+        onFinish: result => {
+          console.log('ONFINISH TEST');
+          console.log(result);
+        },
+      });
+    } catch (e) {
+      console.log('ERROR bufgfer?')
+    } 
+  } 
 
   return (
     <div className={styles.mine}>
