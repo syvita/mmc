@@ -112,26 +112,30 @@ async function putUnencryptedObject(address, appPrivateKey, object) {
     console.log(`VALUE OF STRINGIFIED: ${stringified}`);
     console.log(`TYPE OF STRINGIFIED: ${typeof stringified}`);
     const encryptedData = aes256.encrypt(appPrivateKey, stringified)
-    console.log(encryptedData)
+    console.log(`ENCRYPTED DATA: ${encryptedData}`)
 
-    const result = await putEncryptedObject(KvId, encryptedData)
-
-    console.log(result)
-
-    if (json.success == true) {
-        return true
-    } else {
-        throw new Error(result.result)
+    try {
+        const result = await putEncryptedObject(KvId, encryptedData)
+        console.log(JSON.stringify(result))
+    } catch (error) {
+        throw new Error(error)
     }
 }
 
-async function putEncryptedObject(KvId, object) {
+async function putEncryptedObject(KvId, encryptedData) {
+    console.log(`PUTTING DATA : ${encryptedData}`)
+
+    const object = {
+        encrypted_data: encryptedData
+    }
+    
     return await fetch('https://api.minemiamicoin.com/' + KvId), {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
         },
-        body: object
+        body: JSON.stringify(object)
+        
     }
 }
 
