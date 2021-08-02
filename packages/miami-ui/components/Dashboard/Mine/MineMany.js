@@ -4,6 +4,7 @@ import { useState } from 'react';
 const MineMany = ({ setState }) => {
 
   const [blocksToMine, setBlocksToMine] = useState();
+  localStorage.setItem('blocksToMine', blocksToMine);
 
   return (
     <div className={styles.mine}>
@@ -14,7 +15,7 @@ const MineMany = ({ setState }) => {
       </button>
       <div className={styles.blockNumbers}>
         <input onChange={ event => setBlocksToMine(event.target.value) } placeholder="Up to 200" type="number" />
-        <button onClick={() => { setState("MineQuestion") }} className={styles.continue}>Continue</button>
+        <button onClick={() => { setState("MineSetPrice") }} className={styles.continue}>Continue</button>
       </div>
       {blocksToMine}
     </div>

@@ -16,10 +16,27 @@
   line-height: 140%;
 }
 
+.blockScroll {
+  overflow: scroll;
+  width: 550px;
+  height: 300px;
+ overflow-x: hidden
+}
+
+.blockScroll::-webkit-scrollbar {
+  background: #757B83;
+  border-radius: 10px;
+  width: 7px;  
+}
+
+.blockScroll::-webkit-scrollbar:hover {
+  cursor: pointer;
+}
+
 .individualBlockAmount {
   display: flex;
   flex-direction: row;
-  margin-bottom: 16px;
+  margin-bottom: 0px;
   align-items: center;
 }
 
@@ -47,9 +64,7 @@
 .transactionButton {
   all: unset;
   width: 529px;
-  height: 34px;
-  left: 0px;
-  top: 0px;
+  height: 40px;
   background: #000000;
   border-radius: 10px;
   color: #ffffff;
@@ -58,6 +73,7 @@
   line-height: 160%;
   text-align: center;
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .progressBar {

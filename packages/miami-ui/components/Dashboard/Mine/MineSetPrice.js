@@ -1,17 +1,79 @@
+import { useState } from 'react';
 import styles from '../../../styles/DifferentPrice.module.css';
+import { userSessionState } from '../../../lib/auth';
+import { useConnect } from '@stacks/connect-react';
+import { useAtom } from 'jotai';
+import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME } from "../../../lib/constants";
+import { AnchorMode, FungibleConditionCode, listCV, makeStandardSTXPostCondition, PostConditionMode, uintCV, } from '@stacks/transactions';
 
 const DifferentPrice = () => {
+  const blocksToMine = localStorage.getItem('blocksToMine')
+  const inputs = [];
+  const { doContractCall } = useConnect();
+  const [userSession] = useAtom(userSessionState);
+  const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+
+  for (let i = 1; i <= blocksToMine; i++) {
+    inputs.push(
+      <div className={styles.individualBlockAmount}>
+        <p className={styles.blockNumber}>#{i}</p>
+        <input placeholder="Amount" type="number"></input>
+      </div>
+    )
+  }
+
+  function getValues() {
+    const array = [];
+    var inputs = document.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; ++i) {
+      array.push(inputs[i].value)
+    }
+
+    return array;
+  }
+
+
+  async function mineMany() {
+    const array = getValues();
+    let intArray = [];
+    let sum = 0;
+    let mineManyArray = [];
+
+    for (let i = 0; i < array.length; i++){
+      intArray.push(parseInt((array[i])));
+      sum += intArray[i];
+      mineManyArray.push(uintCV(intArray[i]));
+    }
+    mineManyArray = listCV(mineManyArray);
+
+    await doContractCall({
+      contractAddress: CITY_COIN_CORE_ADDRESS,
+      contractName: CITY_COIN_CORE_CONTRACT_NAME,
+      functionName: 'mine-many',
+      functionArgs: [mineManyArray],
+      postConditionMode: PostConditionMode.Deny,
+      postConditions: [
+        makeStandardSTXPostCondition(
+          STXAddress,
+          FungibleConditionCode.Equal,
+          uintCV(sum).value
+        ),
+      ],
+      anchorMode: AnchorMode.OnChainOnly,
+      network: NETWORK,
+    });
+  }
+  
   return (
     <div className={styles.mine}>
       <h2 className={styles.h2}>Mine multiple blocks</h2>
       <p>Set the price for each block (in Stacks)</p>
       {/* This div will need to be repeated for each new block dependant on user input */}
-      <div className={styles.individualBlockAmount}>
-        <p className={styles.blockNumber}>#2788</p>
-        <input placeholder="Amount" type="number"></input>
+      <div className={styles.blockScroll}>
+      { inputs }
+        <button onClick={mineMany} className={styles.transactionButton}>Send Transaction</button>
+      {/* <div className={styles.progressBar}></div> */}
       </div>
-      <button className={styles.transactionButton}>Send Transaction</button>
-      <div className={styles.progressBar}></div>
     </div>
   );
 };

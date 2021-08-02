@@ -28,9 +28,14 @@ const MineSingle = () => {
           CVAmount.value
         ),
       ],
+      onFinish: result => {
+        setTxId(result.txId);
+        console.log(result.txId);
+      },
       anchorMode: AnchorMode.OnChainOnly,
       network: NETWORK,
     });
+    console.log('EADADASDASS')
   }
 
   return (
