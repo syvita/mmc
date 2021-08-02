@@ -1,9 +1,9 @@
-name: Create Sentry release
+name: Create Sentry release on main
 
 on:
-  release:
-    types: [published, prereleased]
-
+  push:
+    branches:    
+      - main
 jobs:
   createSentryRelease:
     runs-on: ubuntu-latest
@@ -16,8 +16,8 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: syvita
           SENTRY_PROJECT: miamicoin
-          SENTRY_URL: logs.syvita.org
-          SENTRY_LOG_LEVEL: [info|debug]
+          SENTRY_URL: https://logs.syvita.org
+          SENTRY_LOG_LEVEL: debug
         with:
-          version: ${{ github.ref }}
-          environment: qa
+          environment: prod
+          ignore_empty: true
