@@ -4,13 +4,14 @@ import Register from '../components/Dashboard/Register';
 import Mine from '../components/Dashboard/Mine';
 import Stack from '../components/Dashboard/Stack';
 import Redeem from '../components/Dashboard/Redeem'
+import ActivityFeed from '../components/Dashboard/ActivityFeed';
 
 export default function Dashboard() {
  
   const [renderedComponent, setRenderedComponent] = useState("Register");
 
   return (
-   <div className={styles.dashboard}>
+   <div className={styles.dashboard}>  
    <div>
       <div className={styles.Title}>
         <h1>Dashboard</h1>
@@ -37,7 +38,8 @@ export default function Dashboard() {
         <button onClick={
           () => { setRenderedComponent("Redeem") }}>Redeem</button>
         </a>
-    </div>
+        </div>
+       <ActivityFeed />
     </nav>
     </div>
   
