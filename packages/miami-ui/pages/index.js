@@ -4,6 +4,8 @@ import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import { useConnect, userSessionState } from '../lib/auth';
 import { useAtom } from 'jotai';
+import { isMobile } from 'react-device-detect';
+
 export default function Home() {
   const { handleOpenAuth } = useConnect();
   const [userSession] = useAtom(userSessionState);
@@ -17,7 +19,7 @@ export default function Home() {
       <div className={styles.buttons}>
         <div>
           {!userSession.isUserSignedIn() && (
-            <button className={styles.walletButton} onClick={handleOpenAuth}>
+            <button disabled={isMobile} className={styles.walletButton} onClick={handleOpenAuth}>
               Connect wallet
             </button>
           )}

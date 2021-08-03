@@ -44,6 +44,15 @@ const ActivityFeed = () => {
                 default:
                     status = styles.failed
             }
+            switch (transaction.type) {
+                case 'FUNGIBLE':
+                    transaction.type = '$MIA'
+                    break;
+                case 'STX':
+                    break;
+                default:
+                    transaction.type = 'Undefined'
+            }
             switch (transaction.contract_call) {
                 case 'mine-tokens':
                 case 'mine-many':
