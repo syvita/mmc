@@ -36,7 +36,7 @@ const Register = () => {
     }
     
     function MinerButton() {
-        setMinerCount(2); // REMOVE LATER, USED FOR DEV
+        // setMinerCount(2); // REMOVE LATER, USED FOR DEV
         if (minerCount == null) {
             return <button className={styles.minersButtonLoading}>Loading...</button>
         }
