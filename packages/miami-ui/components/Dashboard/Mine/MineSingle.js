@@ -4,6 +4,7 @@ import {
   NETWORK,
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
+  API_BASE_NET_URL,
 } from '../../../lib/constants';
 import {
   uintCV,
@@ -26,7 +27,13 @@ const MineSingle = () => {
 
   const userData = userSession.loadUserData();
 
-  const STXAddress = userData.profile.stxAddress.testnet;
+  let STXAddress = '';
+
+  if (NETWORK_STRING == 'mainnet') {
+    STXAddress = userSession.loadUserData().profile.stxAddress.mainnet;
+  } else {
+    STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+  }
   const appPrivateKey = userData.appPrivateKey;
 
   async function mineSingle() {
@@ -55,7 +62,7 @@ const MineSingle = () => {
 
     // TEMP SOLUTION FOR ONFINISH TRAN ID
     const res = await fetch(
-      'https://stacks-node-api.testnet.stacks.co/v2/info'
+      API_BASE_NET_URL + 'v2/info'
     );
     const result = await res.json();
     const blockHeight = result.stacks_tip_height;
