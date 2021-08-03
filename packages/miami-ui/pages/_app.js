@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import { userDataState, userSessionState, useConnect } from '../lib/auth';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { Connect, getUserData } from '@stacks/connect-react';
+import { Connect, getUserData } from '@syvita/connect-react';
 
 function MyApp({ Component, pageProps }) {
   const { authOptions } = useConnect();

@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import styles from '../../../styles/DifferentPrice.module.css';
 import { userSessionState } from '../../../lib/auth';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@syvita/connect-react';
 import { useAtom } from 'jotai';
 import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, NETWORK_STRING } from "../../../lib/constants";
-import { FungibleConditionCode, listCV, makeStandardSTXPostCondition, PostConditionMode, uintCV, } from '@stacks/transactions';
+import { FungibleConditionCode, listCV, makeStandardSTXPostCondition, PostConditionMode, uintCV, } from '@syvita/transactions';
 
 const DifferentPrice = () => {
   const blocksToMine = localStorage.getItem('blocksToMine')
   const inputs = [];
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
+  const [txId, setTxId] = useState();
   let STXAddress = '';
 
   if (NETWORK_STRING == 'mainnet') {
@@ -54,7 +55,14 @@ const DifferentPrice = () => {
     }
     mineManyArray = listCV(mineManyArray);
     
-    await doContractCall({
+    const res = await fetch(
+      API_BASE_NET_URL + 'v2/info'
+    );
+    const result = await res.json();
+    const blockHeight = result.stacks_tip_height;
+
+    await doContractCall(
+      {
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
       functionName: 'mine-many',
@@ -68,6 +76,11 @@ const DifferentPrice = () => {
         ),
       ],
       network: NETWORK,
+      onFinish: (data) => {
+        console.log(`TRANSACTION DATA: ${json}`);
+        setTxId(data.txId);
+        addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
+      },
     });
   }
   

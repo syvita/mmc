@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "../../styles/Register.module.css";
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@syvita/connect-react';
 import { GENESIS_CONTRACT_ADDRESS, NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, } from "../../lib/constants";
 import { getRegisteredMinerCount, getRegisteredMinersThreshold } from "../../lib/contracts";
-import { someCV, noneCV } from "@stacks/transactions";
+import { someCV, noneCV } from "@syvita/transactions";
 
 const Register = () => {
     const [minerCount, setMinerCount] = useState();
@@ -27,6 +27,7 @@ const Register = () => {
     }
     
     function MinerButton() {
+        // setMinerCount(2); // REMOVE LATER, USED FOR DEV
         if (minerCount == null) {
             return <button className={styles.minersButtonLoading}>Loading...</button>
         }
@@ -35,7 +36,7 @@ const Register = () => {
         }
         else {
             return (<div className={styles.registerMiner}>
-                <div className={ styles.progress }>
+                                <div className={ styles.progress }>
                     <div className={styles.progressBar} style={{ width: `${(minerCount / minerThreshold) * 100}%` }}>
                 <div>{minerCount + '/' + minerThreshold + ' miners'}</div>
                 </div>
