@@ -23,7 +23,7 @@ const ActivityFeed = () => {
     const activityElements = [];
 
     if (transactionData != null) { 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
             const activity = transactionData[i];
             const transaction = {
                 tx_id: activity.tx_id,
