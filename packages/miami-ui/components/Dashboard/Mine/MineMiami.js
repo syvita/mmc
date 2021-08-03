@@ -1,4 +1,4 @@
-import styles from '../../../styles/MineMiami.module.css';
+import styles from "../../../styles/MineMiami.module.css";
 
 const MineMiami = ({ setState }) => {
   return (
@@ -15,7 +15,7 @@ const MineMiami = ({ setState }) => {
         <button
           className={styles.singleBlockButton}
           onClick={() => {
-            setState('Single');
+            setState("Single");
           }}
         >
           Mine a single block
@@ -23,7 +23,7 @@ const MineMiami = ({ setState }) => {
         <button
           className={styles.multipleBlockButton}
           onClick={() => {
-            setState('Many');
+            setState("Many");
           }}
         >
           Mine for multiple blocks

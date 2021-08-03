@@ -4,20 +4,20 @@ import {
   FungibleConditionCode,
   createAssetInfo,
   makeStandardFungiblePostCondition,
-} from '@syvita/transactions';
+} from "@syvita/transactions";
 import {
   NETWORK,
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   CITY_COIN_TOKEN_CONTRACT_NAME,
   CC_NAME,
-} from '../../../lib/constants';
-import styles from '../../../styles/StackHowLong.module.css';
-import { useState, useEffect } from 'react';
-import { useAtom } from 'jotai';
-import { userSessionState } from '../../../lib/auth';
-import { getCoinBalance } from '../../../lib/contracts';
-import { useConnect } from '@syvita/connect-react';
+} from "../../../lib/constants";
+import styles from "../../../styles/StackHowLong.module.css";
+import { useState, useEffect } from "react";
+import { useAtom } from "jotai";
+import { userSessionState } from "../../../lib/auth";
+import { getCoinBalance } from "../../../lib/contracts";
+import { useConnect } from "@syvita/connect-react";
 
 const StackHowLong = () => {
   const [cycles, setCycles] = useState();
@@ -25,9 +25,9 @@ const StackHowLong = () => {
   const [userSession] = useAtom(userSessionState);
   const { doContractCall } = useConnect();
 
-  let STXAddress = '';
+  let STXAddress = "";
 
-  if (NETWORK_STRING == 'mainnet') {
+  if (NETWORK_STRING == "mainnet") {
     STXAddress = userSession.loadUserData().profile.stxAddress.mainnet;
   } else {
     STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
@@ -43,7 +43,7 @@ const StackHowLong = () => {
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: 'stack-tokens',
+      functionName: "stack-tokens",
       functionArgs: [uintCV(coinAmount), uintCV(cycles)],
       postConditionMode: PostConditionMode.Deny,
       postConditions: [

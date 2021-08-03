@@ -1,12 +1,12 @@
-import styles from '../../../styles/MineSingle.module.css';
-import { useState } from 'react';
+import styles from "../../../styles/MineSingle.module.css";
+import { useState } from "react";
 import {
   NETWORK,
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   API_BASE_NET_URL,
-  NETWORK_STRING
-} from '../../../lib/constants';
+  NETWORK_STRING,
+} from "../../../lib/constants";
 import {
   uintCV,
   noneCV,
@@ -14,11 +14,11 @@ import {
   PostConditionMode,
   FungibleConditionCode,
   AnchorMode,
-} from '@syvita/transactions';
-import { userSessionState } from '../../../lib/auth';
-import { useConnect } from '@syvita/connect-react';
-import { useAtom } from 'jotai';
-import { addMinedBlocks } from '../../../lib/kv';
+} from "@syvita/transactions";
+import { userSessionState } from "../../../lib/auth";
+import { useConnect } from "@syvita/connect-react";
+import { useAtom } from "jotai";
+import { addMinedBlocks } from "../../../lib/kv";
 
 const MineSingle = () => {
   const [STXAmount, setSTXAmount] = useState();
@@ -28,27 +28,25 @@ const MineSingle = () => {
 
   const userData = userSession.loadUserData();
 
-  let STXAddress = '';
+  let STXAddress = "";
 
-  if (NETWORK_STRING == 'mainnet') {
-    STXAddress = userSession.loadUserData().profile.stxAddress.mainnet;
+  if (NETWORK_STRING == "mainnet") {
+    STXAddress = userData.profile.stxAddress.mainnet;
   } else {
-    STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+    STXAddress = userData.profile.stxAddress.testnet;
   }
   const appPrivateKey = userData.appPrivateKey;
 
   async function mineSingle() {
     let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));
-    const res = await fetch(
-      API_BASE_NET_URL + 'v2/info'
-    );
+    const res = await fetch(API_BASE_NET_URL + "v2/info");
     const result = await res.json();
     const blockHeight = result.stacks_tip_height;
 
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: 'mine-tokens',
+      functionName: "mine-tokens",
       functionArgs: [CVAmount, noneCV()],
       postConditionMode: PostConditionMode.Deny,
       postConditions: [
@@ -60,10 +58,10 @@ const MineSingle = () => {
       ],
       network: NETWORK,
       onFinish: (data) => {
-        console.log('ONFINISH TRIGGERED');
+        console.log("ONFINISH TRIGGERED");
         const json = JSON.stringify(data, (key, value) =>
-        typeof value === "bigint" ? value.toString() + "n" : value
-);
+          typeof value === "bigint" ? value.toString() + "n" : value
+        );
         console.log(`TRANSACTION DATA: ${json}`);
         setTxId(data.txId);
         addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
@@ -73,10 +71,7 @@ const MineSingle = () => {
 
     // TEMP SOLUTION FOR ONFINISH TRAN ID
 
-
     console.log(appPrivateKey);
-
-
   }
 
   return (

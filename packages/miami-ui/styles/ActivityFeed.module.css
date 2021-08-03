@@ -49,6 +49,10 @@
   border: 1px solid #00b9d1;
   background: rgba(0, 185, 209, 0.05);
 }
+.token#pending {
+  border: 1px solid #f7c600;
+  background: rgba(247, 198, 0, 0.05);
+}
 .token#failed {
   border: 1px solid #ee6380;
   background: rgba(238, 99, 128, 0.05);

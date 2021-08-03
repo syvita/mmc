@@ -1,9 +1,9 @@
-import '../styles/globals.css'
-import Layout from '../components/Layout'
-import { userDataState, userSessionState, useConnect } from '../lib/auth';
-import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
-import { Connect, getUserData } from '@syvita/connect-react';
+import "../styles/globals.css";
+import Layout from "../components/Layout";
+import { userDataState, userSessionState, useConnect } from "../lib/auth";
+import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
+import { Connect, getUserData } from "@syvita/connect-react";
 
 function MyApp({ Component, pageProps }) {
   const { authOptions } = useConnect();
@@ -19,14 +19,12 @@ function MyApp({ Component, pageProps }) {
   }, [userSession, setUserData]);
 
   return (
-    
     <Connect authOptions={authOptions}>
       <Layout>
-      <Component {...pageProps} />
-    </Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Connect>
- 
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

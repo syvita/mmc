@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import styles from '../styles/Dashboard.module.css';
-import Register from '../components/Dashboard/Register';
-import Mine from '../components/Dashboard/Mine';
-import Stack from '../components/Dashboard/Stack';
-import Redeem from '../components/Dashboard/Redeem';
-import ActivityFeed from '../components/Dashboard/ActivityFeed';
+import { useState } from "react";
+import styles from "../styles/Dashboard.module.css";
+import Register from "../components/Dashboard/Register";
+import Mine from "../components/Dashboard/Mine";
+import Stack from "../components/Dashboard/Stack";
+import Redeem from "../components/Dashboard/Redeem";
+import ActivityFeed from "../components/Dashboard/ActivityFeed";
 
 export default function Dashboard() {
-  const [renderedComponent, setRenderedComponent] = useState('Register');
+  const [renderedComponent, setRenderedComponent] = useState("Mine");
 
-  const test = 'menuButton';
   return (
     <div className={styles.dashboard}>
       <div>
@@ -18,35 +17,35 @@ export default function Dashboard() {
         </div>
         <nav className={styles.Navigation}>
           <div>
-            <a>
+            {/* <a>
               <button
                 style={
-                  renderedComponent === 'Register'
+                  renderedComponent === "Register"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
                     : {}
                 }
                 onClick={() => {
-                  setRenderedComponent('Register');
+                  setRenderedComponent("Register");
                 }}
               >
                 Register
               </button>
-            </a>
+            </a> */}
             <a>
               <button
                 style={
-                  renderedComponent === 'Mine'
+                  renderedComponent === "Mine"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
                     : {}
                 }
                 onClick={() => {
-                  setRenderedComponent('Mine');
+                  setRenderedComponent("Mine");
                 }}
               >
                 Mine
@@ -55,15 +54,15 @@ export default function Dashboard() {
             <a>
               <button
                 style={
-                  renderedComponent === 'Send'
+                  renderedComponent === "Send"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
                     : {}
                 }
                 onClick={() => {
-                  setRenderedComponent('Send');
+                  setRenderedComponent("Send");
                 }}
               >
                 Send
@@ -72,15 +71,15 @@ export default function Dashboard() {
             <a>
               <button
                 style={
-                  renderedComponent === 'Stack'
+                  renderedComponent === "Stack"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
                     : {}
                 }
                 onClick={() => {
-                  setRenderedComponent('Stack');
+                  setRenderedComponent("Stack");
                 }}
               >
                 Stack
@@ -89,15 +88,15 @@ export default function Dashboard() {
             <a>
               <button
                 style={
-                  renderedComponent === 'Redeem'
+                  renderedComponent === "Redeem"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
                     : {}
                 }
                 onClick={() => {
-                  setRenderedComponent('Redeem');
+                  setRenderedComponent("Redeem");
                 }}
               >
                 Redeem
@@ -108,11 +107,10 @@ export default function Dashboard() {
         </nav>
       </div>
 
-      {renderedComponent === 'Register' && <Register />}
-      {renderedComponent === 'Mine' && <Mine />}
-      {renderedComponent === 'Stack' && <Stack />}
-      {renderedComponent === 'Redeem' && <Redeem />}
-
+      {renderedComponent === "Register" && <Register />}
+      {renderedComponent === "Mine" && <Mine />}
+      {renderedComponent === "Stack" && <Stack />}
+      {renderedComponent === "Redeem" && <Redeem />}
 
       {/* <Mine /> */}
       {/* <MineSingle /> */}

@@ -1,9 +1,7 @@
-import styles from '../../../styles/ProgressBar.module.css';
+import styles from "../../../styles/ProgressBar.module.css";
 
 const ProgressBar = () => {
-    return(
-        <div className={styles.buttons}></div>
-    );
-}
+  return <div className={styles.buttons}></div>;
+};
 
 export default ProgressBar;
