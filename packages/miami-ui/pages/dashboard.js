@@ -24,7 +24,8 @@ export default function Dashboard() {
                   renderedComponent === 'Register'
                     ? {
                         backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                      borderRadius: '10px',
+                        color: '#757b83'
                       }
                     : {}
                 }
@@ -36,7 +37,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Mine'
                     ? {
@@ -53,7 +54,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Send'
                     ? {
@@ -70,7 +71,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Stack'
                     ? {
@@ -87,7 +88,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Redeem'
                     ? {
