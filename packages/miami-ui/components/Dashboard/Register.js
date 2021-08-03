@@ -27,7 +27,6 @@ const Register = () => {
     }
     
     function MinerButton() {
-        //setMinerCount(3); // REMOVE LATER, USED FOR DEV
         if (minerCount == null) {
             return <button className={styles.minersButtonLoading}>Loading...</button>
         }
@@ -36,7 +35,11 @@ const Register = () => {
         }
         else {
             return (<div className={styles.registerMiner}>
-                <button className={styles.minersButton}>{minerCount}/{minerThreshold}miners</button>
+                <div className={ styles.progress }>
+                    <div className={styles.progressBar} style={{ width: `${(minerCount / minerThreshold) * 100}%` }}>
+                <div>{minerCount + '/' + minerThreshold + ' miners'}</div>
+                </div>
+            </div>
                 <button onClick={ registerMiner } className={styles.registerToMineButton}>Register to mine</button></div>
             )
         }
