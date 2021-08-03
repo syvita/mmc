@@ -1,20 +1,30 @@
 .register {
  margin-top: 243px;
- margin-left: 10%;
- margin-right: 10%;
- max-width: 529px;
+ margin: auto;
+ max-width: 800px;
 }
 
 .h2 {
 font-weight: 500;
-font-size: 24px;
+font-size: 50px;
 line-height: 130%;  
+text-align: center;
+    margin-top: 225px;
+}
+
+.register p {
+    text-align: center;
 }
 
 .registerMiner {
     display: flex;
     flex-direction: column;
     
+}
+
+.register button {
+    margin:auto;
+    margin-top: 40px;
 }
 
 .minersButton {

@@ -6,6 +6,7 @@ import Stack from '../components/Dashboard/Stack';
 import Redeem from '../components/Dashboard/Redeem';
 import ActivityFeed from '../components/Dashboard/ActivityFeed';
 
+
 export default function Dashboard() {
   const [renderedComponent, setRenderedComponent] = useState('Register');
 
@@ -14,17 +15,18 @@ export default function Dashboard() {
     <div className={styles.dashboard}>
       <div>
         <div className={styles.Title}>
-          <h1>Dashboard</h1>
+          {/* <h1>Dashboard</h1> */}
         </div>
         <nav className={styles.Navigation}>
-          <div>
+          {/* <div>
             <a>
               <button
                 style={
                   renderedComponent === 'Register'
                     ? {
                         backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                      borderRadius: '10px',
+                        color: '#757b83'
                       }
                     : {}
                 }
@@ -36,7 +38,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Mine'
                     ? {
@@ -53,7 +55,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Send'
                     ? {
@@ -70,7 +72,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Stack'
                     ? {
@@ -87,7 +89,7 @@ export default function Dashboard() {
               </button>
             </a>
             <a>
-              <button
+              <button disabled={true}
                 style={
                   renderedComponent === 'Redeem'
                     ? {
@@ -104,7 +106,7 @@ export default function Dashboard() {
               </button>
             </a>
           </div>
-          <ActivityFeed />
+          <ActivityFeed /> */}
         </nav>
       </div>
 
@@ -112,6 +114,7 @@ export default function Dashboard() {
       {renderedComponent === 'Mine' && <Mine />}
       {renderedComponent === 'Stack' && <Stack />}
       {renderedComponent === 'Redeem' && <Redeem />}
+
 
       {/* <Mine /> */}
       {/* <MineSingle /> */}
