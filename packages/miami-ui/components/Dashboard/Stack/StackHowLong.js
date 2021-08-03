@@ -23,8 +23,15 @@ const StackHowLong = () => {
   const [cycles, setCycles] = useState();
   const [balance, setBalance] = useState(0);
   const [userSession] = useAtom(userSessionState);
-  const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
   const { doContractCall } = useConnect();
+
+  let STXAddress = '';
+
+  if (NETWORK_STRING == 'mainnet') {
+    STXAddress = userSession.loadUserData().profile.stxAddress.mainnet;
+  } else {
+    STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+  }
 
   useEffect(() => {
     getCoinBalance(STXAddress).then((result) => setBalance(result));
