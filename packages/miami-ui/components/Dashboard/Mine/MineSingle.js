@@ -39,6 +39,12 @@ const MineSingle = () => {
 
   async function mineSingle() {
     let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));
+    const res = await fetch(
+      API_BASE_NET_URL + 'v2/info'
+    );
+    const result = await res.json();
+    const blockHeight = result.stacks_tip_height;
+
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
@@ -55,22 +61,22 @@ const MineSingle = () => {
       network: NETWORK,
       onFinish: (data) => {
         console.log('ONFINISH TRIGGERED');
-        console.log(`TRANSACTION DATA: ${data}`);
+        const json = JSON.stringify(data, (key, value) =>
+        typeof value === "bigint" ? value.toString() + "n" : value
+);
+        console.log(`TRANSACTION DATA: ${json}`);
         setTxId(data.txId);
+        addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
       },
     });
     // KV CALLS
 
     // TEMP SOLUTION FOR ONFINISH TRAN ID
-    const res = await fetch(
-      API_BASE_NET_URL + 'v2/info'
-    );
-    const result = await res.json();
-    const blockHeight = result.stacks_tip_height;
+
 
     console.log(appPrivateKey);
 
-    addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
+
   }
 
   return (
