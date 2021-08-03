@@ -9,6 +9,7 @@ import ActivityFeed from '../components/Dashboard/ActivityFeed';
 export default function Dashboard() {
   const [renderedComponent, setRenderedComponent] = useState('Register');
 
+  const test = 'menuButton';
   return (
     <div className={styles.dashboard}>
       <div>
@@ -19,6 +20,14 @@ export default function Dashboard() {
           <div>
             <a>
               <button
+                style={
+                  renderedComponent === 'Register'
+                    ? {
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderRadius: '10px',
+                      }
+                    : {}
+                }
                 onClick={() => {
                   setRenderedComponent('Register');
                 }}
@@ -28,6 +37,14 @@ export default function Dashboard() {
             </a>
             <a>
               <button
+                style={
+                  renderedComponent === 'Mine'
+                    ? {
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderRadius: '10px',
+                      }
+                    : {}
+                }
                 onClick={() => {
                   setRenderedComponent('Mine');
                 }}
@@ -37,6 +54,14 @@ export default function Dashboard() {
             </a>
             <a>
               <button
+                style={
+                  renderedComponent === 'Send'
+                    ? {
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderRadius: '10px',
+                      }
+                    : {}
+                }
                 onClick={() => {
                   setRenderedComponent('Send');
                 }}
@@ -46,6 +71,14 @@ export default function Dashboard() {
             </a>
             <a>
               <button
+                style={
+                  renderedComponent === 'Stack'
+                    ? {
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderRadius: '10px',
+                      }
+                    : {}
+                }
                 onClick={() => {
                   setRenderedComponent('Stack');
                 }}
@@ -55,6 +88,14 @@ export default function Dashboard() {
             </a>
             <a>
               <button
+                style={
+                  renderedComponent === 'Redeem'
+                    ? {
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderRadius: '10px',
+                      }
+                    : {}
+                }
                 onClick={() => {
                   setRenderedComponent('Redeem');
                 }}

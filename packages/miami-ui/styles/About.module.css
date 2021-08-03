@@ -43,7 +43,7 @@
 @media (max-width: 380px) {
   .about h1 {
     margin-top: 154px;
-    font-size: 41px;
+    font-size: 35px;
   }
 
   .about p {
@@ -54,11 +54,12 @@
 @media (max-width: 340px) {
   .about h1 {
     margin-top: 80px;
-    font-size: 35px;
+    font-size: 30px;
   }
 
   .about h2 {
     margin-left: 2%;
+    font-size: 23px;
   }
   .about p {
     font-size: 16px;
