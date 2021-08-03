@@ -7,6 +7,7 @@ import {
 } from '@stacks/transactions';
 import {
   NETWORK,
+  NETWORK_STRING,
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   CITY_COIN_TOKEN_CONTRACT_NAME,
@@ -24,6 +25,7 @@ const StackHowLong = () => {
   const [balance, setBalance] = useState(0);
   const [userSession] = useAtom(userSessionState);
   const { doContractCall } = useConnect();
+  const [txId, setTxId] = useState();
 
   let STXAddress = '';
 
@@ -59,6 +61,10 @@ const StackHowLong = () => {
         ),
       ],
       network: NETWORK,
+      onFinish: result => {
+        console.log(result.txId)
+        setTxId(result.txId);
+        },
     });
   }
 

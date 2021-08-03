@@ -11,6 +11,7 @@ const DifferentPrice = () => {
   const inputs = [];
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
+  const [txId, setTxId] = useState();
   let STXAddress = '';
 
   if (NETWORK_STRING == 'mainnet') {
@@ -68,6 +69,10 @@ const DifferentPrice = () => {
         ),
       ],
       network: NETWORK,
+      onFinish: result => {
+        console.log(result.txId)
+        setTxId(result.txId);
+        },
     });
   }
   

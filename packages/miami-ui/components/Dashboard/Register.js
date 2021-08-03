@@ -8,6 +8,7 @@ import { someCV, noneCV } from "@stacks/transactions";
 const Register = () => {
     const [minerCount, setMinerCount] = useState();
     const [minerThreshold, setMinerThreshold] = useState();
+    const [txId, setTxId] = useState();
     const { doContractCall } = useConnect();
 
     useEffect(() => {
@@ -23,7 +24,11 @@ const Register = () => {
           functionArgs: [noneCV()],
           network: NETWORK,
           senderAddress: GENESIS_CONTRACT_ADDRESS,
-        });
+          onFinish: result => {
+            console.log(result.txId)
+            setTxId(result.txId);
+            },
+        })
     }
     
     function MinerButton() {

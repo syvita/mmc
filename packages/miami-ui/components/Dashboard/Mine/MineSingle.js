@@ -21,9 +21,9 @@ import { addMinedBlocks } from '../../../lib/kv';
 
 const MineSingle = () => {
   const [STXAmount, setSTXAmount] = useState();
-  const [txId, setTxId] = useState();
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
+  const [txId, setTxId] = useState();
 
   const userData = userSession.loadUserData();
 
@@ -52,11 +52,10 @@ const MineSingle = () => {
         ),
       ],
       network: NETWORK,
-      onFinish: (data) => {
-        console.log('ONFINISH TRIGGERED');
-        console.log(`TRANSACTION DATA: ${data}`);
-        setTxId(data.txId);
-      },
+      onFinish: result => {
+        console.log(result.txId)
+        setTxId(result.txId);
+        },
     });
     // KV CALLS
 
