@@ -10,7 +10,7 @@ if (process.env.CF_PAGES_COMMIT_SHA == undefined && process.env.CF_PAGES_BRANCH 
   const CF_PAGES_COMMIT_SHA = process.env.CF_PAGES_COMMIT_SHA.substr(0,7).toUpperCase()
   const CF_PAGES_BRANCH = process.env.CF_PAGES_BRANCH
   
-  if (CF_PAGES_BRANCH == 'main') { // is a prod build
+  if (CF_PAGES_BRANCH == 'prod') { // is a prod build
     Sentry.init({
       dsn: SENTRY_DSN,
       tracesSampleRate: 1.0,
