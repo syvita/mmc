@@ -40,7 +40,7 @@ const Register = () => {
         if (minerCount == null) {
             return <button className={styles.minersButtonLoading}>Loading...</button>
         }
-        else if (minerCount >= 3) {
+        else if (minerCount >= minerThreshold) {
             return <button className={styles.minersButtonActivated}>activated</button>
         }
         else {
