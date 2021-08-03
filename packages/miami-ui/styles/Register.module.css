@@ -1,81 +1,4 @@
 .register {
-<<<<<<< Updated upstream
- margin-top: 243px;
- margin: auto;
- max-width: 800px;
-}
-
-.h2 {
-font-weight: 500;
-font-size: 50px;
-line-height: 130%;  
-text-align: center;
-    margin-top: 225px;
-}
-
-.register p {
-    text-align: center;
-}
-
-.registerMiner {
-    display: flex;
-    flex-direction: column;
-    
-}
-
-.register button {
-    margin:auto;
-    margin-top: 40px;
-}
-
-.minersButton {
-all: unset;
-background: rgba(0, 0, 0, 0.1);
-border-radius: 16px;
-width: 529px;
-height: 30px;
-margin-bottom: 24px;
-text-align: center;
-background: linear-gradient(to left, #F5F5F7 75%, #00B9D1 2.5%);
-
-}
-
-.registerToMineButton {
-all: unset;
-background: #000000;
-border-radius: 10px;
-width: 529px;
-height: 30px;
-margin-bottom: 24px;
-text-align: center;
-color: #FFFFFF;
-cursor: pointer;
-}
-
-.minersButtonLoading {
-all: unset;
-background: rgba(0, 0, 0, 0.1);
-border-radius: 16px;
-width: 529px;
-height: 30px;
-margin-bottom: 24px;
-text-align: center;
-color: rgba(0, 0, 0, 0.6);
-
-}
-
-.minersButtonActivated {
-all: unset;
-background:  #FFB4F0;
-border-radius: 16px;
-width: 529px;
-height: 30px;
-margin-bottom: 24px;
-text-align: center;
-color: #FFFFFF;
-}
-
-=======
     margin-top: 243px;
     margin-left: 10%;
     margin-right: 10%;
@@ -124,7 +47,6 @@ color: #FFFFFF;
        border-radius: 0.25rem;
        margin-bottom: 24px;
        background: rgba(0, 0, 0, 0.1);
-        border-radius: 16px;
    }
    
    .minersButtonLoading {
@@ -149,4 +71,33 @@ color: #FFFFFF;
    text-align: center;
    color: #FFFFFF;
    }
->>>>>>> Stashed changes
+
+   .transaction {
+    margin-top: 243px;
+    margin: auto;
+    max-width: 800px;
+   }
+
+   .transaction img {
+       display: block;
+       margin: auto;
+           margin-top: 250px;
+   }
+   
+.transaction h2 {
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 130%;  
+    text-align: center;
+    margin-top: 16px;
+}
+
+.transaction a {
+    text-decoration: underline;
+    
+}
+
+.transaction p {
+    text-align: center;
+}
+
