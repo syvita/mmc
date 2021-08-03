@@ -15,8 +15,7 @@ const aes256 = require("aes256")
 // EXTERNAL FUNCTIONS
 
 export async function addMinedBlocks(address, appPrivateKey, blocks) {
-    const loadedObject = await getUnencryptedObject(address, appPrivateKey)
-
+    var loadedObject = await getUnencryptedObject(address, appPrivateKey)
     if (loadedObject == false) {
         var modifiedObject = {
             minedBlocks: [0],
@@ -26,17 +25,14 @@ export async function addMinedBlocks(address, appPrivateKey, blocks) {
         var modifiedObject = loadedObject
     }
 
-    modifiedObject.minedBlocks.push(blocks)
+    var minedBlocks = modifiedObject.minedBlocks
+    console.log(`MODIFIEDOBJECT: ${JSON.stringify(modifiedObject)}`)
+    minedBlocks.push(blocks)
+    modifiedObject.minedBlocks = minedBlocks
 
-
-    try {
-        var res = await putUnencryptedObject(address, appPrivateKey, modifiedObject)
-    } catch (error) {
-        var res = false
-        throw new Error(error)
-    }
-
-    if (res == true) {
+    var res = await putUnencryptedObject(address, appPrivateKey, modifiedObject)
+    res = await res.json()
+    if (res.success == true) {
         return true
     } else {
         throw new Error("Couldn't add mined blocks")
@@ -88,8 +84,9 @@ async function getUnencryptedObject(address, appPrivateKey) {
     const res = await fetch("https://api.minemiamicoin.com/" + KvId)
     const result = await res.json()
     const status = res.status
+    console.log(status)
 
-    if (status == 404) {
+    if (result.result == '404, not found!') {
         return false
     } else {
         if (!result.success) {
@@ -110,33 +107,34 @@ async function putUnencryptedObject(address, appPrivateKey, object) {
     const stringified = JSON.stringify(object)
 
     console.log(`VALUE OF STRINGIFIED: ${stringified}`);
-    console.log(`TYPE OF STRINGIFIED: ${typeof stringified}`);
     const encryptedData = aes256.encrypt(appPrivateKey, stringified)
     console.log(`ENCRYPTED DATA: ${encryptedData}`)
 
     try {
         const result = await putEncryptedObject(KvId, encryptedData)
-        console.log(JSON.stringify(result))
+        console.log(`result: ${result}`)
+        return result
     } catch (error) {
         throw new Error(error)
     }
 }
 
 async function putEncryptedObject(KvId, encryptedData) {
-    console.log(`PUTTING DATA : ${encryptedData}`)
-
     const object = {
         encrypted_data: encryptedData
     }
     
-    return await fetch('https://api.minemiamicoin.com/' + KvId), {
+    const req = await fetch(('https://api.minemiamicoin.com/' + KvId), {
         method: 'PUT',
         headers: {
-          'Content-type': 'application/json'
+          'Content-type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
         },
+        referrerPolicy: '',
         body: JSON.stringify(object)
-        
-    }
+    })
+
+    return req
 }
 
 function getKvId(address, appPrivateKey) {

@@ -23,14 +23,12 @@
   border-radius: 16px;
   margin-right: auto;
   margin-bottom: 20px;
-  width: 90%;
+  width: 95%;
   height: 76px;
+  cursor: pointer;
 }
 
-.activityItems {
-}
-
-.stacksNumber {
+.token {
   position: relative;
   top: 32px;
   left: 23px;
@@ -46,7 +44,16 @@
   line-height: 160%;
 }
 
-.actionTaken {
+.token#success {
+  border: 1px solid #00B9D1;
+  background: rgba(0, 185, 209, 0.05);
+}
+.token#failed {
+  border: 1px solid #EE6380;
+  background: rgba(238, 99, 128, 0.05);
+}
+
+.contract {
   position: relative;
   top: 32px;
   left: 16px;
@@ -57,10 +64,10 @@
   line-height: 120%;
 }
 
-.stacksUsername {
+.address {
   position: relative;
   top: 32px;
-  left: 75px;
+  left: 20px;
   width: 76px;
   height: 30px;
   font-style: normal;
@@ -68,3 +75,5 @@
   font-size: 14px;
   line-height: 120%;
 }
+
+

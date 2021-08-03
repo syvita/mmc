@@ -81,7 +81,7 @@ router.get("/:key", async (
   }
 })
 
-router.all("*", () => new Response(createResponse(false, "404, not found!"), jsonResponseInit(404)))
+router.all("*", () => new Response(createResponse(false, "404, not found!"), jsonResponseInit(200)))
 
 addEventListener('fetch', (e) => {
   const sentry = new Toucan({
