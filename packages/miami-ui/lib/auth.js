@@ -19,9 +19,7 @@ export const useConnect = () => {
   const onFinish = async payload => {
     setAuthResponse(payload.authResponse);
     const userData = await payload.userSession.loadUserData();
-    setUserData(userData);
-    Router.reload(window.location.pathname);
-      
+    setUserData(userData);      
   };
 
   const authOptions = {

@@ -1,4 +1,5 @@
 .register {
+<<<<<<< Updated upstream
  margin-top: 243px;
  margin: auto;
  max-width: 800px;
@@ -74,3 +75,78 @@ text-align: center;
 color: #FFFFFF;
 }
 
+=======
+    margin-top: 243px;
+    margin-left: 10%;
+    margin-right: 10%;
+    max-width: 529px;
+   }
+   
+   .h2 {
+   font-weight: 500;
+   font-size: 24px;
+   line-height: 130%;  
+   }
+   
+   .registerMiner {
+       display: flex;
+       flex-direction: column;
+       
+   }
+   
+   
+   .registerToMineButton {
+   all: unset;
+   background: #000000;
+   border-radius: 10px;
+   width: 529px;
+   height: 30px;
+   text-align: center;
+   color: #FFFFFF;
+   cursor: pointer;
+   }
+   
+   .progressBar {
+       all: unset;
+       color: white;
+       text-align: center;
+       white-space: nowrap;
+       background: #00B9D1;
+       border-radius: 16px;
+   }
+   .progressBar div{
+       position: relative;
+       top: 4px;
+   }
+   .progress {
+       display: flex;
+       height: 30px;
+       border-radius: 0.25rem;
+       margin-bottom: 24px;
+       background: rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+   }
+   
+   .minersButtonLoading {
+       all: unset;
+       background: rgba(0, 0, 0, 0.1);
+       border-radius: 16px;
+       width: 529px;
+       height: 30px;
+       margin-bottom: 24px;
+       text-align: center;
+       color: rgba(0, 0, 0, 0.6);
+   
+   }
+   
+   .minersButtonActivated {
+   all: unset;
+   background:  #FFB4F0;
+   border-radius: 16px;
+   width: 529px;
+   height: 30px;
+   margin-bottom: 24px;
+   text-align: center;
+   color: #FFFFFF;
+   }
+>>>>>>> Stashed changes
