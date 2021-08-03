@@ -3,7 +3,7 @@ import styles from '../../../styles/DifferentPrice.module.css';
 import { userSessionState } from '../../../lib/auth';
 import { useConnect } from '@stacks/connect-react';
 import { useAtom } from 'jotai';
-import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME } from "../../../lib/constants";
+import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, NETWORK_STRING } from "../../../lib/constants";
 import { FungibleConditionCode, listCV, makeStandardSTXPostCondition, PostConditionMode, uintCV, } from '@stacks/transactions';
 
 const DifferentPrice = () => {
@@ -11,7 +11,14 @@ const DifferentPrice = () => {
   const inputs = [];
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
-  const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+  let STXAddress = '';
+
+  if (NETWORK_STRING == 'mainnet') {
+    STXAddress = userSession.loadUserData().profile.stxAddress.mainnet;
+  } else {
+    STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+  }
+ 
 
 
   for (let i = 1; i <= blocksToMine; i++) {
