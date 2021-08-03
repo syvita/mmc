@@ -47,6 +47,7 @@ cursor: pointer;
     border-radius: 0.25rem;
     margin-bottom: 24px;
     background: rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
 }
 
 .minersButtonLoading {

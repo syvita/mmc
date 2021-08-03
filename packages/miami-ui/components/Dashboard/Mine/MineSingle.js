@@ -14,9 +14,9 @@ import {
   PostConditionMode,
   FungibleConditionCode,
   AnchorMode,
-} from '@stacks/transactions';
+} from '@syvita/transactions';
 import { userSessionState } from '../../../lib/auth';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@syvita/connect-react';
 import { useAtom } from 'jotai';
 import { addMinedBlocks } from '../../../lib/kv';
 

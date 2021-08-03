@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from '../../../styles/DifferentPrice.module.css';
 import { userSessionState } from '../../../lib/auth';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@syvita/connect-react';
 import { useAtom } from 'jotai';
 import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, NETWORK_STRING } from "../../../lib/constants";
 import { FungibleConditionCode, listCV, makeStandardSTXPostCondition, PostConditionMode, uintCV, } from '@stacks/transactions';

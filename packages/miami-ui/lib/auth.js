@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
-import { AppConfig, UserSession } from '@stacks/connect-react';
-import { showConnect } from '@stacks/connect';
+import { AppConfig, UserSession } from '@syvita/connect-react';
+import { showConnect } from '@syvita/connect';
 import { atom, useAtom } from 'jotai';
 import { useUpdateAtom } from 'jotai/utils';
-import { getUserData } from '@stacks/connect-react';
 import Router from "next/router";
 
 const appConfig = new AppConfig(['store_write', 'publish_data']);

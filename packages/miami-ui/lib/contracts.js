@@ -1,4 +1,4 @@
-import { callReadOnlyFunction, standardPrincipalCV } from "@stacks/transactions";
+import { callReadOnlyFunction, standardPrincipalCV } from "@syvita/transactions";
 import { GENESIS_CONTRACT_ADDRESS, NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, CITY_COIN_TOKEN_CONTRACT_NAME } from "./constants";
 
 export async function getRegisteredMinerCount() {
