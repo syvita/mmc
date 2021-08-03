@@ -5,6 +5,7 @@ import {
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   API_BASE_NET_URL,
+  NETWORK_STRING
 } from '../../../lib/constants';
 import {
   uintCV,
