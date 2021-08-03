@@ -113,6 +113,7 @@ export default function Dashboard() {
       {renderedComponent === 'Stack' && <Stack />}
       {renderedComponent === 'Redeem' && <Redeem />}
 
+
       {/* <Mine /> */}
       {/* <MineSingle /> */}
       {/* <MineMany /> */}

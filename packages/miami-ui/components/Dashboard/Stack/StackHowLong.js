@@ -4,7 +4,7 @@ import {
   FungibleConditionCode,
   createAssetInfo,
   makeStandardFungiblePostCondition,
-} from '@stacks/transactions';
+} from '@syvita/transactions';
 import {
   NETWORK,
   CITY_COIN_CORE_ADDRESS,
@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { userSessionState } from '../../../lib/auth';
 import { getCoinBalance } from '../../../lib/contracts';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@syvita/connect-react';
 
 const StackHowLong = () => {
   const [cycles, setCycles] = useState();
