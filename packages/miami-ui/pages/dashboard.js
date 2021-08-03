@@ -9,6 +9,7 @@ import { userSessionState } from '../lib/auth';
 import { useAtom } from 'jotai';
 import Router from "next/router";
 
+
 export default function Dashboard() {
   const [renderedComponent, setRenderedComponent] = useState('Register');
   const [userSession] = useAtom(userSessionState);
@@ -23,10 +24,10 @@ export default function Dashboard() {
     <div className={styles.dashboard}>
       <div>
         <div className={styles.Title}>
-          <h1>Dashboard</h1>
+          {/* <h1>Dashboard</h1> */}
         </div>
         <nav className={styles.Navigation}>
-          <div>
+          {/* <div>
             <a>
               <button
                 style={
@@ -114,7 +115,7 @@ export default function Dashboard() {
               </button>
             </a>
           </div>
-          <ActivityFeed />
+          <ActivityFeed /> */}
         </nav>
       </div>
           
@@ -122,6 +123,7 @@ export default function Dashboard() {
       {renderedComponent === 'Mine' && <Mine />}
       {renderedComponent === 'Stack' && <Stack />}
       {renderedComponent === 'Redeem' && <Redeem />}
+
 
       {/* <Mine /> */}
       {/* <MineSingle /> */}
