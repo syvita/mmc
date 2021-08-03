@@ -1,12 +1,12 @@
 import styles from '../../styles/ActivityFeed.module.css'
-import { CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME } from "../../lib/constants";
+import { CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, API_BASE_NET_URL, NETWORK_STRING } from "../../lib/constants";
 import { useState, useEffect } from 'react';
 
 const ActivityFeed = () => {
-    const url = ('https://stacks-node-api.testnet.stacks.co/extended/v1/address/' +
-        CITY_COIN_CORE_ADDRESS + '.'
-        + CITY_COIN_CORE_CONTRACT_NAME
-        + '/transactions?limit=5')
+    const url = (API_BASE_NET_URL + 'extended/v1/address/'+
+    CITY_COIN_CORE_ADDRESS + '.'
+    + CITY_COIN_CORE_CONTRACT_NAME
+    + '/transactions?limit=5')
     
     const [transactionData, setTransactionData] = useState();
 
@@ -77,7 +77,7 @@ const ActivityFeed = () => {
                 default:
                     transaction.contract_call = 'Undefined';
             }
-            const url = `https://explorer.stacks.co/txid/${transaction.tx_id}?chain=testnet`
+            const url = `https://explorer.stacks.co/txid/${transaction.tx_id}?chain=${NETWORK_STRING}`
             activityElements.push(
                 <a href={url} target="_blank" rel="noopener noreferrer">
                 <div>

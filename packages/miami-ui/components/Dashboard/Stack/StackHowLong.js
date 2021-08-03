@@ -7,6 +7,7 @@ import {
 } from '@stacks/transactions';
 import {
   NETWORK,
+  NETWORK_STRING,
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   CITY_COIN_TOKEN_CONTRACT_NAME,
@@ -23,8 +24,16 @@ const StackHowLong = () => {
   const [cycles, setCycles] = useState();
   const [balance, setBalance] = useState(0);
   const [userSession] = useAtom(userSessionState);
-  const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
   const { doContractCall } = useConnect();
+  const [txId, setTxId] = useState();
+
+  let STXAddress = '';
+
+  if (NETWORK_STRING == 'mainnet') {
+    STXAddress = userSession.loadUserData().profile.stxAddress.mainnet;
+  } else {
+    STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+  }
 
   useEffect(() => {
     getCoinBalance(STXAddress).then((result) => setBalance(result));
@@ -52,6 +61,10 @@ const StackHowLong = () => {
         ),
       ],
       network: NETWORK,
+      onFinish: result => {
+        console.log(result.txId)
+        setTxId(result.txId);
+        },
     });
   }
 
