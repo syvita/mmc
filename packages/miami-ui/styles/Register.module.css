@@ -17,17 +17,6 @@ line-height: 130%;
     
 }
 
-.minersButton {
-all: unset;
-background: rgba(0, 0, 0, 0.1);
-border-radius: 16px;
-width: 529px;
-height: 30px;
-margin-bottom: 24px;
-text-align: center;
-background: linear-gradient(to left, #F5F5F7 75%, #00B9D1 2.5%);
-
-}
 
 .registerToMineButton {
 all: unset;
@@ -35,21 +24,40 @@ background: #000000;
 border-radius: 10px;
 width: 529px;
 height: 30px;
-margin-bottom: 24px;
 text-align: center;
 color: #FFFFFF;
 cursor: pointer;
 }
 
+.progressBar {
+    all: unset;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    background: #00B9D1;
+    border-radius: 16px;
+}
+.progressBar div{
+    position: relative;
+    top: 4px;
+}
+.progress {
+    display: flex;
+    height: 30px;
+    border-radius: 0.25rem;
+    margin-bottom: 24px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
 .minersButtonLoading {
-all: unset;
-background: rgba(0, 0, 0, 0.1);
-border-radius: 16px;
-width: 529px;
-height: 30px;
-margin-bottom: 24px;
-text-align: center;
-color: rgba(0, 0, 0, 0.6);
+    all: unset;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    width: 529px;
+    height: 30px;
+    margin-bottom: 24px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.6);
 
 }
 
