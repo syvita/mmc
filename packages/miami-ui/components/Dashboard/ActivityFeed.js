@@ -6,7 +6,7 @@ const ActivityFeed = () => {
     const url = ('https://stacks-node-api.testnet.stacks.co/extended/v1/address/' +
         CITY_COIN_CORE_ADDRESS + '.'
         + CITY_COIN_CORE_CONTRACT_NAME
-        + '/transactions?limit=6')
+        + '/transactions?limit=5')
     
     const [transactionData, setTransactionData] = useState();
 
