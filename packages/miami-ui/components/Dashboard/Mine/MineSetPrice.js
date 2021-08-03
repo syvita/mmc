@@ -11,6 +11,7 @@ const DifferentPrice = () => {
   const inputs = [];
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
+  const [txId, setTxId] = useState();
   let STXAddress = '';
 
   if (NETWORK_STRING == 'mainnet') {
@@ -54,7 +55,14 @@ const DifferentPrice = () => {
     }
     mineManyArray = listCV(mineManyArray);
     
-    await doContractCall({
+    const res = await fetch(
+      API_BASE_NET_URL + 'v2/info'
+    );
+    const result = await res.json();
+    const blockHeight = result.stacks_tip_height;
+
+    await doContractCall(
+      {
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
       functionName: 'mine-many',
@@ -68,6 +76,11 @@ const DifferentPrice = () => {
         ),
       ],
       network: NETWORK,
+      onFinish: (data) => {
+        console.log(`TRANSACTION DATA: ${json}`);
+        setTxId(data.txId);
+        addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
+      },
     });
   }
   
