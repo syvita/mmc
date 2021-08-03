@@ -1,5 +1,17 @@
-import { uintCV, PostConditionMode, FungibleConditionCode, createAssetInfo, makeStandardFungiblePostCondition } from '@stacks/transactions';
-import { NETWORK, CITY_COIN_CORE_ADDRESS, CITY_COIN_CORE_CONTRACT_NAME, CITY_COIN_TOKEN_CONTRACT_NAME, CC_NAME } from "../../../lib/constants";
+import {
+  uintCV,
+  PostConditionMode,
+  FungibleConditionCode,
+  createAssetInfo,
+  makeStandardFungiblePostCondition,
+} from '@stacks/transactions';
+import {
+  NETWORK,
+  CITY_COIN_CORE_ADDRESS,
+  CITY_COIN_CORE_CONTRACT_NAME,
+  CITY_COIN_TOKEN_CONTRACT_NAME,
+  CC_NAME,
+} from '../../../lib/constants';
 import styles from '../../../styles/StackHowLong.module.css';
 import { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
@@ -8,21 +20,18 @@ import { getCoinBalance } from '../../../lib/contracts';
 import { useConnect } from '@stacks/connect-react';
 
 const StackHowLong = () => {
-
-  const [cycles, setCycles] = useState()
-  const [ balance, setBalance ] = useState(0);
+  const [cycles, setCycles] = useState();
+  const [balance, setBalance] = useState(0);
   const [userSession] = useAtom(userSessionState);
   const STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
   const { doContractCall } = useConnect();
 
   useEffect(() => {
-    getCoinBalance(STXAddress).then(result => setBalance(result))
-  }, [])
-  
+    getCoinBalance(STXAddress).then((result) => setBalance(result));
+  }, []);
+
   async function stackCoins() {
-    const coinAmount = 10000 // We pass this in from prev component StackHowMany @DIO
-
-
+    const coinAmount = 10000; // We pass this in from prev component StackHowMany @DIO
 
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
@@ -35,12 +44,16 @@ const StackHowLong = () => {
           STXAddress,
           FungibleConditionCode.Equal,
           uintCV(coinAmount).value,
-          createAssetInfo(CITY_COIN_CORE_ADDRESS, CITY_COIN_TOKEN_CONTRACT_NAME, CC_NAME)
+          createAssetInfo(
+            CITY_COIN_CORE_ADDRESS,
+            CITY_COIN_TOKEN_CONTRACT_NAME,
+            CC_NAME
+          )
         ),
       ],
       network: NETWORK,
     });
-  };
+  }
 
   return (
     <div className={styles.stack}>
@@ -50,10 +63,15 @@ const StackHowLong = () => {
         blocks long (just over 2 weeks).
       </p>
       <div className={styles.howManyCycles}>
-        <input onChange={ event => setCycles(event.target.value) } placeholder="How many cycles?" type="number" />
-        <button onClick={ stackCoins } className={styles.transactionButton}>Send Transaction</button>
+        <input
+          onChange={(event) => setCycles(event.target.value)}
+          placeholder="How many cycles?"
+          type="number"
+        />
+        <button onClick={stackCoins} className={styles.transactionButton}>
+          Send Transaction
+        </button>
       </div>
-      {balance}
     </div>
   );
 };

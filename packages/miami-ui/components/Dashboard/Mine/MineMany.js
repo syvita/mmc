@@ -2,7 +2,6 @@ import styles from '../../../styles/MineMany.module.css';
 import { useState } from 'react';
 
 const MineMany = ({ setState }) => {
-
   const [blocksToMine, setBlocksToMine] = useState();
   localStorage.setItem('blocksToMine', blocksToMine);
 
@@ -14,10 +13,20 @@ const MineMany = ({ setState }) => {
         Warning: using over 150 blocks may cause the transaction to fail.
       </button>
       <div className={styles.blockNumbers}>
-        <input onChange={ event => setBlocksToMine(event.target.value) } placeholder="Up to 200" type="number" />
-        <button onClick={() => { setState("MineSetPrice") }} className={styles.continue}>Continue</button>
+        <input
+          onChange={(event) => setBlocksToMine(event.target.value)}
+          placeholder="Up to 200"
+          type="number"
+        />
+        <button
+          onClick={() => {
+            setState('MineSetPrice');
+          }}
+          className={styles.continue}
+        >
+          Continue
+        </button>
       </div>
-      {blocksToMine}
     </div>
   );
 };

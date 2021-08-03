@@ -3,11 +3,12 @@
   color: black;
   background-color: red;
   width: 35%;
+  height: 625px;
   max-width: 375px;
   display: flex;
   flex-direction: column;
   left: 80%;
-  margin-top: 3%;
+  margin-top: 3.5%;
   right: 2%;
   border-radius: 16px;
   background: rgba(0, 0, 0, 0.05);
@@ -21,19 +22,19 @@
 .activity div {
   background: rgba(255, 255, 255, 0.5);
   border-radius: 16px;
-  margin-right: auto;
-  margin-bottom: 20px;
-  width: 95%;
-  height: 76px;
+  margin-bottom: 7px;
+  margin-left: 12px;
+  width: 100%;
+  height: 90px;
   cursor: pointer;
 }
 
 .token {
   position: relative;
-  top: 32px;
-  left: 23px;
+  display: inline-block;
+  top: 30px;
+  left: 5px;
   padding: 4px 8px 0px;
-  width: 69px;
   height: 30px;
   background: rgba(247, 198, 0, 0.05);
   border: 1px solid #f7c600;
@@ -45,19 +46,19 @@
 }
 
 .token#success {
-  border: 1px solid #00B9D1;
+  border: 1px solid #00b9d1;
   background: rgba(0, 185, 209, 0.05);
 }
 .token#failed {
-  border: 1px solid #EE6380;
+  border: 1px solid #ee6380;
   background: rgba(238, 99, 128, 0.05);
 }
 
 .contract {
   position: relative;
-  top: 32px;
-  left: 16px;
-  width: 120px;
+  display: inline-block;
+  top: 30px;
+  left: 5px;
   height: 30px;
   font-weight: 500;
   font-size: 14px;
@@ -66,14 +67,13 @@
 
 .address {
   position: relative;
-  top: 32px;
-  left: 20px;
-  width: 76px;
+  display: inline-block;
+  text-align: right;
+  width: 100%;
   height: 30px;
+  right: 5px;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 120%;
 }
-
-
