@@ -1,15 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/Dashboard.module.css';
 import Register from '../components/Dashboard/Register';
 import Mine from '../components/Dashboard/Mine';
 import Stack from '../components/Dashboard/Stack';
 import Redeem from '../components/Dashboard/Redeem';
 import ActivityFeed from '../components/Dashboard/ActivityFeed';
+import { userSessionState } from '../lib/auth';
+import { useAtom } from 'jotai';
+import Router from "next/router";
 
 export default function Dashboard() {
   const [renderedComponent, setRenderedComponent] = useState('Register');
+  const [userSession] = useAtom(userSessionState);
 
-  const test = 'menuButton';
+  useEffect(() => {
+    if (userSession.isUserSignedIn() == false) {
+      Router.push("/");
+    }
+  }, [])
+
   return (
     <div className={styles.dashboard}>
       <div>
@@ -108,7 +117,7 @@ export default function Dashboard() {
           <ActivityFeed />
         </nav>
       </div>
-
+          
       {renderedComponent === 'Register' && <Register />}
       {renderedComponent === 'Mine' && <Mine />}
       {renderedComponent === 'Stack' && <Stack />}

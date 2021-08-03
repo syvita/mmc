@@ -50,6 +50,10 @@
   text-transform: capitalize;
 }
 
+.walletButton:hover {
+  background-color:  #282C35;
+}
+
 .launchButton {
   all: unset;
   text-align: center;
@@ -77,7 +81,7 @@
 
   .buttons div {
     padding: 5px;
-    margin-botttom: 20px;
+    margin-bottom: 20px;
   }
 
   .walletButton {
