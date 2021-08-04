@@ -99,6 +99,7 @@ const MineSingle = () => {
       <p>Enter how much you’d like to spend.</p>
       <div className={styles.transactionToSend}>
         <input
+          onWheel={(e) => e.target.blur()}
           onChange={(event) => setSTXAmount(event.target.value)}
           placeholder="How many STX?"
           type="number"
