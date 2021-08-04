@@ -18,7 +18,7 @@ const ActivityFeed = () => {
         CITY_COIN_CORE_ADDRESS +
         "." +
         CITY_COIN_CORE_CONTRACT_NAME +
-        "/transactions?limit=5";
+        "/transactions?limit=6";
       const res = await fetch(url);
       const result = await res.json();
       return result;
