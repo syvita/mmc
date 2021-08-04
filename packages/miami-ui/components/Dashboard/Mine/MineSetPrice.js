@@ -107,7 +107,6 @@ const DifferentPrice = () => {
         );
         console.log("TRANSACTION FINISHED " + json);
         const minedBlocks = [];
-        console.log(blockHeight);
 
         for (let i = 0; i < blocksToMine; i++) {
           minedBlocks.push(blockHeight + i);

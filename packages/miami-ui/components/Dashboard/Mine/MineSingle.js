@@ -87,8 +87,6 @@ const MineSingle = () => {
     const Status = ({ txId }) => {
       <div>{txId}</div>;
     };
-
-    console.log(appPrivateKey);
   }
 
   return txId ? (
