@@ -22,7 +22,6 @@ import { addMinedBlocks } from "../../../lib/kv";
 
 const MineSingle = () => {
   const [STXAmount, setSTXAmount] = useState();
-  const [txId, setTxId] = useState();
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
 
@@ -58,7 +57,11 @@ const MineSingle = () => {
       ],
       network: NETWORK,
       onFinish: (data) => {
-        setTxId(data.txId);
+        const json = JSON.stringify(data, (key, value) =>
+          typeof value === "bigint" ? value.toString() + "n" : value
+        );
+        console.log("TRANSACTION FINISHED " + json);
+        console.log("ON FINSIH");
         addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
       },
     });

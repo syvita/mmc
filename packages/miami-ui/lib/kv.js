@@ -5,21 +5,24 @@ const aes256 = require("aes256");
 
 export async function addMinedBlocks(address, appPrivateKey, blocks) {
   var loadedObject = await getUnencryptedObject(address, appPrivateKey);
-  if (loadedObject == false) {
+  if (loadedObject.minedBlocks == {}) {
     var modifiedObject = {
       minedBlocks: [],
       stackedCycles: [],
     };
   } else {
-    var modifiedObject = loadedObject;
+    modifiedObject = loadedObject;
   }
-  var minedBlocks = modifiedObject.minedBlocks;
-  minedBlocks.push(blocks);
-  modifiedObject.minedBlocks = minedBlocks;
+  modifiedObject.minedBlocks.push(blocks);
+  modifiedObject.minedBlocks.flat();
+  // console.log("MINED BLOCKS 1 " + JSON.stringify(minedBlocks));
+
+  console.log("PUT " + JSON.stringify(modifiedObject));
 
   var res = await putUnencryptedObject(address, appPrivateKey, modifiedObject);
   res = await res.json();
   if (res.success == true) {
+    console.log("KV SUCCESSFUL");
     return true;
   } else {
     throw new Error("Couldn't add mined blocks");
@@ -38,11 +41,15 @@ export async function addStackedCycles(address, appPrivateKey, cycles) {
   }
   var stackedCycles = modifiedObject.stackedCycles;
   stackedCycles.push(cycles);
-  modifiedObject.stackedCycles = stackedCycles;
 
+  modifiedObject.stackedCycles = stackedCycles.flat().filter(Number);
+  modifiedObject.stackedCycles = stackedCycles.filter((int, index) => {
+    return stackedCycles.indexOf(int) == index;
+  });
   var res = await putUnencryptedObject(address, appPrivateKey, modifiedObject);
   res = await res.json();
   if (res.success == true) {
+    console.log("KV SUCCESSFUL");
     return true;
   } else {
     throw new Error("Couldn't add stacked cycles");
@@ -73,7 +80,7 @@ async function getUnencryptedObject(address, appPrivateKey) {
       throw new Error(result.result);
     } else {
       const encryptedData = result.result.encrypted_data;
-      console.log(`got encrypted data: ${encryptedData}`);
+      // console.log(`got encrypted data: ${encryptedData}`);
       const decryptedData = aes256.decrypt(appPrivateKey, encryptedData);
       return JSON.parse(decryptedData);
     }
@@ -85,11 +92,11 @@ async function putUnencryptedObject(address, appPrivateKey, object) {
   // encrypt object
   const stringified = JSON.stringify(object);
   const encryptedData = aes256.encrypt(appPrivateKey, stringified);
-  console.log(`putting ENCRYPTED DATA: ${encryptedData}`);
+  // console.log(`putting ENCRYPTED DATA: ${encryptedData}`);
 
   try {
     const result = await putEncryptedObject(KvId, encryptedData);
-    console.log(`put result: ${JSON.stringify(result)}`);
+    // console.log(`put result: ${JSON.stringify(result)}`);
     return result;
   } catch (error) {
     throw new Error(error);
@@ -116,6 +123,6 @@ async function putEncryptedObject(KvId, encryptedData) {
 
 function getKvId(address, appPrivateKey) {
   const hash = sha256(`${address}${appPrivateKey}`);
-  console.log(hash);
+  // console.log(hash);
   return hash;
 }

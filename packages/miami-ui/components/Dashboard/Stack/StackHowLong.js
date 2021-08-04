@@ -4,6 +4,7 @@ import {
   FungibleConditionCode,
   createAssetInfo,
   makeStandardFungiblePostCondition,
+  callReadOnlyFunction,
 } from "@syvita/transactions";
 import {
   NETWORK,
@@ -12,6 +13,7 @@ import {
   CITY_COIN_TOKEN_CONTRACT_NAME,
   CC_NAME,
   NETWORK_STRING,
+  API_BASE_NET_URL,
 } from "../../../lib/constants";
 import styles from "../../../styles/StackHowLong.module.css";
 import { useState, useEffect } from "react";
@@ -42,25 +44,32 @@ const StackHowLong = () => {
   //   getCoinBalance(STXAddress).then((result) => setBalance(result));
   // }, []);
 
-  // useEffect(() => {
-  //   getCurrentCycle().then((result) => setCurrentCycle(result));
-  // }, []);
+  useEffect(() => {
+    getCurrentCycle().then((result) => setCurrentCycle(result));
+  }, []);
 
-  // async function getCurrentCycle() {
-  //   // Calculated from block height
-  //   const url = "https://mainnet.syvita.org/extended/v1/block?limit=1";
-  //   const response = await fetch(url);
-  //   const result = await response.json();
+  async function getCurrentCycle() {
+    let res = await fetch(API_BASE_NET_URL + "v2/info");
+    let cycleData = await res.json();
+    const blockHeight = cycleData.stacks_tip_height;
 
-  //   const cycleLength = 2100;
-  //   const startingBlock = 668050;
-  //   const currentBlock = result.results[0].burn_block_height;
+    const result = await callReadOnlyFunction({
+      contractAddress: CITY_COIN_CORE_ADDRESS,
+      contractName: CITY_COIN_CORE_CONTRACT_NAME,
+      functionName: "get-reward-cycle",
+      functionArgs: [uintCV(blockHeight)],
+      network: NETWORK,
+      senderAddress: STXAddress,
+    });
+    console.log(blockHeight);
 
-  //   const totalCycleBlocks = currentBlock - startingBlock;
-  //   const currentCycle = Math.floor(totalCycleBlocks / cycleLength) + 1;
+    // const json = JSON.stringify(result, (key, value) =>
+    //   typeof value === "bigint" ? value.toString() + "n" : value
+    // );
+    // console.log(json);
 
-  //   return currentCycle;
-  // }
+    return parseInt(result.value.value);
+  }
 
   async function stackCoins() {
     const coinAmount = 10000; // We pass this in from prev component StackHowMany @DIO
@@ -83,10 +92,19 @@ const StackHowLong = () => {
           )
         ),
       ],
-      onFinish: () => {
-        addStackedCycles(STXAddress, appPrivateKey, cycles);
-      },
       network: NETWORK,
+      onFinish: () => {
+        const stackedCycles = [];
+        console.log("STACKED CYCLES");
+
+        for (let i = 0; i < cycles; i++) {
+          console.log("LOOP " + i);
+          stackedCycles.push(parseInt(currentCycle) + 1 + i);
+        }
+
+        console.log("STACKED CYCLES " + stackedCycles);
+        addStackedCycles(STXAddress, appPrivateKey, stackedCycles);
+      },
     });
   }
 

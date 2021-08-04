@@ -24,7 +24,6 @@ const DifferentPrice = () => {
   const inputs = [];
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
-  const [txId, setTxId] = useState();
   let STXAddress = "";
   const userData = userSession.loadUserData();
   const appPrivateKey = userData.appPrivateKey;
@@ -86,8 +85,18 @@ const DifferentPrice = () => {
       ],
       network: NETWORK,
       onFinish: (data) => {
-        setTxId(data.txId);
-        addMinedBlocks(STXAddress, appPrivateKey, blockHeight + blocksToMine);
+        const json = JSON.stringify(data, (key, value) =>
+          typeof value === "bigint" ? value.toString() + "n" : value
+        );
+        console.log("TRANSACTION FINISHED " + json);
+        const minedBlocks = [];
+        console.log(blockHeight);
+
+        for (let i = 0; i < blocksToMine; i++) {
+          minedBlocks.push(blockHeight + i);
+        }
+        console.log("MINED BLOCKS " + minedBlocks);
+        addMinedBlocks(STXAddress, appPrivateKey, minedBlocks);
       },
     });
   }
