@@ -6,7 +6,7 @@ const NavLinks = (props) => {
   const { handleOpenAuth } = useConnect();
   const { handleSignOut } = useConnect();
   const [userSession] = useAtom(userSessionState);
-  
+
   return (
     <div>
       <Link href="/about" passHref={true}>

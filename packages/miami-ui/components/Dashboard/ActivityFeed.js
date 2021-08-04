@@ -1,20 +1,20 @@
-import styles from "../../styles/ActivityFeed.module.css";
+import styles from '../../styles/ActivityFeed.module.css';
 import {
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   API_BASE_NET_URL,
   NETWORK_STRING,
-} from "../../lib/constants";
-import { useState, useEffect } from "react";
+} from '../../lib/constants';
+import { useState, useEffect } from 'react';
 
 const ActivityFeed = () => {
   const url =
     API_BASE_NET_URL +
-    "extended/v1/address/" +
+    'extended/v1/address/' +
     CITY_COIN_CORE_ADDRESS +
-    "." +
+    '.' +
     CITY_COIN_CORE_CONTRACT_NAME +
-    "/transactions?limit=5";
+    '/transactions?limit=6';
 
   const [transactionData, setTransactionData] = useState();
 
@@ -31,19 +31,19 @@ const ActivityFeed = () => {
   const activityElements = [];
 
   function getTokenType(contract) {
-    let type = "";
+    let type = '';
     switch (contract) {
-      case "stack-tokens":
-        type = "$MIA";
+      case 'stack-tokens':
+        type = '$MIA';
         break;
       default:
-        type = "STX";
+        type = 'STX';
     }
     return type;
   }
 
   if (transactionData != null) {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       const activity = transactionData[i];
       const transaction = {
         tx_id: activity.tx_id,
@@ -53,49 +53,49 @@ const ActivityFeed = () => {
         type: getTokenType(activity.contract_call.function_name),
 
         amount:
-          activity.contract_call.function_name == "register-user"
+          activity.contract_call.function_name == 'register-user'
             ? 0
             : activity.post_conditions[0].amount,
       };
-      if (transaction.type == "STX")
+      if (transaction.type == 'STX')
         transaction.amount = transaction.amount / 1000000;
       if (transaction.sender_address.length > 14)
         transaction.sender_address =
-          transaction.sender_address.substring(0, 14) + "...";
+          transaction.sender_address.substring(0, 14) + '...';
 
-      let status = "";
+      let status = '';
       switch (transaction.tx_status) {
-        case "success":
+        case 'success':
           status = styles.success;
           break;
-        case "pending":
+        case 'pending':
           status = style.pending;
         default:
           status = styles.failed;
       }
       switch (transaction.contract_call) {
-        case "mine-tokens":
-        case "mine-many":
-          transaction.contract_call = "Mine";
+        case 'mine-tokens':
+        case 'mine-many':
+          transaction.contract_call = 'Mine';
           break;
-        case "claim-mining-reward":
-        case "claim-stacking-reward":
-          transaction.contract_call = "Redeem";
+        case 'claim-mining-reward':
+        case 'claim-stacking-reward':
+          transaction.contract_call = 'Redeem';
           break;
-        case "register-user":
-          transaction.contract_call = "Register";
+        case 'register-user':
+          transaction.contract_call = 'Register';
           break;
-        case "shutdown-contract":
-          transaction.contract_call = "Shutdown";
+        case 'shutdown-contract':
+          transaction.contract_call = 'Shutdown';
           break;
-        case "set-city-wallet":
-          transaction.contract_call = "City";
+        case 'set-city-wallet':
+          transaction.contract_call = 'City';
           break;
-        case "stack-tokens":
-          transaction.contract_call = "Stack";
+        case 'stack-tokens':
+          transaction.contract_call = 'Stack';
           break;
         default:
-          transaction.contract_call = "Undefined";
+          transaction.contract_call = 'Undefined';
       }
 
       const url = `https://explorer.stacks.co/txid/${transaction.tx_id}?chain=${NETWORK_STRING}`;
@@ -103,7 +103,7 @@ const ActivityFeed = () => {
         <a href={url} target="_blank" rel="noopener noreferrer">
           <div>
             <a id={status} className={styles.token}>
-              {transaction.amount + " " + transaction.type}
+              {transaction.amount + ' ' + transaction.type}
             </a>
             <a className={styles.contract}>{transaction.contract_call}</a>
             <a className={styles.address}>{transaction.sender_address}</a>
