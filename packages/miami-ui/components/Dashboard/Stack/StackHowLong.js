@@ -44,69 +44,69 @@ const StackHowLong = () => {
   //   getCoinBalance(STXAddress).then((result) => setBalance(result));
   // }, []);
 
-  useEffect(() => {
-    getCurrentCycle().then((result) => setCurrentCycle(result));
-  }, []);
+  // useEffect(() => {
+  //   async function getCurrentCycle() {
+  //     let res = await fetch(API_BASE_NET_URL + "v2/info");
+  //     let cycleData = await res.json();
+  //     const blockHeight = cycleData.stacks_tip_height;
 
-  async function getCurrentCycle() {
-    let res = await fetch(API_BASE_NET_URL + "v2/info");
-    let cycleData = await res.json();
-    const blockHeight = cycleData.stacks_tip_height;
+  //     const result = await callReadOnlyFunction({
+  //       contractAddress: CITY_COIN_CORE_ADDRESS,
+  //       contractName: CITY_COIN_CORE_CONTRACT_NAME,
+  //       functionName: "get-reward-cycle",
+  //       functionArgs: [uintCV(blockHeight)],
+  //       network: NETWORK,
+  //       senderAddress: STXAddress,
+  //     });
+  //     console.log(blockHeight);
 
-    const result = await callReadOnlyFunction({
-      contractAddress: CITY_COIN_CORE_ADDRESS,
-      contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: "get-reward-cycle",
-      functionArgs: [uintCV(blockHeight)],
-      network: NETWORK,
-      senderAddress: STXAddress,
-    });
-    console.log(blockHeight);
+  //     // const json = JSON.stringify(result, (key, value) =>
+  //     //   typeof value === "bigint" ? value.toString() + "n" : value
+  //     // );
+  //     // console.log(json);
 
-    // const json = JSON.stringify(result, (key, value) =>
-    //   typeof value === "bigint" ? value.toString() + "n" : value
-    // );
-    // console.log(json);
+  //     return parseInt(result.value.value);
+  //   }
 
-    return parseInt(result.value.value);
-  }
+  //   getCurrentCycle().then((result) => setCurrentCycle(result));
+  // }, []);
 
-  async function stackCoins() {
-    const coinAmount = 10000; // We pass this in from prev component StackHowMany @DIO
+  // async function stackCoins() {
+  //   const coinAmount = 10000; // We pass this in from prev component StackHowMany @DIO
 
-    await doContractCall({
-      contractAddress: CITY_COIN_CORE_ADDRESS,
-      contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: "stack-tokens",
-      functionArgs: [uintCV(coinAmount), uintCV(cycles)],
-      postConditionMode: PostConditionMode.Deny,
-      postConditions: [
-        makeStandardFungiblePostCondition(
-          STXAddress,
-          FungibleConditionCode.LessEqual,
-          uintCV(coinAmount).value,
-          createAssetInfo(
-            CITY_COIN_CORE_ADDRESS,
-            CITY_COIN_TOKEN_CONTRACT_NAME,
-            CC_NAME
-          )
-        ),
-      ],
-      network: NETWORK,
-      onFinish: () => {
-        const stackedCycles = [];
-        console.log("STACKED CYCLES");
+  //   await doContractCall({
+  //     contractAddress: CITY_COIN_CORE_ADDRESS,
+  //     contractName: CITY_COIN_CORE_CONTRACT_NAME,
+  //     functionName: "stack-tokens",
+  //     functionArgs: [uintCV(coinAmount), uintCV(cycles)],
+  //     postConditionMode: PostConditionMode.Deny,
+  //     postConditions: [
+  //       makeStandardFungiblePostCondition(
+  //         STXAddress,
+  //         FungibleConditionCode.LessEqual,
+  //         uintCV(coinAmount).value,
+  //         createAssetInfo(
+  //           CITY_COIN_CORE_ADDRESS,
+  //           CITY_COIN_TOKEN_CONTRACT_NAME,
+  //           CC_NAME
+  //         )
+  //       ),
+  //     ],
+  //     network: NETWORK,
+  //     onFinish: () => {
+  //       const stackedCycles = [];
+  //       console.log("STACKED CYCLES");
 
-        for (let i = 0; i < cycles; i++) {
-          console.log("LOOP " + i);
-          stackedCycles.push(parseInt(currentCycle) + 1 + i);
-        }
+  //       for (let i = 0; i < cycles; i++) {
+  //         console.log("LOOP " + i);
+  //         stackedCycles.push(parseInt(currentCycle) + 1 + i);
+  //       }
 
-        console.log("STACKED CYCLES " + stackedCycles);
-        addStackedCycles(STXAddress, appPrivateKey, stackedCycles);
-      },
-    });
-  }
+  //       console.log("STACKED CYCLES " + stackedCycles);
+  //       addStackedCycles(STXAddress, appPrivateKey, stackedCycles);
+  //     },
+  //   });
+  // }
 
   return (
     <div className={styles.stack}>

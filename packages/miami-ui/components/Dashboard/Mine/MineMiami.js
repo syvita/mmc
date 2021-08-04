@@ -21,7 +21,7 @@ const MineMiami = ({ setState }) => {
       </p>
       <p> Rewards can be withdrawn after a 100 block maturity window.</p>
       <input type="checkbox" name="agree" onChange={checkboxHandler}></input>
-      <label for="agree">
+      <label htmlFor="agree">
         I confirm I understand that the City of Miami has not yet officially
         claimed the MiamiCoin protocol contribution.
       </label>

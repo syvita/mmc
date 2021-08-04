@@ -5,19 +5,17 @@ import styles from "../../styles/Transaction.module.css";
 const Transaction = ({ txId }) => {
   const [status, setStatus] = useState();
   useEffect(() => {
+    async function getStatus() {
+      const url = API_BASE_NET_URL + "extended/v1/tx/" + txId;
+      console.log(url);
+      const res = await fetch(url);
+      const result = await res.json();
+      return result.tx_status;
+    }
     getStatus().then((result) => {
       setStatus(result);
     });
-  }, []);
-
-  async function getStatus() {
-    console.log("GET STATUS TXID: " + txId);
-    const url = API_BASE_NET_URL + "extended/v1/tx/" + txId;
-    console.log(url);
-    const res = await fetch(url);
-    const result = await res.json();
-    return result.tx_status;
-  }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   let title = "";
   let image = "";
