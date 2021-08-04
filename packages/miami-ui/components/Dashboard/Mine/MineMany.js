@@ -28,7 +28,9 @@ const MineMany = ({ setState }) => {
           Continue
         </button>
       </div>
-      <ProgressBar progress={0.5} />
+      <div style={{ marginTop: '190px' }}>
+        <ProgressBar progress={0.5} />
+      </div>
     </div>
   );
 };

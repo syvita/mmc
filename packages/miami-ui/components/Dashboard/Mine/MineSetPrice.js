@@ -119,8 +119,9 @@ const DifferentPrice = () => {
           </button>
           {/* <div className={styles.progressBar}></div> */}
         </div>
-
-        <ProgressBar progress={1} />
+        <div style={{ marginTop: '75px' }}>
+          <ProgressBar progress={1} />
+        </div>
       </div>
     );
   };
