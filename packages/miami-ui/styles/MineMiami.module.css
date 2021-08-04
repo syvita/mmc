@@ -17,14 +17,22 @@
   line-height: 140%;
   color: #000000;
 }
+.mine label {
+  margin-left: 2px;
+}
 
 .buttons {
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 }
 .transactionToSend {
   display: flex;
   flex-direction: row;
+}
+
+.mine button:hover {
+  background: #36454f;
 }
 
 .singleBlockButton {
