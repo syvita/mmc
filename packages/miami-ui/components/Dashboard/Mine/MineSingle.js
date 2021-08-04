@@ -1,6 +1,7 @@
 import styles from "../../../styles/MineSingle.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Transaction from "../Transaction";
+import { getActivationStatus } from "../../../lib/contracts";
 
 import {
   NETWORK,
@@ -28,6 +29,14 @@ const MineSingle = () => {
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
   const [txId, setTxId] = useState();
+
+  const [isActivated, setIsActivated] = useState(true);
+
+  useEffect(() => {
+    getActivationStatus().then((result) => setIsActivated(result));
+  }, []);
+
+  console.log("IS ACTIVATIED: " + isActivated);
 
   const userData = userSession.loadUserData();
 
@@ -93,7 +102,11 @@ const MineSingle = () => {
             placeholder="How many STX?"
             type="number"
           ></input>
-          <button onClick={mineSingle} className={styles.transactionButton}>
+          <button
+            disabled={isActivated}
+            onClick={mineSingle}
+            className={styles.transactionButton}
+          >
             Send Transaction
           </button>
         </div>
