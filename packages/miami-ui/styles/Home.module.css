@@ -50,21 +50,6 @@
   text-transform: capitalize;
 }
 
-.launchButton {
-  all: unset;
-  text-align: center;
-  width: 278px;
-  height: 48px;
-  margin-top: 7px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
-  border-radius: 10px;
-  color: #ffffff;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 160%;
-}
-
 .mobileButton {
   display: none;
 }
@@ -84,10 +69,6 @@
     background: rgba(0, 0, 0, 0.59);
     width: 164px;
     height: 41px;
-  }
-
-  .launchButton {
-    display: none;
   }
 
   .mobileButton {

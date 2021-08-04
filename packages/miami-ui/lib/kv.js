@@ -1,32 +1,19 @@
 import sha256 from "crypto-js/sha256";
 const aes256 = require("aes256");
 
-// external functions:
-//   - add mined blocks [DONE]
-//   - add stacked cycles [DONE]
-//   - get mined blocks [DONE]
-//   - get stacked cycles [DONE]
-
-// private functions:
-//   - retrieve unencrypted object of file to modify [DONE]
-//   - put unencrypted object of modified file [DONE]
-//   - get id from address & appPrivateKey [DONE]
-
 // EXTERNAL FUNCTIONS
 
 export async function addMinedBlocks(address, appPrivateKey, blocks) {
   var loadedObject = await getUnencryptedObject(address, appPrivateKey);
   if (loadedObject == false) {
     var modifiedObject = {
-      minedBlocks: [0],
-      stackedCycles: [0],
+      minedBlocks: [],
+      stackedCycles: [],
     };
   } else {
     var modifiedObject = loadedObject;
   }
-
   var minedBlocks = modifiedObject.minedBlocks;
-  console.log(`MODIFIEDOBJECT: ${JSON.stringify(modifiedObject)}`);
   minedBlocks.push(blocks);
   modifiedObject.minedBlocks = minedBlocks;
 
@@ -40,31 +27,22 @@ export async function addMinedBlocks(address, appPrivateKey, blocks) {
 }
 
 export async function addStackedCycles(address, appPrivateKey, cycles) {
-  const loadedObject = await getUnencryptedObject(address, appPrivateKey);
-
+  var loadedObject = await getUnencryptedObject(address, appPrivateKey);
   if (loadedObject == false) {
     var modifiedObject = {
-      minedBlocks: [0],
-      stackedCycles: [0],
+      minedBlocks: [],
+      stackedCycles: [],
     };
   } else {
     var modifiedObject = loadedObject;
   }
+  var stackedCycles = modifiedObject.stackedCycles;
+  stackedCycles.push(blocks);
+  modifiedObject.stackedCycles = stackedCycles;
 
-  modifiedObject.stackedCycles.push(cycles);
-
-  try {
-    var res = await putUnencryptedObject(
-      address,
-      appPrivateKey,
-      modifiedObject
-    );
-  } catch (error) {
-    var res = false;
-    throw new Error(error);
-  }
-
-  if (res == true) {
+  var res = await putUnencryptedObject(address, appPrivateKey, modifiedObject);
+  res = await res.json();
+  if (res.success == true) {
     return true;
   } else {
     throw new Error("Couldn't add stacked cycles");
@@ -72,12 +50,14 @@ export async function addStackedCycles(address, appPrivateKey, cycles) {
 }
 
 export async function getMinedBlocks(address, appPrivateKey) {
-  const result = await getUnencryptedObject(address, appPrivateKey);
+  var result = await getUnencryptedObject(address, appPrivateKey);
+  result = await result.json();
   return result.minedBlocks;
 }
 
 export async function getStackedCycles(address, appPrivateKey) {
   const result = await getUnencryptedObject(address, appPrivateKey);
+  result = await result.json();
   return result.stackedCycles;
 }
 
@@ -87,8 +67,6 @@ async function getUnencryptedObject(address, appPrivateKey) {
   const KvId = getKvId(address, appPrivateKey);
   const res = await fetch("https://api.minemiamicoin.com/" + KvId);
   const result = await res.json();
-  const status = res.status;
-  console.log(status);
 
   if (result.result == "404, not found!") {
     return false;
@@ -96,10 +74,9 @@ async function getUnencryptedObject(address, appPrivateKey) {
     if (!result.success) {
       throw new Error(result.result);
     } else {
-      console.log(result.result.encrypted_data);
       const encryptedData = result.result.encrypted_data;
+      console.log(`got encrypted data: ${encryptedData}`);
       const decryptedData = aes256.decrypt(appPrivateKey, encryptedData);
-      console.log(decryptedData);
       return JSON.parse(decryptedData);
     }
   }
@@ -109,14 +86,12 @@ async function putUnencryptedObject(address, appPrivateKey, object) {
   const KvId = getKvId(address, appPrivateKey);
   // encrypt object
   const stringified = JSON.stringify(object);
-
-  console.log(`VALUE OF STRINGIFIED: ${stringified}`);
   const encryptedData = aes256.encrypt(appPrivateKey, stringified);
-  console.log(`ENCRYPTED DATA: ${encryptedData}`);
+  console.log(`putting ENCRYPTED DATA: ${encryptedData}`);
 
   try {
     const result = await putEncryptedObject(KvId, encryptedData);
-    console.log(`result: ${result}`);
+    console.log(`put result: ${JSON.stringify(result)}`);
     return result;
   } catch (error) {
     throw new Error(error);
