@@ -1,11 +1,11 @@
-import { useState } from "react";
-import styles from "../../../styles/DifferentPrice.module.css";
-import { userSessionState } from "../../../lib/auth";
-import { useConnect } from "@syvita/connect-react";
-import { useAtom } from "jotai";
-import { addMinedBlocks } from "../../../lib/kv";
-import Transaction from "../Transaction";
-import ProgressBar from "../../ProgressBar";
+import { useState } from 'react';
+import styles from '../../../styles/DifferentPrice.module.css';
+import { userSessionState } from '../../../lib/auth';
+import { useConnect } from '@syvita/connect-react';
+import { useAtom } from 'jotai';
+import { addMinedBlocks } from '../../../lib/kv';
+import Transaction from '../Transaction';
+import ProgressBar from '../../ProgressBar';
 
 import {
   NETWORK,
@@ -13,26 +13,26 @@ import {
   CITY_COIN_CORE_CONTRACT_NAME,
   NETWORK_STRING,
   API_BASE_NET_URL,
-} from "../../../lib/constants";
+} from '../../../lib/constants';
 import {
   FungibleConditionCode,
   listCV,
   makeStandardSTXPostCondition,
   PostConditionMode,
   uintCV,
-} from "@syvita/transactions";
+} from '@syvita/transactions';
 
 const DifferentPrice = () => {
-  const blocksToMine = localStorage.getItem("blocksToMine");
+  const blocksToMine = localStorage.getItem('blocksToMine');
   const inputs = [];
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
-  let STXAddress = "";
+  let STXAddress = '';
   const userData = userSession.loadUserData();
   const appPrivateKey = userData.appPrivateKey;
   const [txId, setTxId] = useState();
 
-  if (NETWORK_STRING == "mainnet") {
+  if (NETWORK_STRING == 'mainnet') {
     STXAddress = userData.profile.stxAddress.mainnet;
   } else {
     STXAddress = userData.profile.stxAddress.testnet;
@@ -49,7 +49,7 @@ const DifferentPrice = () => {
 
   function getValues() {
     const array = [];
-    var inputs = document.getElementsByTagName("input");
+    var inputs = document.getElementsByTagName('input');
     for (var i = 0; i < inputs.length; ++i) {
       array.push(inputs[i].value);
     }
@@ -70,14 +70,14 @@ const DifferentPrice = () => {
     }
     mineManyArray = listCV(mineManyArray);
 
-    const res = await fetch(API_BASE_NET_URL + "v2/info");
+    const res = await fetch(API_BASE_NET_URL + 'v2/info');
     const result = await res.json();
     const blockHeight = result.stacks_tip_height;
 
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: "mine-many",
+      functionName: 'mine-many',
       functionArgs: [mineManyArray],
       postConditionMode: PostConditionMode.Deny,
       postConditions: [
@@ -90,16 +90,16 @@ const DifferentPrice = () => {
       network: NETWORK,
       onFinish: (data) => {
         const json = JSON.stringify(data, (key, value) =>
-          typeof value === "bigint" ? value.toString() + "n" : value
+          typeof value === 'bigint' ? value.toString() + 'n' : value
         );
-        console.log("TRANSACTION FINISHED " + json);
+        console.log('TRANSACTION FINISHED ' + json);
         const minedBlocks = [];
         console.log(blockHeight);
 
         for (let i = 0; i < blocksToMine; i++) {
           minedBlocks.push(blockHeight + i);
         }
-        console.log("MINED BLOCKS " + minedBlocks);
+        console.log('MINED BLOCKS ' + minedBlocks);
         setTxId(data.txId);
         addMinedBlocks(STXAddress, appPrivateKey, minedBlocks);
       },
@@ -119,6 +119,7 @@ const DifferentPrice = () => {
           </button>
           {/* <div className={styles.progressBar}></div> */}
         </div>
+
         <ProgressBar progress={1} />
       </div>
     );

@@ -33,6 +33,12 @@
   text-align: center;
 }
 
+.mine input[type='number']::-webkit-inner-spin-button,
+.mine input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .transactionButton {
   all: unset;
   width: 256.5px;

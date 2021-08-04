@@ -17,21 +17,22 @@
   line-height: 140%;
 }
 
+.mine input[type='number']::-webkit-inner-spin-button,
+.mine input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .blockScroll {
-  overflow: scroll;
   width: 550px;
   height: 300px;
   overflow-x: hidden;
 }
 
-.blockScroll::-webkit-scrollbar {
+.blockScroll ::-webkit-scrollbar {
   background: #757b83;
   border-radius: 10px;
   width: 7px;
-}
-
-.blockScroll::-webkit-scrollbar:hover {
-  cursor: pointer;
 }
 
 .individualBlockAmount {

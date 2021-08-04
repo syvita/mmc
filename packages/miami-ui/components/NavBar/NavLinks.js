@@ -26,7 +26,7 @@ const NavLinks = (props) => {
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
             <img
-              src="/LinkImages/security.svg"
+              src="/LinkImages/city.svg"
               height="18px"
               width="18px"
               alt="Security"
