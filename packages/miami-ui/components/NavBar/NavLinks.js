@@ -6,7 +6,7 @@ const NavLinks = (props) => {
   const { handleOpenAuth } = useConnect();
   const { handleSignOut } = useConnect();
   const [userSession] = useAtom(userSessionState);
-  
+
   return (
     <div>
       <Link href="/about" passHref={true}>
@@ -26,7 +26,7 @@ const NavLinks = (props) => {
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
             <img
-              src="/LinkImages/security.svg"
+              src="/LinkImages/city.svg"
               height="18px"
               width="18px"
               alt="Security"

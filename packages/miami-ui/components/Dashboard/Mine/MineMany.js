@@ -1,9 +1,10 @@
-import styles from '../../../styles/MineMany.module.css';
-import { useState } from 'react';
+import styles from "../../../styles/MineMany.module.css";
+import { useState } from "react";
+import ProgressBar from "../../ProgressBar";
 
 const MineMany = ({ setState }) => {
   const [blocksToMine, setBlocksToMine] = useState();
-  localStorage.setItem('blocksToMine', blocksToMine);
+  localStorage.setItem("blocksToMine", blocksToMine);
 
   return (
     <div className={styles.mine}>
@@ -17,15 +18,19 @@ const MineMany = ({ setState }) => {
           onChange={(event) => setBlocksToMine(event.target.value)}
           placeholder="Up to 200"
           type="number"
+          onWheel={(e) => e.target.blur()}
         />
         <button
           onClick={() => {
-            setState('MineSetPrice');
+            setState("MineSetPrice");
           }}
           className={styles.continue}
         >
           Continue
         </button>
+      </div>
+      <div style={{ marginTop: "190px" }}>
+        <ProgressBar progress={0.5} />
       </div>
     </div>
   );

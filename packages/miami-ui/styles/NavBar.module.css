@@ -27,7 +27,6 @@
 
 .Navigation a {
   margin-right: 25px;
-
   text-decoration: none;
 }
 
@@ -97,8 +96,8 @@
 @media (max-width: 700px) {
   /* COMMON */
   .Logo {
-    transform: scale(1.5);
-    left: 40px;
+    transform: scale(2.3);
+    left: 55px;
     z-index: 1;
   }
 
@@ -111,7 +110,7 @@
     justify-content: flex-end;
     position: relative;
     cursor: pointer;
-    top: 35px;
+    top: 33px;
     right: 25px;
   }
 
@@ -138,6 +137,7 @@
     box-sizing: border-box;
     padding: 7%;
     height: 8%;
+    color: white;
     display: flex;
     letter-spacing: 0.1em;
     font-size: larger;

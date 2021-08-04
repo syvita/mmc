@@ -1,129 +1,121 @@
-import { useState, useEffect } from 'react';
-import styles from '../styles/Dashboard.module.css';
-import Register from '../components/Dashboard/Register';
-import Mine from '../components/Dashboard/Mine';
-import Stack from '../components/Dashboard/Stack';
-import Redeem from '../components/Dashboard/Redeem';
-import ActivityFeed from '../components/Dashboard/ActivityFeed';
-import { userSessionState } from '../lib/auth';
-import { useAtom } from 'jotai';
-import Router from "next/router";
-
+import { useState } from "react";
+import styles from "../styles/Dashboard.module.css";
+import Register from "../components/Dashboard/Register";
+import Mine from "../components/Dashboard/Mine";
+import Stack from "../components/Dashboard/Stack";
+import Redeem from "../components/Dashboard/Redeem";
+import ActivityFeed from "../components/Dashboard/ActivityFeed";
 
 export default function Dashboard() {
-  const [renderedComponent, setRenderedComponent] = useState('Register');
-  const [userSession] = useAtom(userSessionState);
-
-  useEffect(() => {
-    if (userSession.isUserSignedIn() == false) {
-      Router.push("/");
-    }
-  }, [])
+  const [renderedComponent, setRenderedComponent] = useState("Mine");
 
   return (
     <div className={styles.dashboard}>
       <div>
         <div className={styles.Title}>
-          {/* <h1>Dashboard</h1> */}
+          <h1>Dashboard</h1>
         </div>
         <nav className={styles.Navigation}>
-          {/* <div>
-            <a>
+          <div>
+            {/* <a>
               <button
                 style={
-                  renderedComponent === 'Register'
+                  renderedComponent === "Register"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                      borderRadius: '10px',
-                        color: '#757b83'
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
                     : {}
                 }
                 onClick={() => {
-                  setRenderedComponent('Register');
+                  setRenderedComponent("Register");
                 }}
               >
                 Register
               </button>
-            </a>
+            </a> */}
             <a>
-              <button disabled={true}
+              <button
                 style={
-                  renderedComponent === 'Mine'
+                  renderedComponent === "Mine"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
                     : {}
                 }
                 onClick={() => {
-                  setRenderedComponent('Mine');
+                  setRenderedComponent("Mine");
                 }}
               >
                 Mine
               </button>
             </a>
             <a>
-              <button disabled={true}
+              <button
+                disabled={true}
                 style={
-                  renderedComponent === 'Send'
+                  renderedComponent === "Send"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
-                    : {}
+                    : {
+                        color: "rgba(0, 0, 0, 0.1)",
+                      }
                 }
                 onClick={() => {
-                  setRenderedComponent('Send');
+                  setRenderedComponent("Send");
                 }}
               >
                 Send
               </button>
             </a>
             <a>
-              <button disabled={true}
+              <button
+                disabled={true}
                 style={
-                  renderedComponent === 'Stack'
+                  renderedComponent === "Stack"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
-                    : {}
+                    : { color: "rgba(0, 0, 0, 0.1)" }
                 }
                 onClick={() => {
-                  setRenderedComponent('Stack');
+                  setRenderedComponent("Stack");
                 }}
               >
                 Stack
               </button>
             </a>
             <a>
-              <button disabled={true}
+              <button
+                disabled={true}
                 style={
-                  renderedComponent === 'Redeem'
+                  renderedComponent === "Redeem"
                     ? {
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: '10px',
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
                       }
-                    : {}
+                    : { color: "rgba(0, 0, 0, 0.1)" }
                 }
                 onClick={() => {
-                  setRenderedComponent('Redeem');
+                  setRenderedComponent("Redeem");
                 }}
               >
                 Redeem
               </button>
             </a>
           </div>
-          <ActivityFeed /> */}
+          <ActivityFeed />
         </nav>
       </div>
-          
-      {renderedComponent === 'Register' && <Register />}
-      {renderedComponent === 'Mine' && <Mine />}
-      {renderedComponent === 'Stack' && <Stack />}
-      {renderedComponent === 'Redeem' && <Redeem />}
 
+      {renderedComponent === "Register" && <Register />}
+      {renderedComponent === "Mine" && <Mine />}
+      {renderedComponent === "Stack" && <Stack />}
+      {renderedComponent === "Redeem" && <Redeem />}
 
       {/* <Mine /> */}
       {/* <MineSingle /> */}

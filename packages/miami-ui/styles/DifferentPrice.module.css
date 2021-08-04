@@ -17,21 +17,44 @@
   line-height: 140%;
 }
 
+.mine input[type='number']::-webkit-inner-spin-button,
+.mine input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .blockScroll {
-  overflow: scroll;
   width: 550px;
   height: 300px;
   overflow-x: hidden;
 }
 
-.blockScroll::-webkit-scrollbar {
+/* .blockScroll ::-webkit-scrollbar {
   background: #757b83;
   border-radius: 10px;
   width: 7px;
+} */
+
+.mine ::-webkit-scrollbar {
+  width: 12px;
 }
 
-.blockScroll::-webkit-scrollbar:hover {
-  cursor: pointer;
+/* Track */
+.mine ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+.mine ::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #696969;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+.mine ::-webkit-scrollbar-thumb:window-inactive {
+  background: #696969;
 }
 
 .individualBlockAmount {

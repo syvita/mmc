@@ -1,10 +1,10 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import Link from 'next/link';
-import { useConnect, userSessionState } from '../lib/auth';
-import { useAtom } from 'jotai';
-import { isMobile } from 'react-device-detect';
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Link from "next/link";
+import { useConnect, userSessionState } from "../lib/auth";
+import { useAtom } from "jotai";
+import { isMobile } from "react-device-detect";
 
 export default function Home() {
   const { handleOpenAuth } = useConnect();
@@ -19,7 +19,11 @@ export default function Home() {
       <div className={styles.buttons}>
         <div>
           {!userSession.isUserSignedIn() && (
-            <button disabled={isMobile} className={styles.walletButton} onClick={handleOpenAuth}>
+            <button
+              disabled={isMobile}
+              className={styles.walletButton}
+              onClick={handleOpenAuth}
+            >
               Connect wallet
             </button>
           )}
@@ -31,9 +35,6 @@ export default function Home() {
         </div>
 
         <div>
-          {/* <button className={styles.launchButton}>
-            Launching August 3rd 🚀
-          </button> */}
           <button className={styles.mobileButton}>
             Visit this page on desktop to use the UI
           </button>
