@@ -1,5 +1,5 @@
 .progressBar {
-  all: unset;
+  position: relative;
   color: white;
   text-align: center;
   white-space: nowrap;

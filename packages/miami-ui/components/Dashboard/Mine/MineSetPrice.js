@@ -5,6 +5,8 @@ import { useConnect } from "@syvita/connect-react";
 import { useAtom } from "jotai";
 import { addMinedBlocks } from "../../../lib/kv";
 import Transaction from "../Transaction";
+import ProgressBar from "../../ProgressBar";
+
 import {
   NETWORK,
   CITY_COIN_CORE_ADDRESS,
@@ -117,6 +119,7 @@ const DifferentPrice = () => {
           </button>
           {/* <div className={styles.progressBar}></div> */}
         </div>
+        <ProgressBar progress={1} />
       </div>
     );
   };

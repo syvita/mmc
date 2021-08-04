@@ -1,5 +1,6 @@
 import styles from "../../../styles/MineMany.module.css";
 import { useState } from "react";
+import ProgressBar from "../../ProgressBar";
 
 const MineMany = ({ setState }) => {
   const [blocksToMine, setBlocksToMine] = useState();
@@ -27,6 +28,7 @@ const MineMany = ({ setState }) => {
           Continue
         </button>
       </div>
+      <ProgressBar progress={0.5} />
     </div>
   );
 };
