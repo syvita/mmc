@@ -83,7 +83,7 @@ const StackHowLong = () => {
       postConditions: [
         makeStandardFungiblePostCondition(
           STXAddress,
-          FungibleConditionCode.Equal,
+          FungibleConditionCode.LessEqual,
           uintCV(coinAmount).value,
           createAssetInfo(
             CITY_COIN_CORE_ADDRESS,

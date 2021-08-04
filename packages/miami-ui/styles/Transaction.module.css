@@ -1,0 +1,26 @@
+.transaction {
+  width: 50%;
+  margin-left: 8vw;
+  margin-top: 20vh;
+}
+
+.transaction img {
+  display: block;
+  margin: auto;
+}
+
+.transaction h2 {
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 130%;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.transaction a {
+  text-decoration: underline;
+}
+
+.transaction p {
+  text-align: center;
+}

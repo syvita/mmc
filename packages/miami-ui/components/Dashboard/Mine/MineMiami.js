@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import styles from '../../../styles/MineMiami.module.css';
+import { useState } from "react";
+import styles from "../../../styles/MineMiami.module.css";
 
 const MineMiami = ({ setState }) => {
   const [agree, setAgree] = useState(false);
@@ -29,9 +29,9 @@ const MineMiami = ({ setState }) => {
         <button
           className={styles.singleBlockButton}
           disabled={!agree}
-          style={!agree ? { cursor: 'not-allowed' } : {}}
+          style={!agree ? { cursor: "not-allowed" } : {}}
           onClick={() => {
-            setState('Single');
+            setState("Single");
           }}
         >
           Mine a single block
@@ -39,9 +39,9 @@ const MineMiami = ({ setState }) => {
         <button
           className={styles.multipleBlockButton}
           disabled={!agree}
-          style={!agree ? { cursor: 'not-allowed' } : {}}
+          style={!agree ? { cursor: "not-allowed" } : {}}
           onClick={() => {
-            setState('Many');
+            setState("Many");
           }}
         >
           Mine for multiple blocks

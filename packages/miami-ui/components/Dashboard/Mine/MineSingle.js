@@ -1,5 +1,7 @@
 import styles from "../../../styles/MineSingle.module.css";
 import { useState } from "react";
+import Transaction from "../Transaction";
+
 import {
   NETWORK,
   CITY_COIN_CORE_ADDRESS,
@@ -7,6 +9,7 @@ import {
   API_BASE_NET_URL,
   NETWORK_STRING,
 } from "../../../lib/constants";
+
 import {
   uintCV,
   noneCV,
@@ -24,6 +27,7 @@ const MineSingle = () => {
   const [STXAmount, setSTXAmount] = useState();
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
+  const [txId, setTxId] = useState();
 
   const userData = userSession.loadUserData();
 
@@ -62,6 +66,8 @@ const MineSingle = () => {
         );
         console.log("TRANSACTION FINISHED " + json);
         console.log("ON FINSIH");
+        console.log("TRAN ID: " + data.txId);
+        setTxId(data.txId);
         addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
       },
     });
@@ -69,25 +75,33 @@ const MineSingle = () => {
 
     // TEMP SOLUTION FOR ONFINISH TRAN ID
 
+    const Status = ({ txId }) => {
+      <div>{txId}</div>;
+    };
+
     console.log(appPrivateKey);
   }
 
-  return (
-    <div className={styles.mine}>
-      <h2 className={styles.h2}>Mine a single block</h2>
-      <p>Enter how much you’d like to spend.</p>
-      <div className={styles.transactionToSend}>
-        <input
-          onChange={(event) => setSTXAmount(event.target.value)}
-          placeholder="How many STX?"
-          type="number"
-        ></input>
-        <button onClick={mineSingle} className={styles.transactionButton}>
-          Send Transaction
-        </button>
+  const MineSingle = () => {
+    return (
+      <div className={styles.mine}>
+        <h2 className={styles.h2}>Mine a single block</h2>
+        <p>Enter how much you’d like to spend.</p>
+        <div className={styles.transactionToSend}>
+          <input
+            onChange={(event) => setSTXAmount(event.target.value)}
+            placeholder="How many STX?"
+            type="number"
+          ></input>
+          <button onClick={mineSingle} className={styles.transactionButton}>
+            Send Transaction
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  return txId ? <Transaction txId={txId} /> : <MineSingle />;
 };
 
 export default MineSingle;

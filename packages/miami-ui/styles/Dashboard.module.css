@@ -61,7 +61,7 @@
 }
 
 .Navigation button:hover {
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .Hamburger {

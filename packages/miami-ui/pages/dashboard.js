@@ -53,13 +53,16 @@ export default function Dashboard() {
             </a>
             <a>
               <button
+                disabled={true}
                 style={
                   renderedComponent === "Send"
                     ? {
                         backgroundColor: "rgba(0, 0, 0, 0.1)",
                         borderRadius: "10px",
                       }
-                    : {}
+                    : {
+                        color: "rgba(0, 0, 0, 0.1)",
+                      }
                 }
                 onClick={() => {
                   setRenderedComponent("Send");
@@ -70,13 +73,14 @@ export default function Dashboard() {
             </a>
             <a>
               <button
+                disabled={true}
                 style={
                   renderedComponent === "Stack"
                     ? {
                         backgroundColor: "rgba(0, 0, 0, 0.1)",
                         borderRadius: "10px",
                       }
-                    : {}
+                    : { color: "rgba(0, 0, 0, 0.1)" }
                 }
                 onClick={() => {
                   setRenderedComponent("Stack");
@@ -87,13 +91,14 @@ export default function Dashboard() {
             </a>
             <a>
               <button
+                disabled={true}
                 style={
                   renderedComponent === "Redeem"
                     ? {
                         backgroundColor: "rgba(0, 0, 0, 0.1)",
                         borderRadius: "10px",
                       }
-                    : {}
+                    : { color: "rgba(0, 0, 0, 0.1)" }
                 }
                 onClick={() => {
                   setRenderedComponent("Redeem");

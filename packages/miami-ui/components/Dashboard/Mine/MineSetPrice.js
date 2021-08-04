@@ -4,6 +4,7 @@ import { userSessionState } from "../../../lib/auth";
 import { useConnect } from "@syvita/connect-react";
 import { useAtom } from "jotai";
 import { addMinedBlocks } from "../../../lib/kv";
+import Transaction from "../Transaction";
 import {
   NETWORK,
   CITY_COIN_CORE_ADDRESS,
@@ -27,6 +28,7 @@ const DifferentPrice = () => {
   let STXAddress = "";
   const userData = userSession.loadUserData();
   const appPrivateKey = userData.appPrivateKey;
+  const [txId, setTxId] = useState();
 
   if (NETWORK_STRING == "mainnet") {
     STXAddress = userData.profile.stxAddress.mainnet;
@@ -96,25 +98,29 @@ const DifferentPrice = () => {
           minedBlocks.push(blockHeight + i);
         }
         console.log("MINED BLOCKS " + minedBlocks);
+        setTxId(data.txId);
         addMinedBlocks(STXAddress, appPrivateKey, minedBlocks);
       },
     });
   }
 
-  return (
-    <div className={styles.mine}>
-      <h2 className={styles.h2}>Mine multiple blocks</h2>
-      <p>Set the price for each block (in Stacks)</p>
-      {/* This div will need to be repeated for each new block dependant on user input */}
-      <div className={styles.blockScroll}>
-        {inputs}
-        <button onClick={mineMany} className={styles.transactionButton}>
-          Send Transaction
-        </button>
-        {/* <div className={styles.progressBar}></div> */}
+  const MineSetPrice = () => {
+    return (
+      <div className={styles.mine}>
+        <h2 className={styles.h2}>Mine multiple blocks</h2>
+        <p>Set the price for each block (in Stacks)</p>
+        {/* This div will need to be repeated for each new block dependant on user input */}
+        <div className={styles.blockScroll}>
+          {inputs}
+          <button onClick={mineMany} className={styles.transactionButton}>
+            Send Transaction
+          </button>
+          {/* <div className={styles.progressBar}></div> */}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+  return txId ? <Transaction txId={txId} /> : <MineSetPrice />;
 };
 
 export default DifferentPrice;

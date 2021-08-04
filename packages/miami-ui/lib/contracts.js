@@ -46,16 +46,3 @@ export async function getCoinBalance(address) {
   });
   return result.value.value.words[0];
 }
-
-export async function canClaimMiningReward(address, minerBlockHeight) {
-  const result = await callReadOnlyFunction({
-    contractAddress: CITY_COIN_CORE_ADDRESS,
-    contractName: CITY_COIN_CORE_CONTRACT_NAME,
-    functionName: "is-block-winner",
-    functionArgs: [standardPrincipalCV(address), uintCV(minerBlockHeight)],
-    network: NETWORK,
-    senderAddress: address,
-  });
-  console.log("WINNER? : " + JSON.stringify(result));
-  return result.value;
-}
