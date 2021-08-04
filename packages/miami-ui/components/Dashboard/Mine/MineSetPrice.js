@@ -124,7 +124,7 @@ const DifferentPrice = () => {
         <div className={styles.blockScroll}>
           {inputs}
           <button
-            disabled={isActivated}
+            disabled={!isActivated}
             onClick={mineMany}
             className={styles.transactionButton}
           >
@@ -132,7 +132,7 @@ const DifferentPrice = () => {
           </button>
           {/* <div className={styles.progressBar}></div> */}
         </div>
-        <div style={{ marginTop: '75px' }}>
+        <div style={{ marginTop: "75px" }}>
           <ProgressBar progress={1} />
         </div>
       </div>

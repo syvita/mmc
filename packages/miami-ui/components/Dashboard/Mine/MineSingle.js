@@ -104,7 +104,7 @@ const MineSingle = () => {
           type="number"
         />
         <button
-          disabled={isActivated}
+          disabled={!isActivated}
           onClick={mineSingle}
           className={styles.transactionButton}
         >
