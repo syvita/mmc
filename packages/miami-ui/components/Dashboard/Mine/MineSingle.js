@@ -91,30 +91,28 @@ const MineSingle = () => {
     console.log(appPrivateKey);
   }
 
-  const MineSingle = () => {
-    return (
-      <div className={styles.mine}>
-        <h2 className={styles.h2}>Mine a single block</h2>
-        <p>Enter how much you’d like to spend.</p>
-        <div className={styles.transactionToSend}>
-          <input
-            onChange={(event) => setSTXAmount(event.target.value)}
-            placeholder="How many STX?"
-            type="number"
-          ></input>
-          <button
-            disabled={isActivated}
-            onClick={mineSingle}
-            className={styles.transactionButton}
-          >
-            Send Transaction
-          </button>
-        </div>
+  return txId ? (
+    <Transaction txId={txId} />
+  ) : (
+    <div className={styles.mine}>
+      <h2 className={styles.h2}>Mine a single block</h2>
+      <p>Enter how much you’d like to spend.</p>
+      <div className={styles.transactionToSend}>
+        <input
+          onChange={(event) => setSTXAmount(event.target.value)}
+          placeholder="How many STX?"
+          type="number"
+        />
+        <button
+          disabled={isActivated}
+          onClick={mineSingle}
+          className={styles.transactionButton}
+        >
+          Send Transaction
+        </button>
       </div>
-    );
-  };
-
-  return txId ? <Transaction txId={txId} /> : <MineSingle />;
+    </div>
+  );
 };
 
 export default MineSingle;
