@@ -37,7 +37,7 @@ export async function addStackedCycles(address, appPrivateKey, cycles) {
     var modifiedObject = loadedObject;
   }
   var stackedCycles = modifiedObject.stackedCycles;
-  stackedCycles.push(blocks);
+  stackedCycles.push(cycles);
   modifiedObject.stackedCycles = stackedCycles;
 
   var res = await putUnencryptedObject(address, appPrivateKey, modifiedObject);
@@ -51,13 +51,11 @@ export async function addStackedCycles(address, appPrivateKey, cycles) {
 
 export async function getMinedBlocks(address, appPrivateKey) {
   var result = await getUnencryptedObject(address, appPrivateKey);
-  result = await result.json();
   return result.minedBlocks;
 }
 
 export async function getStackedCycles(address, appPrivateKey) {
-  const result = await getUnencryptedObject(address, appPrivateKey);
-  result = await result.json();
+  var result = await getUnencryptedObject(address, appPrivateKey);
   return result.stackedCycles;
 }
 

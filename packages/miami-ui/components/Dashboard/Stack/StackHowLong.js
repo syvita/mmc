@@ -11,31 +11,56 @@ import {
   CITY_COIN_CORE_CONTRACT_NAME,
   CITY_COIN_TOKEN_CONTRACT_NAME,
   CC_NAME,
+  NETWORK_STRING,
 } from "../../../lib/constants";
 import styles from "../../../styles/StackHowLong.module.css";
 import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { userSessionState } from "../../../lib/auth";
-import { getCoinBalance } from "../../../lib/contracts";
+// import { getCoinBalance } from "../../../lib/contracts";
 import { useConnect } from "@syvita/connect-react";
+import { addStackedCycles } from "../../../lib/kv";
 
 const StackHowLong = () => {
   const [cycles, setCycles] = useState();
   const [balance, setBalance] = useState(0);
-  const [userSession] = useAtom(userSessionState);
+  const [currentCycle, setCurrentCycle] = useState();
   const { doContractCall } = useConnect();
+  const [userSession] = useAtom(userSessionState);
 
   let STXAddress = "";
+  const userData = userSession.loadUserData();
+  const appPrivateKey = userData.appPrivateKey;
 
   if (NETWORK_STRING == "mainnet") {
-    STXAddress = userSession.loadUserData().profile.stxAddress.mainnet;
+    STXAddress = userData.profile.stxAddress.mainnet;
   } else {
-    STXAddress = userSession.loadUserData().profile.stxAddress.testnet;
+    STXAddress = userData.profile.stxAddress.testnet;
   }
 
-  useEffect(() => {
-    getCoinBalance(STXAddress).then((result) => setBalance(result));
-  }, []);
+  // useEffect(() => {
+  //   getCoinBalance(STXAddress).then((result) => setBalance(result));
+  // }, []);
+
+  // useEffect(() => {
+  //   getCurrentCycle().then((result) => setCurrentCycle(result));
+  // }, []);
+
+  // async function getCurrentCycle() {
+  //   // Calculated from block height
+  //   const url = "https://mainnet.syvita.org/extended/v1/block?limit=1";
+  //   const response = await fetch(url);
+  //   const result = await response.json();
+
+  //   const cycleLength = 2100;
+  //   const startingBlock = 668050;
+  //   const currentBlock = result.results[0].burn_block_height;
+
+  //   const totalCycleBlocks = currentBlock - startingBlock;
+  //   const currentCycle = Math.floor(totalCycleBlocks / cycleLength) + 1;
+
+  //   return currentCycle;
+  // }
 
   async function stackCoins() {
     const coinAmount = 10000; // We pass this in from prev component StackHowMany @DIO
@@ -58,6 +83,9 @@ const StackHowLong = () => {
           )
         ),
       ],
+      onFinish: () => {
+        addStackedCycles(STXAddress, appPrivateKey, cycles);
+      },
       network: NETWORK,
     });
   }

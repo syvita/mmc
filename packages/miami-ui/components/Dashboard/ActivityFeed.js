@@ -30,18 +30,14 @@ const ActivityFeed = () => {
 
   const activityElements = [];
 
-  function getTokenType(contract, post) {
-    console.log(contract);
+  function getTokenType(contract) {
     let type = "";
-    if (post == undefined || []) {
-      switch (contract) {
-        case "register-user":
-        case "mine-many":
-          type = "STX";
-          break;
-      }
-    } else {
-      type = post[0].type.toUpperCase();
+    switch (contract) {
+      case "stack-tokens":
+        type = "$MIA";
+        break;
+      default:
+        type = "STX";
     }
     return type;
   }
@@ -54,10 +50,7 @@ const ActivityFeed = () => {
         tx_status: activity.tx_status,
         sender_address: activity.sender_address,
         contract_call: activity.contract_call.function_name,
-        type: getTokenType(
-          activity.contract_call.function_name,
-          activity.post_conditions
-        ),
+        type: getTokenType(activity.contract_call.function_name),
 
         amount:
           activity.contract_call.function_name == "register-user"
@@ -79,15 +72,6 @@ const ActivityFeed = () => {
           status = style.pending;
         default:
           status = styles.failed;
-      }
-      switch (transaction.type) {
-        case "FUNGIBLE":
-          transaction.type = "$MIA";
-          break;
-        case "STX":
-          break;
-        default:
-          transaction.type = "Undefined";
       }
       switch (transaction.contract_call) {
         case "mine-tokens":

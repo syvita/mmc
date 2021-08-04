@@ -87,7 +87,6 @@ const DifferentPrice = () => {
       network: NETWORK,
       onFinish: (data) => {
         setTxId(data.txId);
-        console.log("APP PRIVATE KEY " + appPrivateKey);
         addMinedBlocks(STXAddress, appPrivateKey, blockHeight + blocksToMine);
       },
     });

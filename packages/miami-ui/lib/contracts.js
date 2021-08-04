@@ -1,6 +1,7 @@
 import {
   callReadOnlyFunction,
   standardPrincipalCV,
+  uintCV,
 } from "@syvita/transactions";
 import {
   GENESIS_CONTRACT_ADDRESS,
@@ -35,7 +36,6 @@ export async function getRegisteredMinersThreshold() {
 }
 
 export async function getCoinBalance(address) {
-  console.log(`Address = ${address}`);
   const result = await callReadOnlyFunction({
     contractAddress: CITY_COIN_CORE_ADDRESS,
     contractName: CITY_COIN_TOKEN_CONTRACT_NAME,
@@ -45,4 +45,17 @@ export async function getCoinBalance(address) {
     senderAddress: address,
   });
   return result.value.value.words[0];
+}
+
+export async function canClaimMiningReward(address, minerBlockHeight) {
+  const result = await callReadOnlyFunction({
+    contractAddress: CITY_COIN_CORE_ADDRESS,
+    contractName: CITY_COIN_CORE_CONTRACT_NAME,
+    functionName: "is-block-winner",
+    functionArgs: [standardPrincipalCV(address), uintCV(minerBlockHeight)],
+    network: NETWORK,
+    senderAddress: address,
+  });
+  console.log("WINNER? : " + JSON.stringify(result));
+  return result.value;
 }

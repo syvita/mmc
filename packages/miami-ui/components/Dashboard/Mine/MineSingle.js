@@ -58,11 +58,6 @@ const MineSingle = () => {
       ],
       network: NETWORK,
       onFinish: (data) => {
-        console.log("ONFINISH TRIGGERED");
-        const json = JSON.stringify(data, (key, value) =>
-          typeof value === "bigint" ? value.toString() + "n" : value
-        );
-        console.log(`TRANSACTION DATA: ${json}`);
         setTxId(data.txId);
         addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
       },
