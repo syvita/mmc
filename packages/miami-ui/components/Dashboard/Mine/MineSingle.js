@@ -1,6 +1,6 @@
-import styles from "../../../styles/MineSingle.module.css";
-import { useState } from "react";
-import Transaction from "../Transaction";
+import styles from '../../../styles/MineSingle.module.css';
+import { useState } from 'react';
+import Transaction from '../Transaction';
 
 import {
   NETWORK,
@@ -8,7 +8,7 @@ import {
   CITY_COIN_CORE_CONTRACT_NAME,
   API_BASE_NET_URL,
   NETWORK_STRING,
-} from "../../../lib/constants";
+} from '../../../lib/constants';
 
 import {
   uintCV,
@@ -17,11 +17,11 @@ import {
   PostConditionMode,
   FungibleConditionCode,
   AnchorMode,
-} from "@syvita/transactions";
-import { userSessionState } from "../../../lib/auth";
-import { useConnect } from "@syvita/connect-react";
-import { useAtom } from "jotai";
-import { addMinedBlocks } from "../../../lib/kv";
+} from '@syvita/transactions';
+import { userSessionState } from '../../../lib/auth';
+import { useConnect } from '@syvita/connect-react';
+import { useAtom } from 'jotai';
+import { addMinedBlocks } from '../../../lib/kv';
 
 const MineSingle = () => {
   const [STXAmount, setSTXAmount] = useState();
@@ -31,9 +31,9 @@ const MineSingle = () => {
 
   const userData = userSession.loadUserData();
 
-  let STXAddress = "";
+  let STXAddress = '';
 
-  if (NETWORK_STRING == "mainnet") {
+  if (NETWORK_STRING == 'mainnet') {
     STXAddress = userData.profile.stxAddress.mainnet;
   } else {
     STXAddress = userData.profile.stxAddress.testnet;
@@ -42,14 +42,14 @@ const MineSingle = () => {
 
   async function mineSingle() {
     let CVAmount = uintCV(Math.floor(parseFloat(STXAmount.trim()) * 1000000));
-    const res = await fetch(API_BASE_NET_URL + "v2/info");
+    const res = await fetch(API_BASE_NET_URL + 'v2/info');
     const result = await res.json();
     const blockHeight = result.stacks_tip_height;
 
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: "mine-tokens",
+      functionName: 'mine-tokens',
       functionArgs: [CVAmount, noneCV()],
       postConditionMode: PostConditionMode.Deny,
       postConditions: [
@@ -62,11 +62,11 @@ const MineSingle = () => {
       network: NETWORK,
       onFinish: (data) => {
         const json = JSON.stringify(data, (key, value) =>
-          typeof value === "bigint" ? value.toString() + "n" : value
+          typeof value === 'bigint' ? value.toString() + 'n' : value
         );
-        console.log("TRANSACTION FINISHED " + json);
-        console.log("ON FINSIH");
-        console.log("TRAN ID: " + data.txId);
+        console.log('TRANSACTION FINISHED ' + json);
+        console.log('ON FINSIH');
+        console.log('TRAN ID: ' + data.txId);
         setTxId(data.txId);
         addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
       },
@@ -82,24 +82,22 @@ const MineSingle = () => {
     console.log(appPrivateKey);
   }
 
-  const MineSingle = () => {
-    return (
-      <div className={styles.mine}>
-        <h2 className={styles.h2}>Mine a single block</h2>
-        <p>Enter how much you’d like to spend.</p>
-        <div className={styles.transactionToSend}>
-          <input
-            onChange={(event) => setSTXAmount(event.target.value)}
-            placeholder="How many STX?"
-            type="number"
-          ></input>
-          <button onClick={mineSingle} className={styles.transactionButton}>
-            Send Transaction
-          </button>
-        </div>
+  return (
+    <div className={styles.mine}>
+      <h2 className={styles.h2}>Mine a single block</h2>
+      <p>Enter how much you’d like to spend.</p>
+      <div className={styles.transactionToSend}>
+        <input
+          onChange={(event) => setSTXAmount(event.target.value)}
+          placeholder="How many STX?"
+          type="number"
+        />
+        <button onClick={mineSingle} className={styles.transactionButton}>
+          Send Transaction
+        </button>
       </div>
-    );
-  };
+    </div>
+  );
 
   return txId ? <Transaction txId={txId} /> : <MineSingle />;
 };
