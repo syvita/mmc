@@ -117,6 +117,7 @@ const StackHowLong = () => {
       </p>
       <div className={styles.howManyCycles}>
         <input
+          onWheel={(e) => e.target.blur()}
           onChange={(event) => setCycles(event.target.value)}
           placeholder="How many cycles?"
           type="number"

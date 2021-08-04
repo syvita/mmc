@@ -51,7 +51,11 @@ const DifferentPrice = () => {
     inputs.push(
       <div className={styles.individualBlockAmount}>
         <p className={styles.blockNumber}>#{i}</p>
-        <input placeholder="Amount" type="number"></input>
+        <input
+          onWheel={(e) => e.target.blur()}
+          placeholder="Amount"
+          type="number"
+        ></input>
       </div>
     );
   }

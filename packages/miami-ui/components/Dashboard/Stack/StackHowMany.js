@@ -14,6 +14,7 @@ const StackHowMany = ({ setState }) => {
       <p>How much MiamiCoin do you want to stack?</p>
       <div className={styles.howManyMiamiCoin}>
         <input
+          onWheel={(e) => e.target.blur()}
           onChange={(event) => setStackAmount(event.target.value)}
           placeholder="How much MIA?"
           type="number"
