@@ -126,11 +126,7 @@ const DifferentPrice = () => {
         {/* This div will need to be repeated for each new block dependant on user input */}
         <div className={styles.blockScroll}>
           {inputs}
-          <button
-            disabled={!isActivated}
-            onClick={mineMany}
-            className={styles.transactionButton}
-          >
+          <button onClick={mineMany} className={styles.transactionButton}>
             Send Transaction
           </button>
           {/* <div className={styles.progressBar}></div> */}

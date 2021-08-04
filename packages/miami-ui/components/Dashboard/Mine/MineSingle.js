@@ -102,11 +102,7 @@ const MineSingle = () => {
           placeholder="How many STX?"
           type="number"
         />
-        <button
-          disabled={!isActivated}
-          onClick={mineSingle}
-          className={styles.transactionButton}
-        >
+        <button onClick={mineSingle} className={styles.transactionButton}>
           Send Transaction
         </button>
       </div>
