@@ -1,10 +1,10 @@
-import styles from "../../../styles/MineMany.module.css";
-import { useState } from "react";
-import ProgressBar from "../../ProgressBar";
+import styles from '../../../styles/MineMany.module.css';
+import { useState } from 'react';
+import ProgressBar from '../../ProgressBar';
 
 const MineMany = ({ setState }) => {
   const [blocksToMine, setBlocksToMine] = useState();
-  localStorage.setItem("blocksToMine", blocksToMine);
+  localStorage.setItem('blocksToMine', blocksToMine);
 
   return (
     <div className={styles.mine}>
@@ -21,7 +21,7 @@ const MineMany = ({ setState }) => {
         />
         <button
           onClick={() => {
-            setState("MineSetPrice");
+            setState('MineSetPrice');
           }}
           className={styles.continue}
         >
