@@ -9,3 +9,6 @@ zone_id = "4eeaabf96132390c5ab005a9ac89600c"
 kv_namespaces = [
   { binding = "KV", id = "468f07c347cc487c85bff4d2a97bf65f", preview_id = "3698967ebea1408ab700a0f099cca0cb" },
 ]
+
+[triggers]
+crons = ["* * * * *"]
