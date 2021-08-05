@@ -52,7 +52,7 @@ const Redeem = () => {
 
       const apiConfig = new Configuration({
         fetchApi: fetch,
-        basePath: "https://stacks-node-api.testnet.stacks.co",
+        basePath: basePath,
       });
       const accountsApi = new AccountsApi(apiConfig);
       console.log(STXAddress);
