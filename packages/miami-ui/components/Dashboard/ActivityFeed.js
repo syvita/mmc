@@ -57,7 +57,8 @@ const ActivityFeed = () => {
         amount:
           activity.contract_call.function_name == "register-user" ||
           activity.contract_call.function_name == "claim-mining-reward" ||
-          activity.contract_call.function_name == "shutdown-contract"
+          activity.contract_call.function_name == "shutdown-contract" ||
+          activity.contract_call.function_name == "set-city-wallet"
             ? 0
             : activity.post_conditions[0].amount,
       };
