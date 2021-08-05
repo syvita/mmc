@@ -14,8 +14,10 @@
         "prettier": "^1.17.0"
     },
     "dependencies": {
+        "@syvita/transactions": "^2.0.1-beta.2",
         "itty-router": "^2.1.9",
         "itty-router-extras": "^0.4.2",
+        "micro-stacks": "^0.0.26",
         "serverless-cloudflare-workers": "^1.2.0",
         "toucan-js": "^2.5.0-beta.1"
     }

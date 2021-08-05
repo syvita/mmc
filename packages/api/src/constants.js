@@ -1,0 +1,1 @@
+export const baseURL = 'https://stacks-node-api.mainnet.stacks.co'
