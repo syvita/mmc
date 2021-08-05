@@ -43,70 +43,70 @@ const Redeem = () => {
   let totalWinnings = [];
 
   useEffect(() => {
-    getClaimableBlocks().then((result) => setWinningBlocks(result));
-  }, []);
+    async function getClaimableBlocks() {
+      let basePath = "https://stacks-node-api.mainnet.stacks.co";
 
-  async function getClaimableBlocks() {
-    let basePath = "https://stacks-node-api.mainnet.stacks.co";
+      if (NETWORK_STRING != "mainnet") {
+        basePath = "https://stacks-node-api.testnet.stacks.co";
+      }
 
-    if (NETWORK_STRING != "mainnet") {
-      basePath = "https://stacks-node-api.testnet.stacks.co";
-    }
+      const apiConfig = new Configuration({
+        fetchApi: fetch,
+        basePath: "https://stacks-node-api.testnet.stacks.co",
+      });
+      const accountsApi = new AccountsApi(apiConfig);
+      console.log(STXAddress);
+      console.log(accountsApi);
+      const response = await accountsApi.getAccountTransactions({
+        principal: STXAddress,
+      });
+      console.log("REPONSEEES" + response);
+      const txs = response.results.filter(
+        (tx) =>
+          tx.tx_status === "success" &&
+          tx.tx_type === "contract_call" &&
+          (tx.contract_call.function_name === "mine-tokens" ||
+            tx.contract_call.function_name === "mine-many") &&
+          tx.contract_call.contract_id ===
+            `${CITY_COIN_CORE_ADDRESS}.${CITY_COIN_CORE_CONTRACT_NAME}`
+      );
 
-    const apiConfig = new Configuration({
-      fetchApi: fetch,
-      basePath: "https://stacks-node-api.testnet.stacks.co",
-    });
-    const accountsApi = new AccountsApi(apiConfig);
-    console.log(STXAddress);
-    console.log(accountsApi);
-    const response = await accountsApi.getAccountTransactions({
-      principal: STXAddress,
-    });
-    console.log("REPONSEEES" + response);
-    const txs = response.results.filter(
-      (tx) =>
-        tx.tx_status === "success" &&
-        tx.tx_type === "contract_call" &&
-        (tx.contract_call.function_name === "mine-tokens" ||
-          tx.contract_call.function_name === "mine-many") &&
-        tx.contract_call.contract_id ===
-          `${CITY_COIN_CORE_ADDRESS}.${CITY_COIN_CORE_CONTRACT_NAME}`
-    );
+      let blocksMined = [];
+      console.log(txs.length);
 
-    let blocksMined = [];
-    console.log(txs.length);
-
-    // ** MAGIC **
-    for (let i = 0; i < txs.length; i++) {
-      console.log(i);
-      if (txs[i].contract_call.function_name === "mine-tokens") {
-        blocksMined.push(txs[i].block_height);
-      } else if (txs[i].contract_call.function_name === "mine-many") {
-        blocksMined.push(txs[i].block_height);
-        let blocks = txs[i].contract_call.function_args[0].repr;
-        var many_amount = (blocks.match(/u/g) || []).length;
-        for (let j = 1; j <= many_amount; j++) {
-          console.log("MINED MANY BLOCK HEIGHT: " + txs[i].block_height + 1);
-          blocksMined.push(txs[i].block_height + 1);
+      // ** MAGIC **
+      for (let i = 0; i < txs.length; i++) {
+        console.log(i);
+        if (txs[i].contract_call.function_name === "mine-tokens") {
+          blocksMined.push(txs[i].block_height);
+        } else if (txs[i].contract_call.function_name === "mine-many") {
+          blocksMined.push(txs[i].block_height);
+          let blocks = txs[i].contract_call.function_args[0].repr;
+          var many_amount = (blocks.match(/u/g) || []).length;
+          for (let j = 1; j <= many_amount; j++) {
+            console.log("MINED MANY BLOCK HEIGHT: " + txs[i].block_height + 1);
+            blocksMined.push(txs[i].block_height + 1);
+          }
         }
       }
-    }
 
-    blocksMined = blocksMined.filter(Number);
-    blocksMined = [...new Set(blocksMined)];
+      blocksMined = blocksMined.filter(Number);
+      blocksMined = [...new Set(blocksMined)];
 
-    const canClaimArray = [];
-    for (let i = 0; i < blocksMined.length; i++) {
-      let bool = await canClaimMiningReward(STXAddress, blocksMined[i]);
-      if (bool == true) {
-        canClaimArray.push(blocksMined[i]);
+      const canClaimArray = [];
+      for (let i = 0; i < blocksMined.length; i++) {
+        let bool = await canClaimMiningReward(STXAddress, blocksMined[i]);
+        if (bool == true) {
+          canClaimArray.push(blocksMined[i]);
+        }
       }
+      console.log(canClaimArray);
+      setIsLoading(false);
+      return canClaimArray;
     }
-    console.log(canClaimArray);
-    setIsLoading(false);
-    return canClaimArray;
-  }
+
+    getClaimableBlocks().then((result) => setWinningBlocks(result));
+  }, []);
 
   // async function getWinningBlocks(STXAddress) {
   //   const res =
