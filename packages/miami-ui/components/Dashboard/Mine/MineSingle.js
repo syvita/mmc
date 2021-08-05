@@ -69,24 +69,14 @@ const MineSingle = () => {
         ),
       ],
       network: NETWORK,
-      onFinish: (data) => {
-        const json = JSON.stringify(data, (key, value) =>
-          typeof value === "bigint" ? value.toString() + "n" : value
-        );
-        console.log("TRANSACTION FINISHED " + json);
-        console.log("ON FINSIH");
-        console.log("TRAN ID: " + data.txId);
-        setTxId(data.txId);
-        addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
+      onFinish: (result) => {
+        setTxId(result.txId);
+        //addMinedBlocks(STXAddress, appPrivateKey, blockHeight);
       },
     });
     // KV CALLS
 
     // TEMP SOLUTION FOR ONFINISH TRAN ID
-
-    const Status = ({ txId }) => {
-      <div>{txId}</div>;
-    };
   }
 
   return txId ? (

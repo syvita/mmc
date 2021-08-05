@@ -6,7 +6,7 @@ import Toucan from 'toucan-js'
 import * as Sentry from './sentry'
 import { getAddressFromUID } from './readOnly'
 import { getCurrentBlockHeight } from './blockHeight'
-import { getBlockWinner } from "./readOnly";
+import { getBlockWinner } from './readOnly'
 
 // Create a new router
 const router = Router()
@@ -54,25 +54,37 @@ router.put(
 )
 
 router.get('/blocks/winner/:block', async ({ params }, sentry) => {
-  const block = decodeURIComponent(params.block).toString()
-  const result = await KV.get(block)
-  if (result !== null) {
-    const blockWinner = (JSON.parse(result)).winner
-    return new Response(createResponse(true, blockWinner), createResponse(200))
-  } else {
-    return new Response(createResponse(false, "Couldn't find block winner"), createResponse(404))
-  }
+    const block = decodeURIComponent(params.block).toString()
+    const result = await KV.get(block)
+    if (result !== null) {
+        const blockWinner = JSON.parse(result).winner
+        return new Response(
+            createResponse(true, blockWinner),
+            createResponse(200)
+        )
+    } else {
+        return new Response(
+            createResponse(false, "Couldn't find block winner"),
+            createResponse(404)
+        )
+    }
 })
 
 router.get('/blocks/wonblocks/:address', async ({ params }, sentry) => {
-  const address = decodeURIComponent(params.address).toString()
-  const result = await KV.get(address)
+    const address = decodeURIComponent(params.address).toString()
+    const result = await KV.get(address)
 
-  if (result !== null) {
-    return new Response(createResponse(true, JSON.parse(result)), createResponse(200))
-  } else {
-    return new Response(createResponse(false, "Couldn't find any blocks"), createResponse(404))
-  }
+    if (result !== null) {
+        return new Response(
+            createResponse(true, JSON.parse(result)),
+            createResponse(200)
+        )
+    } else {
+        return new Response(
+            createResponse(false, "Couldn't find any blocks"),
+            createResponse(404)
+        )
+    }
 })
 
 // GET: get value
@@ -162,49 +174,55 @@ addEventListener('scheduled', e => {
 
 async function handleScheduled(event) {
     const currentBlockHeight = getCurrentBlockHeight()
-    const targetBlock = parseInt((currentBlockHeight - 100))
+    const targetBlock = parseInt(currentBlockHeight - 100)
     const firstRedeemableBlock = 24497
 
     const lastBlockCached = parseInt(await KV.get('lastBlockCached'))
     const blockWinner = await getBlockWinner(targetBlock)
 
     if (currentBlockHeight >= firstRedeemableBlock) {
-      if (lastBlockCached === (targetBlock-1)) {
-        if (blockWinner !== 'none') {
-          await KV.put(targetBlock, JSON.stringify({winner: blockWinner}))
-          await KV.put('lastBlockCached', targetBlock)
-          await addBlockToAddress(blockWinner, targetBlock)
-          return new Response("done")
+        if (lastBlockCached == targetBlock - 1) {
+            if (blockWinner !== 'none') {
+                await KV.put(
+                    targetBlock,
+                    JSON.stringify({ winner: blockWinner })
+                )
+                await KV.put('lastBlockCached', targetBlock)
+                await addBlockToAddress(blockWinner, targetBlock)
+                return new Response('done')
+            } else {
+                await KV.put('lastBlockCached', targetBlock)
+                return new Response('done')
+            }
         } else {
-          await KV.put('lastBlockCached', targetBlock)
-          return new Response("done")
+            const howManyMissedBlocks = targetBlock - lastBlockCached
+            for (block in howManyMissedBlocks) {
+                const missedBlock = block + lastBlockCached
+                if (blockWinner !== 'none') {
+                    await KV.put(
+                        missedBlock,
+                        JSON.stringify({ winner: blockWinner })
+                    )
+                    await KV.put('lastBlockCached', missedBlock.toString())
+                    await addBlockToAddress(blockWinner, missedBlock)
+                    return new Response('done')
+                } else {
+                    await KV.put('lastBlockCached', missedBlock.toString())
+                    return new Response('done')
+                }
+            }
         }
-      } else {
-        const howManyMissedBlocks = targetBlock - lastBlockCached
-        for (block in howManyMissedBlocks) {
-          const missedBlock = block + lastBlockCached
-          if (blockWinner !== 'none') {
-            await KV.put(missedBlock, JSON.stringify({winner: blockWinner}))
-            await KV.put('lastBlockCached', missedBlock.toString())
-            await addBlockToAddress(blockWinner, missedBlock)
-            return new Response("done")
-          } else {
-            await KV.put('lastBlockCached', missedBlock.toString())
-            return new Response("done")
-          }
-        }
-      }
     } else {
-      return new Response("done")
+        return new Response('done')
     }
 }
 
 async function addBlockToAddress(address, block) {
-  const res = await KV.get(address)
-  const parsed = JSON.parse(res)
-  let blocks = parsed
-  blocks.push(block)
-  const updated = JSON.stringify(blocks)
-  await KV.put(address, updated)
-  return true
+    const res = await KV.get(address)
+    const parsed = JSON.parse(res)
+    let blocks = parsed
+    blocks.push(block)
+    const updated = JSON.stringify(blocks)
+    await KV.put(address, updated)
+    return true
 }
