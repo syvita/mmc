@@ -45,9 +45,11 @@ const Redeem = () => {
     );
     const result = await res.json();
     if (result.success == true) {
+      console.log("REQUEST SUCCEEDED");
       return result.result;
     } else {
-      return [3001, 3002, 3003];
+      console.log("REQUEST FAILED");
+      return [2456, 2345, 2556];
     }
   }
 
