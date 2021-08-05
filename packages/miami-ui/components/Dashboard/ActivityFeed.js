@@ -32,6 +32,7 @@ const ActivityFeed = () => {
     let type = "";
     switch (contract) {
       case "stack-tokens":
+      case "claim-mining-reward":
         type = "$MIA";
         break;
       default:
@@ -43,6 +44,9 @@ const ActivityFeed = () => {
   if (transactionData != null) {
     for (let i = 0; i < 6; i++) {
       const activity = transactionData[i];
+      console.log(
+        "ACTIVITY :" + i + JSON.stringify(activity.contract_call.function_name)
+      );
       const transaction = {
         tx_id: activity.tx_id,
         tx_status: activity.tx_status,
@@ -51,7 +55,8 @@ const ActivityFeed = () => {
         type: getTokenType(activity.contract_call.function_name),
 
         amount:
-          activity.contract_call.function_name == "register-user"
+          activity.contract_call.function_name == "register-user" ||
+          activity.contract_call.function_name == "claim-mining-reward"
             ? 0
             : activity.post_conditions[0].amount,
       };

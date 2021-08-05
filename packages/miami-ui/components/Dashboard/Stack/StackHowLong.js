@@ -32,6 +32,7 @@ const StackHowLong = () => {
   const [txId, setTxId] = useState();
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
+  const coinAmount = uintCV(localStorage.getItem("coinAmount"));
 
   let STXAddress = "";
   const userData = userSession.loadUserData();
@@ -75,20 +76,24 @@ const StackHowLong = () => {
   // }, []);
 
   async function stackCoins() {
-    const coinAmount = 10000; // We pass this in from prev component StackHowMany @DIO
+    // We pass this in from prev component StackHowMany @DIO
 
+    console.log(STXAddress);
+    console.log(coinAmount.value);
+
+    console.log(uintCV(cycles).value);
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
       functionName: "stack-tokens",
-      functionArgs: [uintCV(coinAmount), uintCV(cycles)],
+      functionArgs: [coinAmount, uintCV(cycles)],
       network: NETWORK,
       postConditionMode: PostConditionMode.Deny,
       postConditions: [
         makeStandardFungiblePostCondition(
           STXAddress,
-          FungibleConditionCode.LessEqual,
-          uintCV(coinAmount).value,
+          FungibleConditionCode.Equal,
+          coinAmount.value,
           createAssetInfo(
             CITY_COIN_TOKEN_CONTRACT_ADDRESS,
             CITY_COIN_TOKEN_CONTRACT_NAME,

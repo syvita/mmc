@@ -1,4 +1,5 @@
-// import { StacksMainnet, StacksTestnet } from "@stacks/network";
+import { StacksMainnet, StacksTestnet } from "@stacks/network";
+import { AccountsApi, Configuration } from "@stacks/blockchain-api-client";
 
 // export var CC_NAME = "miamicoin";
 // export var CITY_COIN_CORE_ADDRESS = "SP466FNC0P7JWTNM2R9T199QRZN1MYEDTAR0KP27";
@@ -13,7 +14,8 @@
 // export var API_BASE_NET_URL = "https://stacks-node-api.stacks.co/";
 // export var NETWORK_STRING = "mainnet";
 
-import { StacksMainnet, StacksTestnet } from "@stacks/network";
+// ====================================================================
+// ====================================================================
 
 // export var CC_NAME = "miamicoin";
 

@@ -2,11 +2,8 @@ import { useState } from "react";
 import styles from "../../../styles/StackHowMany.module.css";
 
 const StackHowMany = ({ setState }) => {
-  const [stackAmount, setStackAmount] = useState();
-
-  async function stackCoins() {
-    return 1;
-  }
+  const [coinAmount, setCoinAmount] = useState();
+  localStorage.setItem("coinAmount", coinAmount);
 
   return (
     <div className={styles.stack}>
@@ -15,13 +12,12 @@ const StackHowMany = ({ setState }) => {
       <div className={styles.howManyMiamiCoin}>
         <input
           onWheel={(e) => e.target.blur()}
-          onChange={(event) => setStackAmount(event.target.value)}
+          onChange={(event) => setCoinAmount(event.target.value)}
           placeholder="How much MIA?"
           type="number"
         />
         <button
           onClick={() => {
-            stackCoins();
             setState("StackHowLong");
           }}
           className={styles.continue}

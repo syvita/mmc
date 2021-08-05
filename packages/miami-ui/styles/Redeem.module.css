@@ -21,6 +21,7 @@
 .buttons {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .noStackingRewards {
@@ -39,6 +40,20 @@
 }
 
 .noMiningRewards {
+  all: unset;
+  width: 256.5px;
+  height: 34px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.redeemBlocks {
   all: unset;
   width: 256.5px;
   height: 34px;

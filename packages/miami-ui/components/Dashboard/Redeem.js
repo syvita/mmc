@@ -3,8 +3,17 @@ import { getMinedBlocks } from "../../lib/kv";
 import styles from "../../styles/Redeem.module.css";
 import { useAtom } from "jotai";
 import { userSessionState } from "../../lib/auth";
-import { NETWORK_STRING } from "../../lib/constants";
-import { canClaimMiningReward, API_BASE_NET_URL } from "../../lib/contracts";
+import {
+  NETWORK_STRING,
+  API_BASE_NET_URL,
+  CITY_COIN_CORE_ADDRESS,
+  CITY_COIN_CORE_CONTRACT_NAME,
+  NETWORK,
+} from "../../lib/constants";
+import { getActivationBlock, canClaimMiningReward } from "../../lib/contracts";
+import { useConnect } from "@syvita/connect-react";
+import { uintCV } from "@syvita/transactions";
+import Transaction from "./Transaction";
 
 const Redeem = () => {
   const [userSession] = useAtom(userSessionState);
@@ -12,6 +21,8 @@ const Redeem = () => {
   let STXAddress = "";
   const userData = userSession.loadUserData();
   const appPrivateKey = userData.appPrivateKey;
+  const { doContractCall } = useConnect();
+  const [txId, setTxId] = useState();
 
   if (NETWORK_STRING == "mainnet") {
     STXAddress = userData.profile.stxAddress.mainnet;
@@ -19,79 +30,85 @@ const Redeem = () => {
     STXAddress = userData.profile.stxAddress.testnet;
   }
 
-  // starting block is activation block ('get-activation-block')
-  //   no params
-  // end block is current block
+  const [winningBlocks, setWinningBlocks] = useState();
 
-  // call 'can-claim-mining-reward' for every block (inclusive) between those two
-  //   takes user (principle) and block height (uint)
-  // will return true if they can or false if they can't redeem that block
+  let buttonArray = [];
+  let totalWinnings = [];
 
-  // don't have to worry bout stacking redeem yet
+  useEffect(() => {
+    getWinningBlocks(STXAddress).then((result) => setWinningBlocks(result));
+  }, []);
 
-  const [canClaimDict, setCanClaimDict] = useState({});
-
-  useEffect(() => {}, []);
-  async function getActivationBlock() {
-    const result = await callReadOnlyFunction({
-      contractAddress: CITY_COIN_CORE_ADDRESS,
-      contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: "get-activation-block",
-      functionArgs: [],
-      network: NETWORK,
-      senderAddress: address,
-    });
-    console.log("Activation block : " + JSON.stringify(result.value));
-    return result.value;
-  }
-  async function getCurrentBlockHeight() {
-    let result = await fetch(API_BASE_NET_URL + "v2/info");
-    let cycleData = await res.json();
-    const currentBlockHeight = cycleData.stacks_tip_height;
-    console.log("CURRENT BLOCK HEIGHT: " + JSON.stringify(result));
-    return currentBlockHeight;
+  async function getWinningBlocks(STXAddress) {
+    const res = await fetch(
+      "https://api.minemiamicoin.com/blocks/wonblocks/" + STXAddress
+    );
+    const result = await res.json();
+    if (result.success == true) {
+      return result.result;
+    } else {
+      return [3001, 3002, 3003];
+    }
   }
 
-  async function canClaimMiningReward(address, minerBlockHeight) {
-    const result = await callReadOnlyFunction({
-      contractAddress: CITY_COIN_CORE_ADDRESS,
-      contractName: CITY_COIN_CORE_CONTRACT_NAME,
-      functionName: "can-claim-mining-reward",
-      functionArgs: [standardPrincipalCV(address), uintCV(minerBlockHeight)],
-      network: NETWORK,
-      senderAddress: address,
-    });
-    console.log("CAN CLAIM MINING REWARD: " + JSON.stringify(result));
-    return result.value;
-  }
-
-  async function callClaimForEachBlock(
-    activationBlock,
-    currentBlock,
-    STXAddress
+  if (
+    winningBlocks != [] &&
+    winningBlocks != undefined &&
+    winningBlocks.length != 0
   ) {
-    const canClaimDict = [];
-
-    return canClaimDict;
+    console.log("WINNING BLOCKS + " + winningBlocks);
+    console.log(winningBlocks.length);
+    for (let i = 0; i < winningBlocks.length; i++) {
+      totalWinnings = +totalWinnings + +winningBlocks[i];
+      buttonArray.push(
+        <button
+          onClick={() => claimAction(winningBlocks[i])}
+          className={styles.redeemBlocks}
+        >
+          {"#" + winningBlocks[i]}
+        </button>
+      );
+    }
   }
 
-  return (
+  async function claimAction(blockHeight) {
+    await doContractCall({
+      contractAddress: CITY_COIN_CORE_ADDRESS,
+      contractName: CITY_COIN_CORE_CONTRACT_NAME,
+      functionName: "claim-mining-reward",
+      functionArgs: [uintCV(blockHeight)],
+      network: NETWORK,
+      onFinish: (result) => {
+        setTxId(result.txId);
+      },
+    });
+  }
+
+  console.log(buttonArray);
+
+  return txId ? (
+    <Transaction txId={txId} />
+  ) : (
     <div className={styles.redeem}>
-      <h2 className={styles.h2}>Redeem rewards</h2>
+      <h2 className={styles.h2}>Redeem mining rewards</h2>
       <p>
-        Claim your STX rewards from stacking your MiamiCoin, or claim your MIA
-        rewards from mining MiamiCoin.
+        You have a total {totalWinnings} $MIA from the below blocks. Send the
+        transactions below to redeem them.
       </p>
-      <p>
-        You need to have either stacked MiamiCoin or mined MiamiCoin already to
-        redeem the rewards.
-      </p>
-      <div className={styles.buttons}>
-        <button className={styles.noStackingRewards}>
-          No stacking rewards
-        </button>
-        <button className={styles.noMiningRewards}>No mining rewards</button>
-      </div>
+      <p>You'll need to send a transaction for every block you won.</p>
+
+      {buttonArray}
+      {!buttonArray && (
+        <div className={styles.buttons}>
+          <button className={styles.noMiningRewards}>No mining rewards</button>
+        </div>
+      )}
+
+      {buttonArray && (
+        <div className={styles.buttons}>
+          <button className={styles.noMiningRewards}>No mining rewards</button>
+        </div>
+      )}
     </div>
   );
 };
