@@ -30,7 +30,6 @@ const Redeem = () => {
   const { doContractCall } = useConnect();
   const [txId, setTxId] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [noRewardsFound, setNoRewardsFound] = useState(false);
 
   if (NETWORK_STRING == "mainnet") {
     STXAddress = userData.profile.stxAddress.mainnet;
@@ -106,8 +105,7 @@ const Redeem = () => {
     }
     console.log(canClaimArray);
     setIsLoading(false);
-    setNoRewardsFound(true);
-    return [canClaimArray];
+    return canClaimArray;
   }
 
   // async function getWinningBlocks(STXAddress) {
@@ -167,7 +165,6 @@ const Redeem = () => {
       </p>
       {isLoading && <div>Loading... (Please wait a few seconds)</div>}
       {buttonArray && buttonArray}
-      {noRewardsFound && <div>No rewards found.</div>}
     </div>
   );
 };
