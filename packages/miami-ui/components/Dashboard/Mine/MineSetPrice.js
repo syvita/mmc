@@ -101,19 +101,9 @@ const DifferentPrice = () => {
         ),
       ],
       network: NETWORK,
-      onFinish: (data) => {
-        const json = JSON.stringify(data, (key, value) =>
-          typeof value === "bigint" ? value.toString() + "n" : value
-        );
-        console.log("TRANSACTION FINISHED " + json);
-        const minedBlocks = [];
-
-        for (let i = 0; i < blocksToMine; i++) {
-          minedBlocks.push(blockHeight + i);
-        }
-        console.log("MINED BLOCKS " + minedBlocks);
-        setTxId(data.txId);
-        addMinedBlocks(STXAddress, appPrivateKey, minedBlocks);
+      onFinish: (result) => {
+        setTxId(result.txId);
+        // addMinedBlocks(STXAddress, appPrivateKey, minedBlocks);
       },
     });
   }

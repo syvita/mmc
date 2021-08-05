@@ -23,7 +23,9 @@ const MineMiami = ({ setState }) => {
       <input type="checkbox" name="agree" onChange={checkboxHandler}></input>
       <label htmlFor="agree">
         I confirm I understand that the City of Miami has not yet officially
-        claimed the MiamiCoin protocol contribution.
+        claimed the MiamiCoin protocol contribution. I also acknowledge that my
+        participation in mining MiamiCoin ($MIA) does not guarantee winning the
+        rights to claim newly minted $MIA.
       </label>
       <div className={styles.buttons}>
         <button

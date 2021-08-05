@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <main>
       <Head>
-        <title>Miami Coin | $MIA</title>
+        <title>MiamiCoin | $MIA</title>
         <meta
           name="description"
           content="The official home of Miami Coin, start mining and stacking today!"
