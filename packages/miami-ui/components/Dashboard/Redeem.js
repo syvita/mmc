@@ -148,9 +148,7 @@ const Redeem = () => {
 
   console.log(buttonArray);
 
-  return txId ? (
-    <Transaction txId={txId} />
-  ) : (
+  return (
     <div className={styles.redeem}>
       <h2 className={styles.h2}>Redeem mining rewards</h2>
       <p>
