@@ -72,12 +72,15 @@ const Redeem = () => {
       );
 
       let blocksMined = [];
+
       console.log(txs.length);
+      let singleBlocksMined = [];
 
       // ** MAGIC **
       for (let i = 0; i < txs.length; i++) {
         if (txs[i].contract_call.function_name === "mine-tokens") {
-          blocksMined.push(txs[i].block_height);
+          console.log("FIND NUMBER: " + txs[i].block_height);
+          singleBlocksMined.push(txs[i].block_height);
         } else if (txs[i].contract_call.function_name === "mine-many") {
           blocksMined.push(txs[i].block_height);
           let blocks = txs[i].contract_call.function_args[0].repr;
@@ -88,16 +91,16 @@ const Redeem = () => {
         }
       }
 
-      console.log(blocksMined);
+      let blocksToCheck = singleBlocksMined.concat(blocksMined);
 
-      blocksMined = blocksMined.filter(Number);
-      blocksMined = [...new Set(blocksMined)];
+      blocksToCheck = blocksToCheck.filter(Number).sort((a, b) => a - b);
+      blocksToCheck = [...new Set(blocksToCheck)];
 
       const canClaimArray = [];
-      for (let i = 0; i < blocksMined.length; i++) {
-        let bool = await canClaimMiningReward(STXAddress, blocksMined[i]);
+      for (let i = 0; i < blocksToCheck.length; i++) {
+        let bool = await canClaimMiningReward(STXAddress, blocksToCheck[i]);
         if (bool == true) {
-          canClaimArray.push(blocksMined[i]);
+          canClaimArray.push(blocksToCheck[i]);
         }
       }
       setIsLoading(false);
