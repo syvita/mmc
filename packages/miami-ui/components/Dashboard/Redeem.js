@@ -58,9 +58,9 @@ const Redeem = () => {
       console.log(STXAddress);
       console.log(accountsApi);
       const response = await accountsApi.getAccountTransactions({
+        limit: 50,
         principal: STXAddress,
       });
-      console.log("REPONSEEES" + response);
       const txs = response.results.filter(
         (tx) =>
           tx.tx_status === "success" &&
