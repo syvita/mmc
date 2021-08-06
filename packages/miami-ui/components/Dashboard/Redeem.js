@@ -76,7 +76,6 @@ const Redeem = () => {
 
       // ** MAGIC **
       for (let i = 0; i < txs.length; i++) {
-        console.log(i);
         if (txs[i].contract_call.function_name === "mine-tokens") {
           blocksMined.push(txs[i].block_height);
         } else if (txs[i].contract_call.function_name === "mine-many") {
