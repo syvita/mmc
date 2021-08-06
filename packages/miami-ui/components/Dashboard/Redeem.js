@@ -84,8 +84,7 @@ const Redeem = () => {
           let blocks = txs[i].contract_call.function_args[0].repr;
           var many_amount = (blocks.match(/u/g) || []).length;
           for (let j = 1; j <= many_amount; j++) {
-            console.log("MINED MANY BLOCK HEIGHT: " + txs[i].block_height + 1);
-            blocksMined.push(txs[i].block_height + 1);
+            blocksMined.push(txs[i].block_height + j);
           }
         }
       }
