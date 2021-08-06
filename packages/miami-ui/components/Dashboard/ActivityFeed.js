@@ -41,6 +41,21 @@ const ActivityFeed = () => {
     return type;
   }
 
+  function getAmount(contract) {
+    let type = "";
+
+    switch (contract) {
+      case "register-user":
+      case "shutdown-contract":
+      case "set-city-wallet":
+        type = 0;
+        break;
+      case "claim-mining-reward":
+        type = 250000;
+    }
+    return type;
+  }
+
   if (transactionData != null) {
     for (let i = 0; i < 6; i++) {
       const activity = transactionData[i];
@@ -53,14 +68,7 @@ const ActivityFeed = () => {
         sender_address: activity.sender_address,
         contract_call: activity.contract_call.function_name,
         type: getTokenType(activity.contract_call.function_name),
-
-        amount:
-          activity.contract_call.function_name == "register-user" ||
-          activity.contract_call.function_name == "claim-mining-reward" ||
-          activity.contract_call.function_name == "shutdown-contract" ||
-          activity.contract_call.function_name == "set-city-wallet"
-            ? 0
-            : activity.post_conditions[0].amount,
+        amount: getAmount(activity.contract_call.function_name),
       };
       if (transaction.type == "STX")
         transaction.amount = transaction.amount / 1000000;
