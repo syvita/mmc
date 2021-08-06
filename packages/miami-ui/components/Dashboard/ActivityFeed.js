@@ -72,9 +72,9 @@ const ActivityFeed = () => {
       };
       if (transaction.type == "STX")
         transaction.amount = transaction.amount / 1000000;
-      if (transaction.sender_address.length > 14)
+      if (transaction.sender_address.length > 12)
         transaction.sender_address =
-          transaction.sender_address.substring(0, 14) + "...";
+          transaction.sender_address.substring(0, 12) + "...";
 
       let status = "";
       switch (transaction.tx_status) {
