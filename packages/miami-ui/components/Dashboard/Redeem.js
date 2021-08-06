@@ -161,8 +161,9 @@ const Redeem = () => {
     <div className={styles.redeem}>
       <h2 className={styles.h2}>Redeem mining rewards</h2>
       <p>
-        Your may redeem $MIA if you have won a block. Send the transactions
-        below to redeem them.
+        Your may redeem $MIA if you have won a block. You must wait at least 100
+        blocks after you have mined in order to find out if you have won it.
+        Send the transactions below to redeem them.
       </p>
       <p>
         You'll need to send a transaction for every block you won. Redeemable
