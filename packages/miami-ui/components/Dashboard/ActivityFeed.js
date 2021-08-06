@@ -44,9 +44,9 @@ const ActivityFeed = () => {
   if (transactionData != null) {
     for (let i = 0; i < 6; i++) {
       const activity = transactionData[i];
-      console.log(
-        "ACTIVITY :" + i + JSON.stringify(activity.contract_call.function_name)
-      );
+      // console.log(
+      //   "ACTIVITY :" + i + JSON.stringify(activity.contract_call.function_name)
+      // );
       const transaction = {
         tx_id: activity.tx_id,
         tx_status: activity.tx_status,
