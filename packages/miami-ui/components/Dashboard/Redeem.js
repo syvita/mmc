@@ -30,6 +30,7 @@ const Redeem = () => {
   const { doContractCall } = useConnect();
   const [txId, setTxId] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [percentageChecked, setPercentageChecked] = useState(0);
 
   if (NETWORK_STRING == "mainnet") {
     STXAddress = userData.profile.stxAddress.mainnet;
@@ -98,7 +99,12 @@ const Redeem = () => {
 
       const canClaimArray = [];
       for (let i = 0; i < blocksToCheck.length; i++) {
+        let percent = Math.floor((i / blocksToCheck.length) * 100);
+        setPercentageChecked(percent);
+        console.log(blocksToCheck[i]);
+        console.log(i);
         let bool = await canClaimMiningReward(STXAddress, blocksToCheck[i]);
+        console.log(bool);
         if (bool == true) {
           canClaimArray.push(blocksToCheck[i]);
         }
@@ -162,7 +168,11 @@ const Redeem = () => {
         You'll need to send a transaction for every block you won. Redeemable
         blocks will appear below.
       </p>
-      {isLoading && <div>Loading... (Please wait a few seconds)</div>}
+      {isLoading && (
+        <div>
+          Checking for claimable blocks... {percentageChecked}% (Please wait)
+        </div>
+      )}
       {buttonArray && buttonArray}
     </div>
   );
