@@ -104,7 +104,6 @@ const Redeem = () => {
       setIsLoading(false);
       return canClaimArray;
     }
-    console.log("CLAIM ARRAY " + canClaimArray);
     getClaimableBlocks().then((result) => setWinningBlocks(result));
   }, []);
 
