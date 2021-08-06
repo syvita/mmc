@@ -96,7 +96,7 @@ const Redeem = () => {
       for (let i = 0; i < blocksMined.length; i++) {
         let bool = await canClaimMiningReward(STXAddress, blocksMined[i]);
         if (bool == true) {
-          canClaimArray.push(blocksMined[i]);
+          canClaimArray.push(blocksMined[j]);
         }
       }
       console.log(canClaimArray);
