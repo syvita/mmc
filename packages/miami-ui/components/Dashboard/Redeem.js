@@ -89,6 +89,8 @@ const Redeem = () => {
         }
       }
 
+      console.log(blocksMined);
+
       blocksMined = blocksMined.filter(Number);
       blocksMined = [...new Set(blocksMined)];
 
@@ -96,14 +98,13 @@ const Redeem = () => {
       for (let i = 0; i < blocksMined.length; i++) {
         let bool = await canClaimMiningReward(STXAddress, blocksMined[i]);
         if (bool == true) {
-          canClaimArray.push(blocksMined[j]);
+          canClaimArray.push(blocksMined[i]);
         }
       }
-      console.log(canClaimArray);
       setIsLoading(false);
       return canClaimArray;
     }
-
+    console.log("CLAIM ARRAY " + canClaimArray);
     getClaimableBlocks().then((result) => setWinningBlocks(result));
   }, []);
 
