@@ -59,7 +59,7 @@ const ActivityFeed = () => {
       case "mine-many":
         amount = 0;
       case "stack-tokens":
-        amount = transaction.post_conditions[0].amount / 1000000;
+        amount = 0;
         break;
       default:
         amount = 0;
