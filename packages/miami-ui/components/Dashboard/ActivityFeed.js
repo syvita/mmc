@@ -43,7 +43,11 @@ const ActivityFeed = () => {
 
   function getAmount(transaction) {
     let amount = 0;
-
+    console.log(transaction.tx_id);
+    if (!transaction.post_conditions[0]) {
+      amount = 0;
+      return amount;
+    }
     switch (transaction.contract_call.function_name) {
       case "register-user":
       case "shutdown-contract":
@@ -57,9 +61,9 @@ const ActivityFeed = () => {
         amount = transaction.post_conditions[0].amount / 1000000;
         break;
       case "mine-many":
-        amount = 0;
+        amount = transaction.post_conditions[0].amount / 1000000;
       case "stack-tokens":
-        amount = 0;
+        amount = transaction.post_conditions[0].amount / 1000000;
         break;
       default:
         amount = 0;
