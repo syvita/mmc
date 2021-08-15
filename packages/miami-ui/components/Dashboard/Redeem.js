@@ -97,14 +97,34 @@ const Redeem = () => {
       blocksToCheck = blocksToCheck.filter(Number).sort((a, b) => a - b);
       blocksToCheck = [...new Set(blocksToCheck)];
 
+      function sleep(milliseconds) {
+        const date = Date.now();
+        let currentDate = null;
+        do {
+          currentDate = Date.now();
+        } while (currentDate - date < milliseconds);
+      }
+
       const canClaimArray = [];
       for (let i = 0; i < blocksToCheck.length; i++) {
         let percent = Math.floor((i / blocksToCheck.length) * 100);
         setPercentageChecked(percent);
         console.log(blocksToCheck[i]);
         console.log(i);
-        let bool = await canClaimMiningReward(STXAddress, blocksToCheck[i]);
-        console.log(bool);
+        let repeat = true;
+        let bool = "";
+        while (repeat) {
+          try {
+            bool = await canClaimMiningReward(STXAddress, blocksToCheck[i]);
+            console.log(bool);
+            repeat = false;
+          } catch {
+            console.log("Too many requests, retrying");
+            sleep(10000);
+            repeat = true;
+          }
+        }
+
         if (bool == true) {
           canClaimArray.push(blocksToCheck[i]);
         }
