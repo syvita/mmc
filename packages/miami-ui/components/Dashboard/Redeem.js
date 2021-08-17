@@ -33,7 +33,7 @@ const Redeem = () => {
   const [endBlock, setEndBlock] = useState(0);
 
   if (NETWORK_STRING == "mainnet") {
-    STXAddress = "SP26HM8T26QECGDHJM80KZFYQJTZN94BY8FJXWB7Y";
+    STXAddress = userData.profile.stxAddress.mainnet;
   } else {
     STXAddress = userData.profile.stxAddress.testnet;
   }
