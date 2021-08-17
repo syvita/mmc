@@ -8,7 +8,7 @@ function getCommitSHA() {
   }
 }
 
-const SENTRY_DSN = "https://6c2a0bedac06463b8fea519e8603f873@logs.syvita.org/3"
+const SENTRY_DSN = "https://5ea6ded89bfe4ff78ee9934ef0ddd0cf@o955003.ingest.sentry.io/5911252"
 
 if (process.env.CF_PAGES_BRANCH == 'prod') { // minemiamicoin.com main build
     Sentry.init({
