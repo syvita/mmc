@@ -29,6 +29,7 @@ const MineSingle = () => {
   const { doContractCall } = useConnect();
   const [userSession] = useAtom(userSessionState);
   const [txId, setTxId] = useState();
+  const userData = userSession.loadUserData();
 
   const [isActivated, setIsActivated] = useState(true);
 
@@ -38,9 +39,9 @@ const MineSingle = () => {
 
   console.log("IS ACTIVATIED: " + isActivated);
 
-  const userData = userSession.loadUserData();
-
   let STXAddress = "";
+
+  console.log(userData);
 
   if (NETWORK_STRING == "mainnet") {
     STXAddress = userData.profile.stxAddress.mainnet;

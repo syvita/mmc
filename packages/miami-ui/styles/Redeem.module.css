@@ -1,8 +1,8 @@
 .redeem {
-  margin-top: 169px;
-  margin-left: 10%;
+  margin-left: 7%;
   margin-right: 10%;
   max-width: 529px;
+  margin-top: 5%;
 }
 
 .h2 {
@@ -55,7 +55,7 @@
 
 .redeemBlocks {
   all: unset;
-  width: 256.5px;
+  width: 100px;
   height: 34px;
   background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -65,4 +65,33 @@
   line-height: 160%;
   text-align: center;
   cursor: pointer;
+}
+
+.checkIfWinner {
+  all: unset;
+  width: 529px;
+  height: 34px;
+  background: #000000;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.blockInput {
+  width: 150px;
+  height: 34px;
+  margin-top: 15px;
+  margin-left: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-right: 16px;
 }
