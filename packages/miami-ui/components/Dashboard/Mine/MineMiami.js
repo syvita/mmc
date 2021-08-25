@@ -21,11 +21,17 @@ const MineMiami = ({ setState }) => {
       </p>
       <p> Rewards can be withdrawn after a 100 block maturity window.</p>
       <input type="checkbox" name="agree" onChange={checkboxHandler}></input>
-      <label htmlFor="agree">
-        I confirm I understand that the City of Miami has not yet officially
-        claimed the MiamiCoin protocol contribution. I also acknowledge that my
-        participation in mining MiamiCoin ($MIA) does not guarantee winning the
-        rights to claim newly minted $MIA.
+      <label htmlFor="agree" className={styles.agree}>
+        I confirm that by participating in mining, I understand:
+        <li>
+          - The City of Miami has not yet officially claimed the MiamiCoin
+          protocol contribution.
+        </li>
+        <li>
+          - Participation does not guarantee winning the rights to claim newly
+          minted $MIA
+        </li>
+        <li>- Once STX are sent to the contract, they are not returned</li>
       </label>
       <div className={styles.buttons}>
         <button

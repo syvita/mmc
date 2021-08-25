@@ -17,7 +17,7 @@ const About = () => {
       <p>
         This web app was built from scratch by the Syvita Guild. Invidia &
         Diopitis coded the UI and Asteria designed it. We’re honoured to be part
-        of the CityCoins community and to have helped pitched in!
+        of the CityCoins community and to have pitched in!
       </p>
 
       <p>This site is managed under Syvita’s shared infrastructure.</p>

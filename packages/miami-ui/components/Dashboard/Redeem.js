@@ -26,10 +26,11 @@ const Redeem = () => {
 
   let STXAddress = "";
   const userData = userSession.loadUserData();
-  const appPrivateKey = userData.appPrivateKey;
   const { doContractCall } = useConnect();
-  const [txId, setTxId] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [percentageChecked, setPercentageChecked] = useState(0);
+  const [startBlock, setStartBlock] = useState(0);
+  const [endBlock, setEndBlock] = useState(0);
 
   if (NETWORK_STRING == "mainnet") {
     STXAddress = userData.profile.stxAddress.mainnet;
@@ -42,77 +43,110 @@ const Redeem = () => {
   let buttonArray = [];
   let totalWinnings = [];
 
-  useEffect(() => {
-    async function getClaimableBlocks() {
-      let basePath = "https://stacks-node-api.mainnet.stacks.co";
+  async function getClaimableBlocks() {
+    setIsLoading(true);
+    let basePath = "https://stacks-node-api.mainnet.stacks.co";
 
-      if (NETWORK_STRING != "mainnet") {
-        basePath = "https://stacks-node-api.testnet.stacks.co";
-      }
-
-      const apiConfig = new Configuration({
-        fetchApi: fetch,
-        basePath: "https://stacks-node-api.testnet.stacks.co",
-      });
-      const accountsApi = new AccountsApi(apiConfig);
-      console.log(STXAddress);
-      console.log(accountsApi);
-      const response = await accountsApi.getAccountTransactions({
-        principal: STXAddress,
-      });
-      console.log("REPONSEEES" + response);
-      const txs = response.results.filter(
-        (tx) =>
-          tx.tx_status === "success" &&
-          tx.tx_type === "contract_call" &&
-          (tx.contract_call.function_name === "mine-tokens" ||
-            tx.contract_call.function_name === "mine-many") &&
-          tx.contract_call.contract_id ===
-            `${CITY_COIN_CORE_ADDRESS}.${CITY_COIN_CORE_CONTRACT_NAME}`
-      );
-
-      let blocksMined = [];
-      console.log(txs.length);
-
-      // ** MAGIC **
-      for (let i = 0; i < txs.length; i++) {
-        console.log(i);
-        if (txs[i].contract_call.function_name === "mine-tokens") {
-          blocksMined.push(txs[i].block_height);
-        } else if (txs[i].contract_call.function_name === "mine-many") {
-          blocksMined.push(txs[i].block_height);
-          let blocks = txs[i].contract_call.function_args[0].repr;
-          var many_amount = (blocks.match(/u/g) || []).length;
-          for (let j = 1; j <= many_amount; j++) {
-            console.log("MINED MANY BLOCK HEIGHT: " + txs[i].block_height + 1);
-            blocksMined.push(txs[i].block_height + 1);
-          }
-        }
-      }
-
-      blocksMined = blocksMined.filter(Number);
-      blocksMined = [...new Set(blocksMined)];
-
-      const canClaimArray = [];
-      for (let i = 0; i < blocksMined.length; i++) {
-        let bool = await canClaimMiningReward(STXAddress, blocksMined[i]);
-        if (bool == true) {
-          canClaimArray.push(blocksMined[i]);
-        }
-      }
-      console.log(canClaimArray);
-      setIsLoading(false);
-      return canClaimArray;
+    if (NETWORK_STRING != "mainnet") {
+      basePath = "https://stacks-node-api.testnet.stacks.co";
     }
 
-    getClaimableBlocks().then((result) => setWinningBlocks(result));
-  }, []);
+    const apiConfig = new Configuration({
+      fetchApi: fetch,
+      basePath: basePath,
+    });
+    const accountsApi = new AccountsApi(apiConfig);
+    const response = await accountsApi.getAccountTransactions({
+      limit: 50,
+      principal: STXAddress,
+    });
+    const txs = response.results.filter(
+      (tx) =>
+        tx.tx_status === "success" &&
+        tx.tx_type === "contract_call" &&
+        (tx.contract_call.function_name === "mine-tokens" ||
+          tx.contract_call.function_name === "mine-many") &&
+        tx.contract_call.contract_id ===
+          `${CITY_COIN_CORE_ADDRESS}.${CITY_COIN_CORE_CONTRACT_NAME}`
+    );
 
-  // async function getWinningBlocks(STXAddress) {
-  //   const res =
+    let blocksMined = [];
 
-  //   txs = getTransactionsForAddress()
-  // }
+    let singleBlocksMined = [];
+
+    // ** MAGIC **
+    for (let i = 0; i < txs.length; i++) {
+      if (txs[i].contract_call.function_name === "mine-tokens") {
+        singleBlocksMined.push(txs[i].block_height);
+      } else if (txs[i].contract_call.function_name === "mine-many") {
+        blocksMined.push(txs[i].block_height);
+        let blocks = txs[i].contract_call.function_args[0].repr;
+        var many_amount = (blocks.match(/u/g) || []).length;
+        for (let j = 1; j <= many_amount; j++) {
+          blocksMined.push(txs[i].block_height + j);
+        }
+      }
+    }
+
+    let blocksToCheck = singleBlocksMined.concat(blocksMined);
+
+    blocksToCheck = blocksToCheck.filter(Number).sort((a, b) => a - b);
+    blocksToCheck = [...new Set(blocksToCheck)];
+
+    let blocksToCheckInRange = [];
+
+    let oldestMinedBlock = txs[txs.length - 1].block_height;
+    let recentMinedBlock = txs[0].block_height;
+
+    blocksToCheck.forEach(function (block) {
+      if (startBlock > 0 && endBlock > 0) {
+        if (block >= startBlock && block <= endBlock) {
+          blocksToCheckInRange.push(block);
+        }
+      } else {
+        blocksToCheckInRange.push(block);
+      }
+    });
+
+    function sleep(milliseconds) {
+      const date = Date.now();
+      let currentDate = null;
+      do {
+        currentDate = Date.now();
+      } while (currentDate - date < milliseconds);
+    }
+
+    const canClaimArray = [];
+    console.log("LIST OF BLOCKS TO CHECK: " + blocksToCheckInRange);
+
+    for (let i = 0; i < blocksToCheckInRange.length; i++) {
+      let percent = Math.floor((i / blocksToCheckInRange.length) * 100);
+      setPercentageChecked(percent);
+      console.log(blocksToCheckInRange[i]);
+      let repeat = true;
+      let bool = "";
+      while (repeat) {
+        try {
+          bool = await canClaimMiningReward(
+            STXAddress,
+            blocksToCheckInRange[i]
+          );
+          console.log(bool);
+          repeat = false;
+        } catch {
+          console.log("Too many requests, retrying");
+          sleep(10000);
+          repeat = true;
+        }
+      }
+
+      if (bool == true) {
+        canClaimArray.push(blocksToCheckInRange[i]);
+      }
+    }
+    setIsLoading(false);
+    return canClaimArray;
+  }
 
   if (
     winningBlocks != [] &&
@@ -133,7 +167,6 @@ const Redeem = () => {
       );
     }
   }
-  console.log("MINED BLOCKS" + winningBlocks);
 
   async function claimAction(blockHeight) {
     await doContractCall({
@@ -148,22 +181,51 @@ const Redeem = () => {
     });
   }
 
-  console.log(buttonArray);
-
-  return txId ? (
-    <Transaction txId={txId} />
-  ) : (
+  return (
     <div className={styles.redeem}>
       <h2 className={styles.h2}>Redeem mining rewards</h2>
       <p>
-        You have a total {totalWinnings} $MIA from the below blocks. Send the
-        transactions below to redeem them.
+        Your may redeem $MIA if you have won a block. You must wait at least 100
+        blocks after you have mined in order to find out if you have won it.
       </p>
       <p>
-        You'll need to send a transaction for every block you won. Redeemable
-        blocks will appear below.
+        Click the button below to check if you have won any blocks, then send
+        the transactions that appear to redeem them.
       </p>
-      {isLoading && <div>Loading... (Please wait a few seconds)</div>}
+      <p>
+        Optionally, input a range to check your mined blocks. (Recommended if
+        you've mined a lot of blocks!). If nothing is entered, it will check all
+        the blocks you've mined since your first mining transaction.
+      </p>
+      Start:
+      <input
+        className={styles.blockInput}
+        onWheel={(e) => e.target.blur()}
+        onChange={(event) => setStartBlock(parseInt(event.target.value))}
+        placeholder="Block Height"
+        type="number"
+      />
+      End:
+      <input
+        className={styles.blockInput}
+        onWheel={(e) => e.target.blur()}
+        onChange={(event) => setEndBlock(parseInt(event.target.value))}
+        placeholder="Block Height"
+        type="number"
+      />
+      <button
+        className={styles.checkIfWinner}
+        onClick={() =>
+          getClaimableBlocks().then((result) => setWinningBlocks(result))
+        }
+      >
+        Check Blocks
+      </button>
+      {isLoading && (
+        <div>
+          Checking for claimable blocks... {percentageChecked}% (Please wait)
+        </div>
+      )}
       {buttonArray && buttonArray}
     </div>
   );

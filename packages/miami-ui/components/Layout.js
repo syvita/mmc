@@ -1,4 +1,3 @@
-import styles from "../styles/Layout.module.css";
 import Head from "next/head";
 import NavBar from "./NavBar/NavBar";
 
@@ -36,10 +35,8 @@ const Layout = ({ children }) => {
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <div className={styles.bg}>
-        <NavBar />
-        {children}
-      </div>
+      <NavBar />
+      {children}
     </main>
   );
 };

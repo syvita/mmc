@@ -4,6 +4,12 @@
 }
 html,
 body {
+  background-image: url(/bg/horizontal.svg);
+
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  min-height: 100vh;
   padding: 0;
   margin: 0;
   font-family: -apple-system, Poppins-Regular, BlinkMacSystemFont, Segoe UI,

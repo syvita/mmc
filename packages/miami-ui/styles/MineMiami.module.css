@@ -1,6 +1,6 @@
 .mine {
-  margin-top: 169px;
-  margin-left: 10%;
+  margin-top: 100px;
+  margin-left: 8%;
   margin-right: 10%;
   max-width: 529px;
 }
@@ -63,4 +63,8 @@
   line-height: 160%;
   text-align: center;
   cursor: pointer;
+}
+
+.agree {
+  list-style-type: none;
 }

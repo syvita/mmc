@@ -1,4 +1,4 @@
-const { withSentryConfig } = require("@sentry/nextjs");
+/*const { withSentryConfig } = require("@sentry/nextjs");
 const SENTRY_DSN = "https://6c2a0bedac06463b8fea519e8603f873@logs.syvita.org/3"
 
 if (process.env.CF_PAGES_COMMIT_SHA == undefined && process.env.CF_PAGES_BRANCH == undefined) {
@@ -31,7 +31,7 @@ if (process.env.CF_PAGES_COMMIT_SHA == undefined && process.env.CF_PAGES_BRANCH 
       debug: true,
     }
   }
-}
+}*/
 
 const moduleExports = {
   reactStrictMode: true,
@@ -43,4 +43,4 @@ const moduleExports = {
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions);
+module.exports = moduleExports

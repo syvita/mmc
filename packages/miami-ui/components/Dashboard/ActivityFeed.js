@@ -41,30 +41,54 @@ const ActivityFeed = () => {
     return type;
   }
 
+  function getAmount(transaction) {
+    let amount = 0;
+    console.log(transaction.tx_id);
+    if (!transaction.post_conditions[0]) {
+      amount = 0;
+      return amount;
+    }
+    switch (transaction.contract_call.function_name) {
+      case "register-user":
+      case "shutdown-contract":
+      case "set-city-wallet":
+        amount = 0;
+        break;
+      case "claim-mining-reward":
+        amount = 250000;
+        break;
+      case "mine-tokens":
+        amount = transaction.post_conditions[0].amount / 1000000;
+        break;
+      case "mine-many":
+        amount = transaction.post_conditions[0].amount / 1000000;
+      case "stack-tokens":
+        amount = transaction.post_conditions[0].amount / 1000000;
+        break;
+      default:
+        amount = 0;
+    }
+    return amount;
+  }
+
   if (transactionData != null) {
     for (let i = 0; i < 6; i++) {
       const activity = transactionData[i];
-      console.log(
-        "ACTIVITY :" + i + JSON.stringify(activity.contract_call.function_name)
-      );
+      // console.log(
+      //   "ACTIVITY :" + i + JSON.stringify(activity.contract_call.function_name)
+      // );
       const transaction = {
         tx_id: activity.tx_id,
         tx_status: activity.tx_status,
         sender_address: activity.sender_address,
         contract_call: activity.contract_call.function_name,
         type: getTokenType(activity.contract_call.function_name),
-
-        amount:
-          activity.contract_call.function_name == "register-user" ||
-          activity.contract_call.function_name == "claim-mining-reward"
-            ? 0
-            : activity.post_conditions[0].amount,
+        amount: getAmount(activity),
       };
-      if (transaction.type == "STX")
-        transaction.amount = transaction.amount / 1000000;
-      if (transaction.sender_address.length > 14)
+
+      if (transaction.sender_address.length > 12)
         transaction.sender_address =
-          transaction.sender_address.substring(0, 14) + "...";
+          transaction.sender_address.substring(0, 12) + "...";
 
       let status = "";
       switch (transaction.tx_status) {
