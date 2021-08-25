@@ -95,9 +95,6 @@ const Redeem = () => {
 
     let blocksToCheckInRange = [];
 
-    let oldestMinedBlock = txs[txs.length - 1].block_height;
-    let recentMinedBlock = txs[0].block_height;
-
     blocksToCheck.forEach(function (block) {
       if (startBlock > 0 && endBlock > 0) {
         if (block >= startBlock && block <= endBlock) {

@@ -53,24 +53,6 @@ export default function Dashboard() {
             </a>
             <a>
               <button
-                disabled={true}
-                style={
-                  renderedComponent === "Send"
-                    ? {
-                        backgroundColor: "rgba(0, 0, 0, 0.1)",
-                        borderRadius: "10px",
-                      }
-                    : { color: "rgba(0, 0, 0, 0.1)" }
-                }
-                onClick={() => {
-                  setRenderedComponent("Send");
-                }}
-              >
-                Send
-              </button>
-            </a>
-            <a>
-              <button
                 style={
                   renderedComponent === "Stack"
                     ? {
@@ -101,6 +83,23 @@ export default function Dashboard() {
                 }}
               >
                 Redeem
+              </button>
+            </a>
+            <a>
+              <button
+                style={
+                  renderedComponent === "Stats"
+                    ? {
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        borderRadius: "10px",
+                      }
+                    : {}
+                }
+                onClick={() => {
+                  setRenderedComponent("Stats");
+                }}
+              >
+                Stats
               </button>
             </a>
           </div>

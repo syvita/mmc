@@ -43,9 +43,11 @@ const ActivityFeed = () => {
 
   function getAmount(transaction) {
     let amount = 0;
-    console.log(transaction.tx_id);
     if (!transaction.post_conditions[0]) {
       amount = 0;
+      if (transaction.contract_call.function_name == "claim-mining-reward") {
+        amount = 250000;
+      }
       return amount;
     }
     switch (transaction.contract_call.function_name) {
