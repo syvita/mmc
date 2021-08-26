@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMinedBlocks } from "../../lib/kv";
-import styles from "../../styles/Redeem.module.css";
+import styles from "../../../styles/RedeemMining.module.css";
 import { useAtom } from "jotai";
 import { userSessionState } from "../../lib/auth";
 import fetch from "cross-fetch";
@@ -21,7 +21,7 @@ import { useConnect } from "@syvita/connect-react";
 import { uintCV } from "@syvita/transactions";
 import Transaction from "./Transaction";
 
-const Redeem = () => {
+const RedeemMining = () => {
   const [userSession] = useAtom(userSessionState);
 
   let STXAddress = "";
@@ -228,4 +228,4 @@ const Redeem = () => {
   );
 };
 
-export default Redeem;
+export default RedeemMining;

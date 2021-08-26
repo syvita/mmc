@@ -3,7 +3,7 @@ import styles from "../styles/Dashboard.module.css";
 import Register from "../components/Dashboard/Register";
 import Mine from "../components/Dashboard/Mine";
 import Stack from "../components/Dashboard/Stack";
-import Redeem from "../components/Dashboard/Redeem";
+import Redeem from "../components/Dashboard/Redeem/Redeem";
 import ActivityFeed from "../components/Dashboard/ActivityFeed";
 
 export default function Dashboard() {

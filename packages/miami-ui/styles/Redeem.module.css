@@ -1,8 +1,8 @@
 .redeem {
-  margin-left: 7%;
+  margin-top: 169px;
+  margin-left: 10%;
   margin-right: 10%;
   max-width: 529px;
-  margin-top: 5%;
 }
 
 .h2 {
@@ -21,55 +21,16 @@
 .buttons {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
-.noStackingRewards {
+.mine button:hover {
+  background: #36454f;
+}
+
+.redeemStacking {
   all: unset;
   width: 256.5px;
-  height: 34px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 160%;
-  text-align: center;
-  cursor: pointer;
-  margin-right: 16px;
-}
-
-.noMiningRewards {
-  all: unset;
-  width: 256.5px;
-  height: 34px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 160%;
-  text-align: center;
-  cursor: pointer;
-}
-
-.redeemBlocks {
-  all: unset;
-  width: 100px;
-  height: 34px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 160%;
-  text-align: center;
-  cursor: pointer;
-}
-
-.checkIfWinner {
-  all: unset;
-  width: 529px;
   height: 34px;
   background: #000000;
   border-radius: 10px;
@@ -80,18 +41,18 @@
   text-align: center;
   cursor: pointer;
   margin-right: 16px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
-.blockInput {
-  width: 150px;
+.redeemMining {
+  all: unset;
+  width: 256.5px;
   height: 34px;
-  margin-top: 15px;
-  margin-left: 10px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  background: #000000;
   border-radius: 10px;
-  margin-right: 16px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  text-align: center;
+  cursor: pointer;
 }
