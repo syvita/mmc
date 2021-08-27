@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
-import { getMinedBlocks } from "../../lib/kv";
+import { useState } from "react";
 import styles from "../../../styles/RedeemMining.module.css";
 import { useAtom } from "jotai";
-import { userSessionState } from "../../lib/auth";
+import { userSessionState } from "../../../lib/auth";
 import fetch from "cross-fetch";
 import { Configuration, AccountsApi } from "@stacks/blockchain-api-client";
 import {
   NETWORK_STRING,
-  API_BASE_NET_URL,
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   NETWORK,
-} from "../../lib/constants";
+} from "../../../lib/constants";
 import {
-  getActivationBlock,
   canClaimMiningReward,
-  getRegisteredMinerId,
-} from "../../lib/contracts";
+} from "../../../lib/contracts";
 import { useConnect } from "@syvita/connect-react";
 import { uintCV } from "@syvita/transactions";
-import Transaction from "./Transaction";
 
 const RedeemMining = () => {
   const [userSession] = useAtom(userSessionState);

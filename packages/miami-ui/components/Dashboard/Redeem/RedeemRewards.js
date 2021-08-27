@@ -1,7 +1,6 @@
-import styles from '../../../styles/Redeem.module.css';
-import { useState } from 'react';
+import styles from '../../../styles/RedeemRewards.module.css';
 
-const Redeem = () => {
+const RedeemRewards = ({ setState }) => {
   return (
     <div className={styles.redeem}>
       <h2 className={styles.h2}>Redeem rewards</h2>
@@ -16,11 +15,11 @@ const Redeem = () => {
       </p>
 
       <div className={styles.buttons}>
-        <button className={styles.redeemStacking}>Stacking Rewards</button>
-        <button className={styles.redeemMining}>Mining Rewards</button>
+        <button onClick={() => setState("RedeemMining")} className={styles.redeemMining}>Mining Rewards</button>
+        <button onClick={() => setState("RedeemStacking")} className={styles.redeemStacking}>Stacking Rewards</button>
       </div>
     </div>
   );
 };
 
-export default Redeem;
+export default RedeemRewards;
