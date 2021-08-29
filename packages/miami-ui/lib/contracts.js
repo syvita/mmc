@@ -85,6 +85,7 @@ export async function getStackingRewardForCycle(userId, targetCycle) {
     network: NETWORK,
     senderAddress: GENESIS_CONTRACT_ADDRESS,
   });
+  console.log(result.value);
   return parseInt(result.value);
 }
 

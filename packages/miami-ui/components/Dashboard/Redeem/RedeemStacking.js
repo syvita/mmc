@@ -36,46 +36,62 @@ const RedeemStacking = () => {
     }, [])
 
     function redeemCycleRewards() {
-        if (!(cycleToRedeem > 0)) {
-            setCycleToRedeem(1);
+      if (!(cycleToRedeem > 0)) {
+        setCycleToRedeem(1);
+      }
+      let cyclesToCheck = [];
+      let startingCycle = 1;
+
+      while (startingCycle <= currentCycle) {
+        cyclesToCheck.push(startingCycle);
+        startingCycle++;
+      }
+
+      console.log(cyclesToCheck);
+
+      cyclesToCheck.forEach(function (cycle) {
+        if (cycle > 50) {
+          console.log(cycle);
+          getStackingRewardForCycle(userId, cycle);
         }
-        claimStackingReward(cycleToRedeem);
+      });
+      //getStackingRewardForCycle(userId);
+      //claimStackingReward(cycleToRedeem);
     }
 
     async function claimStackingReward(cycleToRedeem) {
-        await doContractCall({
-          contractAddress: CITY_COIN_CORE_ADDRESS,
-          contractName: CITY_COIN_CORE_CONTRACT_NAME,
-          functionName: "claim-stacking-reward",
-          functionArgs: [uintCV(cycleToRedeem)],
-          network: NETWORK,
-          onFinish: (result) => {
-            setTxId(result.txId);
-          },
-        });
+      await doContractCall({
+        contractAddress: CITY_COIN_CORE_ADDRESS,
+        contractName: CITY_COIN_CORE_CONTRACT_NAME,
+        functionName: "claim-stacking-reward",
+        functionArgs: [uintCV(cycleToRedeem)],
+        network: NETWORK,
+        onFinish: (result) => {
+          setTxId(result.txId);
+        },
+      });
     }
 
     return (
-        <div className={styles.redeemStacking}>
+      <div className={styles.redeemStacking}>
         <h2 className={styles.h2}>Redeem stacking rewards</h2>
         <p>
-          You have 56,889 STX from cycles 8-13. Send the transactions below to redeem them.
+          You have 56,889 STX from cycles 8-13. Send the transactions below to
+          redeem them.
         </p>
-        <p>
-          You'll need to send a transaction for every cycle.
-        </p>
+        <p>You'll need to send a transaction for every cycle.</p>
+        <p>(Current Cycle: {currentCycle})</p>
         Cycle:
         <input
-            className={styles.blockInput}
-            onWheel={(e) => e.target.blur()}
-            onChange={(event) => setCycleToRedeem(parseInt(event.target.value))}
-            placeholder="Cycle Number"
-            type="number"
-            />
-            <button onClick={() => redeemCycleRewards()}>Redeem</button>
-            {currentCycle}
-        </div>
-    )
+          className={styles.blockInput}
+          onWheel={(e) => e.target.blur()}
+          onChange={(event) => setCycleToRedeem(parseInt(event.target.value))}
+          placeholder="Cycle Number"
+          type="number"
+        />
+        <button onClick={() => redeemCycleRewards()}>Redeem</button>
+      </div>
+    );
 }
 
 export default RedeemStacking
