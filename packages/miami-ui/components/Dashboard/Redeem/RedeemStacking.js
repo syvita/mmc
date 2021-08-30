@@ -195,8 +195,9 @@ const RedeemStacking = () => {
     <div className={styles.redeemStacking}>
       <h2 className={styles.h2}>Redeem stacking rewards</h2>
       <p>
-        You have a total of {totalSTX / 1000000} redeemable STX from the below
-        cycles. Send the transactions below to redeem them.
+        You have a total of {" " + (totalSTX / 1000000).toLocaleString() + " "}
+        redeemable STX from the below cycles. Send the transactions below to
+        redeem them.
       </p>
       <p>You'll need to send a transaction for every cycle.</p>
       <p>(Current Cycle: {cycleNum})</p>
