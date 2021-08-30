@@ -76,23 +76,19 @@ const RedeemStacking = () => {
     const cycleRewardDict = [];
     let sum = 0;
 
-    // CHANGE I TO 0 LATER
     for (let i = 0; i < cyclesToCheck.length; i++) {
       let percent = Math.floor((i / cyclesToCheck.length) * 100);
       setPercentageChecked(percent);
       console.log(cyclesToCheck[i]);
       let repeat = true;
       let reward = 0;
-      let amountStacked = 0;
+      let stackerInfo = [];
       while (repeat) {
         try {
           reward = await getStackingRewardForCycle(userId, cyclesToCheck[i]);
-          if (reward > 0) {
-            amountStacked = await getStackerAtCycle(userId, cyclesToCheck[i]);
-          } else {
-            amountStacked = 0;
-          }
-          // console.log("REWARD " + reward);
+          console.log("CYCLE: " + cyclesToCheck[i]);
+          console.log("REWARD: " + reward);
+          stackerInfo = await getStackerAtCycle(userId, cyclesToCheck[i]);
           repeat = false;
         } catch {
           console.log("Too many requests, retrying");
@@ -103,10 +99,11 @@ const RedeemStacking = () => {
 
       sum += reward;
 
-      if (reward > 0) {
+      if (reward > 0 || stackerInfo[1] > 0) {
         cycleRewardDict.push({
           cycle: cyclesToCheck[i],
-          amountStacked: amountStacked,
+          amountStacked: stackerInfo[0],
+          toReturn: stackerInfo[1],
           reward: reward,
         });
       }
@@ -129,7 +126,8 @@ const RedeemStacking = () => {
               claimStackingReward(
                 cycleRewardDict[i].cycle,
                 cycleRewardDict[i].reward,
-                cycleRewardDict[i].amountStacked
+                cycleRewardDict[i].amountStacked,
+                cycleRewardDict[i].toReturn
               )
             }
             className={styles.redeemCycles}
@@ -150,7 +148,38 @@ const RedeemStacking = () => {
     } while (currentDate - date < milliseconds);
   }
 
-  async function claimStackingReward(cycleToRedeem, reward, amountStacked) {
+  async function claimStackingReward(
+    cycleToRedeem,
+    reward,
+    amountStacked,
+    toReturn
+  ) {
+    let postConditions = [];
+    if (toReturn > 0) {
+      postConditions = [
+        makeContractFungiblePostCondition(
+          CITY_COIN_CORE_ADDRESS,
+          CITY_COIN_CORE_CONTRACT_NAME,
+          FungibleConditionCode.Equal,
+          uintCV(amountStacked).value,
+          createAssetInfo(
+            CITY_COIN_TOKEN_CONTRACT_ADDRESS,
+            CITY_COIN_TOKEN_CONTRACT_NAME,
+            CC_NAME
+          )
+        ),
+      ];
+    } else {
+      postConditions = [
+        makeContractSTXPostCondition(
+          CITY_COIN_CORE_ADDRESS,
+          CITY_COIN_CORE_CONTRACT_NAME,
+          FungibleConditionCode.Equal,
+          uintCV(reward).value
+        ),
+      ];
+    }
+
     await doContractCall({
       contractAddress: CITY_COIN_CORE_ADDRESS,
       contractName: CITY_COIN_CORE_CONTRACT_NAME,
@@ -158,25 +187,7 @@ const RedeemStacking = () => {
       functionArgs: [uintCV(cycleToRedeem)],
       network: NETWORK,
       postConditionMode: PostConditionMode.Deny,
-      postConditions: [
-        makeContractSTXPostCondition(
-          CITY_COIN_CORE_ADDRESS,
-          CITY_COIN_CORE_CONTRACT_NAME,
-          FungibleConditionCode.Equal,
-          uintCV(reward).value
-        ),
-        // makeContractFungiblePostCondition(
-        //   CITY_COIN_CORE_ADDRESS,
-        //   CITY_COIN_CORE_CONTRACT_NAME,
-        //   FungibleConditionCode.LessEqual,
-        //   uintCV(amountStacked).value,
-        //   createAssetInfo(
-        //     CITY_COIN_TOKEN_CONTRACT_ADDRESS,
-        //     CITY_COIN_TOKEN_CONTRACT_NAME,
-        //     CC_NAME
-        //   )
-        // ),
-      ],
+      postConditions: postConditions,
     });
   }
 

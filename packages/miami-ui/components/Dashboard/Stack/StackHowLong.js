@@ -117,7 +117,10 @@ const StackHowLong = () => {
         How many reward cycles do you want to stack for? Cycles are 2100 blocks
         long (just over 2 weeks).
       </p>
-      <p>The maximum you can stack for is 32 cycles.</p>
+      <p>
+        Stacking requires you lock $MIA for up to 32 consecutive cycles and 1
+        cool down cycle.
+      </p>
       <div className={styles.howManyCycles}>
         <input
           onWheel={(e) => e.target.blur()}

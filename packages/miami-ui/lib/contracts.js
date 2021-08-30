@@ -96,12 +96,15 @@ export async function getStackerAtCycle(userId, targetCycle) {
     network: NETWORK,
     senderAddress: GENESIS_CONTRACT_ADDRESS,
   });
-
-  // const json = JSON.stringify(result, (key, value) =>
-  //   typeof value === "bigint" ? value.toString() + "n" : value
-  // );
-
-  return parseInt(result.value.data.amountStacked.value);
+  
+  if (result.value == undefined) {
+    return [0, 0];
+  } else {
+    return [
+      parseInt(result.value.data.amountStacked.value),
+      parseInt(result.value.data.toReturn.value),
+    ];
+  }
 }
 
 export async function getCoinBalance(address) {
