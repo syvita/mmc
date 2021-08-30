@@ -85,7 +85,7 @@ export default function Dashboard() {
                 Redeem
               </button>
             </a>
-            <a>
+            {/* <a>
               <button
                 style={
                   renderedComponent === "Stats"
@@ -101,7 +101,7 @@ export default function Dashboard() {
               >
                 Stats
               </button>
-            </a>
+            </a> */}
           </div>
           <ActivityFeed />
         </nav>

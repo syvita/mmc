@@ -1,97 +1,202 @@
-import { useEffect, useState } from 'react';
-import styles from '../../../styles/RedeemStacking.module.css';
+import { useEffect, useState } from "react";
+import styles from "../../../styles/RedeemStacking.module.css";
 import { useAtom } from "jotai";
 import { userSessionState } from "../../../lib/auth";
-import { getUserId, getStackingRewardForCycle, getCurrentCycle } from "../../../lib/contracts";
+import {
+  getUserId,
+  getStackingRewardForCycle,
+  getCurrentCycle,
+  getStackerAtCycle,
+} from "../../../lib/contracts";
 import {
   NETWORK_STRING,
   CITY_COIN_CORE_ADDRESS,
   CITY_COIN_CORE_CONTRACT_NAME,
   NETWORK,
+  CITY_COIN_TOKEN_CONTRACT_NAME,
+  CITY_COIN_TOKEN_CONTRACT_ADDRESS,
+  CC_NAME,
 } from "../../../lib/constants";
 import { useConnect } from "@syvita/connect-react";
-import { uintCV, standardPrincipalCV } from "@syvita/transactions";
+import {
+  uintCV,
+  createAssetInfo,
+  makeStandardSTXPostCondition,
+  makeContractFungiblePostCondition,
+  PostConditionMode,
+  FungibleConditionCode,
+  makeContractSTXPostCondition,
+} from "@syvita/transactions";
 
 const RedeemStacking = () => {
-    const prevCycle = 1;
-    const [cycleToRedeem, setCycleToRedeem] = useState(1);
-    const [userSession] = useAtom(userSessionState);
-    const [userId, setUserId] = useState(0);
-    const [currentCycle, setCurrentCycle] = useState(0);
-    const userData = userSession.loadUserData();
-    const { doContractCall } = useConnect();
+  const prevCycle = 1;
+  const [cycleToRedeem, setCycleToRedeem] = useState(1);
+  const [userSession] = useAtom(userSessionState);
+  const [cycleNum, setCycleNum] = useState(0);
+  const [totalSTX, setTotalSTX] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [percentageChecked, setPercentageChecked] = useState(0);
+  const [buttons, setButtons] = useState([]);
+  const userData = userSession.loadUserData();
+  const { doContractCall } = useConnect();
 
+  let STXAddress = "";
+  let buttonArray = [];
 
-    let STXAddress = '';
+  if (NETWORK_STRING == "mainnet") {
+    STXAddress = userData.profile.stxAddress.mainnet;
+  } else {
+    STXAddress = userData.profile.stxAddress.testnet;
+  }
 
-    if (NETWORK_STRING == "mainnet") {
-        STXAddress = userData.profile.stxAddress.mainnet;
-      } else {
-        STXAddress = userData.profile.stxAddress.testnet;
+  useEffect(() => {
+    getCycleRewards();
+  }, []);
+
+  async function getCycleRewards() {
+    setIsLoading(true);
+
+    const userId = await getUserId(STXAddress);
+    const currentCycle = await getCurrentCycle();
+
+    setCycleNum(currentCycle);
+
+    if (!(cycleToRedeem > 0)) {
+      setCycleToRedeem(1);
+    }
+    let cyclesToCheck = [];
+    let startingCycle = 1;
+
+    while (startingCycle <= currentCycle) {
+      cyclesToCheck.push(startingCycle);
+      startingCycle++;
     }
 
-    useEffect(() => {
-        getUserId(STXAddress).then(result => setUserId(result))
-        getCurrentCycle().then(result => setCurrentCycle(result))
-    }, [])
+    console.log(cyclesToCheck);
+    const cycleRewardDict = [];
+    let sum = 0;
 
-    function redeemCycleRewards() {
-      if (!(cycleToRedeem > 0)) {
-        setCycleToRedeem(1);
-      }
-      let cyclesToCheck = [];
-      let startingCycle = 1;
-
-      while (startingCycle <= currentCycle) {
-        cyclesToCheck.push(startingCycle);
-        startingCycle++;
-      }
-
-      console.log(cyclesToCheck);
-
-      cyclesToCheck.forEach(function (cycle) {
-        if (cycle > 50) {
-          console.log(cycle);
-          getStackingRewardForCycle(userId, cycle);
+    // CHANGE I TO 0 LATER
+    for (let i = 0; i < cyclesToCheck.length; i++) {
+      let percent = Math.floor((i / cyclesToCheck.length) * 100);
+      setPercentageChecked(percent);
+      console.log(cyclesToCheck[i]);
+      let repeat = true;
+      let reward = 0;
+      let amountStacked = 0;
+      while (repeat) {
+        try {
+          reward = await getStackingRewardForCycle(userId, cyclesToCheck[i]);
+          if (reward > 0) {
+            amountStacked = await getStackerAtCycle(userId, cyclesToCheck[i]);
+          } else {
+            amountStacked = 0;
+          }
+          // console.log("REWARD " + reward);
+          repeat = false;
+        } catch {
+          console.log("Too many requests, retrying");
+          sleep(10000);
+          repeat = true;
         }
-      });
-      //getStackingRewardForCycle(userId);
-      //claimStackingReward(cycleToRedeem);
+      }
+
+      sum += reward;
+
+      if (reward > 0) {
+        cycleRewardDict.push({
+          cycle: cyclesToCheck[i],
+          amountStacked: amountStacked,
+          reward: reward,
+        });
+      }
     }
 
-    async function claimStackingReward(cycleToRedeem) {
-      await doContractCall({
-        contractAddress: CITY_COIN_CORE_ADDRESS,
-        contractName: CITY_COIN_CORE_CONTRACT_NAME,
-        functionName: "claim-stacking-reward",
-        functionArgs: [uintCV(cycleToRedeem)],
-        network: NETWORK,
-        onFinish: (result) => {
-          setTxId(result.txId);
-        },
-      });
+    setTotalSTX(sum);
+
+    console.log("CYCLE REWARDS: " + JSON.stringify(cycleRewardDict));
+    setIsLoading(false);
+
+    if (
+      cycleRewardDict != [] &&
+      cycleRewardDict != undefined &&
+      cycleRewardDict.length != 0
+    ) {
+      for (let i = 0; i < cycleRewardDict.length; i++) {
+        buttonArray.push(
+          <button
+            onClick={() =>
+              claimStackingReward(
+                cycleRewardDict[i].cycle,
+                cycleRewardDict[i].reward,
+                cycleRewardDict[i].amountStacked
+              )
+            }
+            className={styles.redeemCycles}
+          >
+            {"CYCLE #" + cycleRewardDict[i].cycle}
+          </button>
+        );
+      }
+      setButtons(buttonArray);
     }
+  }
 
-    return (
-      <div className={styles.redeemStacking}>
-        <h2 className={styles.h2}>Redeem stacking rewards</h2>
-        <p>
-          You have 56,889 STX from cycles 8-13. Send the transactions below to
-          redeem them.
-        </p>
-        <p>You'll need to send a transaction for every cycle.</p>
-        <p>(Current Cycle: {currentCycle})</p>
-        Cycle:
-        <input
-          className={styles.blockInput}
-          onWheel={(e) => e.target.blur()}
-          onChange={(event) => setCycleToRedeem(parseInt(event.target.value))}
-          placeholder="Cycle Number"
-          type="number"
-        />
-        <button onClick={() => redeemCycleRewards()}>Redeem</button>
-      </div>
-    );
-}
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
 
-export default RedeemStacking
+  async function claimStackingReward(cycleToRedeem, reward, amountStacked) {
+    await doContractCall({
+      contractAddress: CITY_COIN_CORE_ADDRESS,
+      contractName: CITY_COIN_CORE_CONTRACT_NAME,
+      functionName: "claim-stacking-reward",
+      functionArgs: [uintCV(cycleToRedeem)],
+      network: NETWORK,
+      postConditionMode: PostConditionMode.Deny,
+      postConditions: [
+        makeContractSTXPostCondition(
+          CITY_COIN_CORE_ADDRESS,
+          CITY_COIN_CORE_CONTRACT_NAME,
+          FungibleConditionCode.Equal,
+          uintCV(reward).value
+        ),
+        // makeContractFungiblePostCondition(
+        //   CITY_COIN_CORE_ADDRESS,
+        //   CITY_COIN_CORE_CONTRACT_NAME,
+        //   FungibleConditionCode.LessEqual,
+        //   uintCV(amountStacked).value,
+        //   createAssetInfo(
+        //     CITY_COIN_TOKEN_CONTRACT_ADDRESS,
+        //     CITY_COIN_TOKEN_CONTRACT_NAME,
+        //     CC_NAME
+        //   )
+        // ),
+      ],
+    });
+  }
+
+  return (
+    <div className={styles.redeemStacking}>
+      <h2 className={styles.h2}>Redeem stacking rewards</h2>
+      <p>
+        You have a total of {totalSTX / 1000000} redeemable STX from the below
+        cycles. Send the transactions below to redeem them.
+      </p>
+      <p>You'll need to send a transaction for every cycle.</p>
+      <p>(Current Cycle: {cycleNum})</p>
+      {isLoading && (
+        <div>
+          Checking for cycle rewards... {percentageChecked}% (Please wait)
+        </div>
+      )}
+      {buttons && buttons}
+    </div>
+  );
+};
+
+export default RedeemStacking;

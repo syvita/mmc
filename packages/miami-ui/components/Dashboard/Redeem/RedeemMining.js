@@ -10,9 +10,7 @@ import {
   CITY_COIN_CORE_CONTRACT_NAME,
   NETWORK,
 } from "../../../lib/constants";
-import {
-  canClaimMiningReward,
-} from "../../../lib/contracts";
+import { canClaimMiningReward } from "../../../lib/contracts";
 import { useConnect } from "@syvita/connect-react";
 import { uintCV } from "@syvita/transactions";
 

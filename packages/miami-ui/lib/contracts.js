@@ -1,6 +1,5 @@
 import {
   callReadOnlyFunction,
-  
   standardPrincipalCV,
   uintCV,
   ClarityType,
@@ -40,7 +39,7 @@ export async function getRegisteredMinersThreshold() {
 }
 
 export async function getUserId(STXAddress) {
-  console.log('STX ADDRESS: ' + STXAddress)
+  console.log("STX ADDRESS: " + STXAddress);
   const result = await callReadOnlyFunction({
     contractAddress: CITY_COIN_CORE_ADDRESS,
     contractName: CITY_COIN_CORE_CONTRACT_NAME,
@@ -54,26 +53,26 @@ export async function getUserId(STXAddress) {
 
 export async function getCurrentCycle() {
   // Calculated from block height
-  let url = '';
+  let url = "";
   let startingBlock = 0;
   let cycleLength = 0;
-  
-  if (NETWORK_STRING == 'mainnet') {
-    url = "https://stacks-node-api.mainnet.stacks.co/extended/v1/block?limit=1"
-    startingBlock = 24497
-    cycleLength = 2100
-  } else {
-    url = "https://stacks-node-api.testnet.stacks.co/extended/v1/block?limit=1"
-    startingBlock = 3521
-    cycleLength = 50
-  }
-  const response = await fetch(url)
-  const result = await response.json()
-  const currentBlock = result.results[0].height
-  const totalCycleBlocks = currentBlock - startingBlock
-  const currentCycle = Math.floor(totalCycleBlocks / cycleLength)
 
-  return currentCycle
+  if (NETWORK_STRING == "mainnet") {
+    url = "https://stacks-node-api.mainnet.stacks.co/extended/v1/block?limit=1";
+    startingBlock = 24497;
+    cycleLength = 2100;
+  } else {
+    url = "https://stacks-node-api.testnet.stacks.co/extended/v1/block?limit=1";
+    startingBlock = 3521;
+    cycleLength = 50;
+  }
+  const response = await fetch(url);
+  const result = await response.json();
+  const currentBlock = result.results[0].height;
+  const totalCycleBlocks = currentBlock - startingBlock;
+  const currentCycle = Math.floor(totalCycleBlocks / cycleLength);
+
+  return currentCycle;
 }
 
 export async function getStackingRewardForCycle(userId, targetCycle) {
@@ -85,8 +84,24 @@ export async function getStackingRewardForCycle(userId, targetCycle) {
     network: NETWORK,
     senderAddress: GENESIS_CONTRACT_ADDRESS,
   });
-  console.log(result.value);
   return parseInt(result.value);
+}
+
+export async function getStackerAtCycle(userId, targetCycle) {
+  const result = await callReadOnlyFunction({
+    contractAddress: CITY_COIN_CORE_ADDRESS,
+    contractName: CITY_COIN_CORE_CONTRACT_NAME,
+    functionName: "get-stacker-at-cycle",
+    functionArgs: [uintCV(targetCycle), uintCV(userId)],
+    network: NETWORK,
+    senderAddress: GENESIS_CONTRACT_ADDRESS,
+  });
+
+  // const json = JSON.stringify(result, (key, value) =>
+  //   typeof value === "bigint" ? value.toString() + "n" : value
+  // );
+
+  return parseInt(result.value.data.amountStacked.value);
 }
 
 export async function getCoinBalance(address) {

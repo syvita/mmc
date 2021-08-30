@@ -114,9 +114,10 @@ const StackHowLong = () => {
     <div className={styles.stack}>
       <h2 className={styles.h2}>Stack MiamiCoin</h2>
       <p>
-        How many reward cycles do you want to stack for? Reward cycles are 2100
-        blocks long (just over 2 weeks).
+        How many reward cycles do you want to stack for? Cycles are 2100 blocks
+        long (just over 2 weeks).
       </p>
+      <p>The maximum you can stack for is 32 cycles.</p>
       <div className={styles.howManyCycles}>
         <input
           onWheel={(e) => e.target.blur()}
