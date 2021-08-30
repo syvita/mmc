@@ -1,5 +1,5 @@
-.stack {
-  margin-top: 200px;
+.redeemStacking {
+  margin-top: 169px;
   margin-left: 10%;
   margin-right: 10%;
   max-width: 529px;
@@ -11,22 +11,18 @@
   line-height: 130%;
 }
 
-.stack p {
+.redeemStacking p {
+  font-weight: normal;
   font-size: 18px;
   line-height: 140%;
+  color: #000000;
 }
 
-.howManyCycles {
-  display: flex;
-  flex-direction: row;
-}
-
-.stack input {
-  width: 256.5px;
+.redeemStacking input {
+  width: 150px;
   height: 34px;
-  left: 0px;
-  top: 0px;
-
+  margin-top: 15px;
+  margin-left: 10px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
@@ -34,17 +30,17 @@
   margin-right: 16px;
 }
 
-.stack input::placeholder {
-  text-align: center;
-}
-
-.transactionButton {
+.redeemCycles {
   all: unset;
-  width: 256.5px;
+  width: 500px;
   height: 34px;
-  background: #000000;
+  background: black;
   border-radius: 10px;
-  color: #ffffff;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 5px;
+  line-height: 160%;
   text-align: center;
   cursor: pointer;
 }

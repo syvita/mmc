@@ -114,8 +114,12 @@ const StackHowLong = () => {
     <div className={styles.stack}>
       <h2 className={styles.h2}>Stack MiamiCoin</h2>
       <p>
-        How many reward cycles do you want to stack for? Reward cycles are 2100
-        blocks long (just over 2 weeks).
+        How many reward cycles do you want to stack for? Cycles are 2100 blocks
+        long (just over 2 weeks).
+      </p>
+      <p>
+        Stacking requires you lock $MIA for up to 32 consecutive cycles and 1
+        cool down cycle.
       </p>
       <div className={styles.howManyCycles}>
         <input

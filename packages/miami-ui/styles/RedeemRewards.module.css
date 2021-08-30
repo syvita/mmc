@@ -1,5 +1,5 @@
-.stack {
-  margin-top: 200px;
+.redeem {
+  margin-top: 169px;
   margin-left: 10%;
   margin-right: 10%;
   max-width: 529px;
@@ -11,40 +11,48 @@
   line-height: 130%;
 }
 
-.stack p {
+.redeem p {
+  font-weight: normal;
   font-size: 18px;
   line-height: 140%;
+  color: #000000;
 }
 
-.howManyCycles {
+.buttons {
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 }
 
-.stack input {
-  width: 256.5px;
-  height: 34px;
-  left: 0px;
-  top: 0px;
-
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  border-radius: 10px;
-  margin-right: 16px;
+.mine button:hover {
+  background: #36454f;
 }
 
-.stack input::placeholder {
-  text-align: center;
-}
-
-.transactionButton {
+.redeemStacking {
   all: unset;
   width: 256.5px;
   height: 34px;
   background: #000000;
   border-radius: 10px;
   color: #ffffff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
   text-align: center;
   cursor: pointer;
+}
+
+.redeemMining {
+  all: unset;
+  width: 256.5px;
+  height: 34px;
+  background: #000000;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 16px;
 }

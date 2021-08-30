@@ -43,9 +43,11 @@ const ActivityFeed = () => {
 
   function getAmount(transaction) {
     let amount = 0;
-    console.log(transaction.tx_id);
     if (!transaction.post_conditions[0]) {
       amount = 0;
+      if (transaction.contract_call.function_name == "claim-mining-reward") {
+        amount = 250000;
+      }
       return amount;
     }
     switch (transaction.contract_call.function_name) {
@@ -56,6 +58,9 @@ const ActivityFeed = () => {
         break;
       case "claim-mining-reward":
         amount = 250000;
+        break;
+      case "claim-stacking-reward":
+        amount = transaction.post_conditions[0].amount / 1000000;
         break;
       case "mine-tokens":
         amount = transaction.post_conditions[0].amount / 1000000;
@@ -103,7 +108,7 @@ const ActivityFeed = () => {
       switch (transaction.contract_call) {
         case "mine-tokens":
         case "mine-many":
-          transaction.contract_call = "Mine";
+          transaction.contract_call = "Redeem";
           break;
         case "claim-mining-reward":
         case "claim-stacking-reward":

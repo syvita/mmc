@@ -11,6 +11,7 @@ import {
   CITY_COIN_CORE_CONTRACT_NAME,
   CITY_COIN_TOKEN_CONTRACT_NAME,
   ACCOUNTS_API,
+  NETWORK_STRING,
 } from "./constants";
 
 export async function getRegisteredMinerCount() {
@@ -35,6 +36,75 @@ export async function getRegisteredMinersThreshold() {
     senderAddress: GENESIS_CONTRACT_ADDRESS,
   });
   return parseInt(result.value);
+}
+
+export async function getUserId(STXAddress) {
+  console.log("STX ADDRESS: " + STXAddress);
+  const result = await callReadOnlyFunction({
+    contractAddress: CITY_COIN_CORE_ADDRESS,
+    contractName: CITY_COIN_CORE_CONTRACT_NAME,
+    functionName: "get-user-id",
+    functionArgs: [standardPrincipalCV(STXAddress)],
+    network: NETWORK,
+    senderAddress: GENESIS_CONTRACT_ADDRESS,
+  });
+  return parseInt(result.value.value);
+}
+
+export async function getCurrentCycle() {
+  // Calculated from block height
+  let url = "";
+  let startingBlock = 0;
+  let cycleLength = 0;
+
+  if (NETWORK_STRING == "mainnet") {
+    url = "https://stacks-node-api.mainnet.stacks.co/extended/v1/block?limit=1";
+    startingBlock = 24497;
+    cycleLength = 2100;
+  } else {
+    url = "https://stacks-node-api.testnet.stacks.co/extended/v1/block?limit=1";
+    startingBlock = 3521;
+    cycleLength = 50;
+  }
+  const response = await fetch(url);
+  const result = await response.json();
+  const currentBlock = result.results[0].height;
+  const totalCycleBlocks = currentBlock - startingBlock;
+  const currentCycle = Math.floor(totalCycleBlocks / cycleLength);
+
+  return currentCycle;
+}
+
+export async function getStackingRewardForCycle(userId, targetCycle) {
+  const result = await callReadOnlyFunction({
+    contractAddress: CITY_COIN_CORE_ADDRESS,
+    contractName: CITY_COIN_CORE_CONTRACT_NAME,
+    functionName: "get-stacking-reward",
+    functionArgs: [uintCV(userId), uintCV(targetCycle)],
+    network: NETWORK,
+    senderAddress: GENESIS_CONTRACT_ADDRESS,
+  });
+  return parseInt(result.value);
+}
+
+export async function getStackerAtCycle(userId, targetCycle) {
+  const result = await callReadOnlyFunction({
+    contractAddress: CITY_COIN_CORE_ADDRESS,
+    contractName: CITY_COIN_CORE_CONTRACT_NAME,
+    functionName: "get-stacker-at-cycle",
+    functionArgs: [uintCV(targetCycle), uintCV(userId)],
+    network: NETWORK,
+    senderAddress: GENESIS_CONTRACT_ADDRESS,
+  });
+  
+  if (result.value == undefined) {
+    return [0, 0];
+  } else {
+    return [
+      parseInt(result.value.data.amountStacked.value),
+      parseInt(result.value.data.toReturn.value),
+    ];
+  }
 }
 
 export async function getCoinBalance(address) {
