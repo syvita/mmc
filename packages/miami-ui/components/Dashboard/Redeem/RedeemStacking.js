@@ -165,17 +165,17 @@ const RedeemStacking = () => {
           FungibleConditionCode.Equal,
           uintCV(reward).value
         ),
-        makeContractFungiblePostCondition(
-          CITY_COIN_CORE_ADDRESS,
-          CITY_COIN_CORE_CONTRACT_NAME,
-          FungibleConditionCode.LessEqual,
-          uintCV(amountStacked).value,
-          createAssetInfo(
-            CITY_COIN_TOKEN_CONTRACT_ADDRESS,
-            CITY_COIN_TOKEN_CONTRACT_NAME,
-            CC_NAME
-          )
-        ),
+        // makeContractFungiblePostCondition(
+        //   CITY_COIN_CORE_ADDRESS,
+        //   CITY_COIN_CORE_CONTRACT_NAME,
+        //   FungibleConditionCode.LessEqual,
+        //   uintCV(amountStacked).value,
+        //   createAssetInfo(
+        //     CITY_COIN_TOKEN_CONTRACT_ADDRESS,
+        //     CITY_COIN_TOKEN_CONTRACT_NAME,
+        //     CC_NAME
+        //   )
+        // ),
       ],
     });
   }
