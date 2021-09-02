@@ -201,8 +201,8 @@ const RedeemStacking = () => {
         </div>
         ) : (
           <div>
-            <p>{`You have a total of ${(totalSTX / 1000000).toLocaleString()} redeemable STX \n
-              from the previous cycles.`} </p>
+            <p>{`You have a total of ${(totalSTX / 1000000).toLocaleString()} redeemable STX 
+              from previous cycles.`} </p>
               { buttons.length > 0 ? (
                 <div>
                   <p>You'll need to send a transaction for every cycle.</p>
