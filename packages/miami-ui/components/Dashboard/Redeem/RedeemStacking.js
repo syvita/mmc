@@ -194,19 +194,30 @@ const RedeemStacking = () => {
   return (
     <div className={styles.redeemStacking}>
       <h2 className={styles.h2}>Redeem stacking rewards</h2>
-      <p>
-        You have a total of {" " + (totalSTX / 1000000).toLocaleString() + " "}
-        redeemable STX from the below cycles. Send the transaction below to
-        redeem them.
-      </p>
-      <p>You'll need to send a transaction for every cycle.</p>
       <p>(Current Cycle: {cycleNum})</p>
-      {isLoading && (
+      {isLoading ? (
         <div>
           Checking for cycle rewards... {percentageChecked}% (Please wait)
         </div>
-      )}
-      {buttons && buttons}
+        ) : (
+          <div>
+            <p>{`You have a total of ${(totalSTX / 1000000).toLocaleString()} redeemable STX \n
+              from the previous cycles.`} </p>
+              { buttons.length > 0 ? (
+                <div>
+                  <p>You'll need to send a transaction for every cycle.</p>
+                  {buttons && buttons}
+                </div>
+                ) : (
+                  <p> If you've stacked before, you'll have to wait until the current cycle ends
+                    to redeem your rewards.</p>
+                )
+              }
+          </div>
+        )
+      }
+
+      
     </div>
   );
 };
