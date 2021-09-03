@@ -99,13 +99,22 @@ const RedeemStacking = () => {
 
       sum += reward;
 
-      if (reward > 0 || stackerInfo[1] > 0) {
+      if (reward > 0 && stackerInfo[1] > 0) {
         cycleRewardDict.push({
           cycle: cyclesToCheck[i],
           amountStacked: stackerInfo[0],
           toReturn: stackerInfo[1],
           reward: reward,
         });
+      } else {
+        if (reward > 0) {
+          cycleRewardDict.push({
+            cycle: cyclesToCheck[i],
+            amountStacked: stackerInfo[0],
+            toReturn: stackerInfo[1],
+            reward: reward,
+          });
+        }
       }
     }
 
@@ -157,6 +166,12 @@ const RedeemStacking = () => {
     let postConditions = [];
     if (toReturn > 0) {
       postConditions = [
+        makeContractSTXPostCondition(
+          CITY_COIN_CORE_ADDRESS,
+          CITY_COIN_CORE_CONTRACT_NAME,
+          FungibleConditionCode.Equal,
+          uintCV(reward).value
+        ),
         makeContractFungiblePostCondition(
           CITY_COIN_CORE_ADDRESS,
           CITY_COIN_CORE_CONTRACT_NAME,
