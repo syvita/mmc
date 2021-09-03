@@ -108,7 +108,7 @@ const ActivityFeed = () => {
       switch (transaction.contract_call) {
         case "mine-tokens":
         case "mine-many":
-          transaction.contract_call = "Redeem";
+          transaction.contract_call = "Mine";
           break;
         case "claim-mining-reward":
         case "claim-stacking-reward":

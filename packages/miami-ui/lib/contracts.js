@@ -100,7 +100,6 @@ export async function getStackerAtCycle(userId, targetCycle) {
   if (result.value == undefined) {
     return [0, 0];
   } else {
-    console.log("TORETURN: " + result.value.data.toReturn.value);
     return [
       parseInt(result.value.data.amountStacked.value),
       parseInt(result.value.data.toReturn.value),
