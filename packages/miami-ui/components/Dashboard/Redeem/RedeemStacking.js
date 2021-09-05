@@ -176,7 +176,7 @@ const RedeemStacking = () => {
           CITY_COIN_CORE_ADDRESS,
           CITY_COIN_CORE_CONTRACT_NAME,
           FungibleConditionCode.Equal,
-          uintCV(amountStacked).value,
+          uintCV(toReturn).value,
           createAssetInfo(
             CITY_COIN_TOKEN_CONTRACT_ADDRESS,
             CITY_COIN_TOKEN_CONTRACT_NAME,
