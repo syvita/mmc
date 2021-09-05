@@ -130,7 +130,7 @@ const ActivityFeed = () => {
           transaction.contract_call = "Undefined";
       }
 
-      const url = `https://explorer.stacks.co/txid/${transaction.tx_id}?chain=${NETWORK_STRING}`;
+      const url = `https://explorer.syvita.org/txid/${transaction.tx_id}?chain=${NETWORK_STRING}`;
       activityElements.push(
         <a href={url} target="_blank" rel="noopener noreferrer">
           <div>
