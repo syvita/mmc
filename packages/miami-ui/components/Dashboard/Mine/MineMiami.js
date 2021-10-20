@@ -24,10 +24,6 @@ const MineMiami = ({ setState }) => {
       <label htmlFor="agree" className={styles.agree}>
         I confirm that by participating in mining, I understand:
         <li>
-          - The City of Miami has not yet officially claimed the MiamiCoin
-          protocol contribution.
-        </li>
-        <li>
           - Participation does not guarantee winning the rights to claim newly
           minted $MIA
         </li>
