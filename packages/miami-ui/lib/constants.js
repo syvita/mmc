@@ -31,7 +31,7 @@ export var GENESIS_CONTRACT_ADDRESS = "SP000000000000000000002Q6VF78";
 
 export var NETWORK = new StacksMainnet();
 
-export var API_BASE_NET_URL = "https://stacks-node-api.stacks.co/";
+export var API_BASE_NET_URL = "https://mainnet.syvita.org/";
 export var NETWORK_STRING = "mainnet";
 
 // export var CC_NAME = "citycoins";
